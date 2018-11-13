@@ -12,7 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * The game activity.
+ * The game activity_tiles_scores.
  */
 public class GameActivity extends ActivityReaderWriter implements Observer {
 
@@ -71,7 +71,7 @@ public class GameActivity extends ActivityReaderWriter implements Observer {
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
-        // Add View to activity
+        // Add View to activity_tiles_scores
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(boardManager.getNumCols());
         gridView.setBoardManager(boardManager);

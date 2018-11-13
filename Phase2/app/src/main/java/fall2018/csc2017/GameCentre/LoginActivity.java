@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * The login activity class
+ * The login activity_tiles_scores class
  */
 public class LoginActivity extends AppCompatActivity {
 

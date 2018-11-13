@@ -11,12 +11,12 @@ import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 
 /**
- * The initial activity for the sliding puzzle tile game.
+ * The initial activity_tiles_scores for the sliding puzzle tile game.
  */
 public class StartingActivity extends ActivityReaderWriter {
 
     /**
-     * The board manager for this activity
+     * The board manager for this activity_tiles_scores
      */
     BoardManager boardManager;
 
@@ -42,15 +42,14 @@ public class StartingActivity extends ActivityReaderWriter {
     /**
      * Create the main menu using CircleMenu
      */
-    private void createMenu()
-    {
-
+    private void createMenu() {
         CircleMenu circleMenu = findViewById(R.id.circleMenu);
         int color = Color.parseColor("#5BC348");
         circleMenu.setMainMenu(color, R.drawable.add, R.drawable.remove);
         circleMenu.addSubMenu(color, R.drawable.game);
         circleMenu.addSubMenu(color, R.drawable.load);
         circleMenu.addSubMenu(color, R.drawable.account);
+        circleMenu.addSubMenu(color, R.drawable.add);
         circleMenu.addSubMenu(color, R.drawable.logout);
         circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
             @Override
@@ -61,6 +60,8 @@ public class StartingActivity extends ActivityReaderWriter {
                     executeLoadGameFunctionality();
                 } else if (i == 2) {
                     startActivity(new Intent(StartingActivity.this, ProfileMenu.class));
+                } else if (i == 3) {
+                    startActivity(new Intent(StartingActivity.this, ScoresActivity.class));
                 } else {
                     logOut();
                 }

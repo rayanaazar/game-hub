@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 
 /**
- * The sign_in activity for the sliding puzzle tile game.
+ * The sign_in activity_tiles_scores for the sliding puzzle tile game.
  */
 public class RegistrationActivity extends AppCompatActivity {
     /**

@@ -30,5 +30,25 @@
     <string name="attemptsRemaining">ATTEMPTS LEFT:</string>
     <string name="time">Time - 0:0:0</string>
     <string name="title_activity_start">StartActivity</string>
+    <string name="scoring">Scoring Menu</string>
+    <string name="myScores">My Scores</string>
+    <string name="STScore">Sliding Tiles</string>
+    <string name="TTTScore">Tic Tac Toe</string>
+    <string name="MGScore">Matching Game</string>
+    <string name="myScoresTitle">My Game High-Scores</string>
+    <string name="mySTScore">My Sliding Tiles Score: %1$d</string>
+    <string name="myTTTScore">My Tic Tac Toe Score: %1$d</string>
+    <string name="myMGScore">My Matching Game Score: %1$d</string>
+    <string name="topTitle">Top 10 Scores For: %1$s</string>
+    <string name="first">1st Place: %1$s, With %2$d Points</string>
+    <string name="second">2nd Place: %1$s, With %2$d Points</string>
+    <string name="third">3rd Place: %1$s, With %2$d Points</string>
+    <string name="forth">4th Place: %1$s, With %2$d Points</string>
+    <string name="fifth">5th Place: %1$s, With %2$d Points</string>
+    <string name="sixth">6th Place: %1$s, With %2$d Points</string>
+    <string name="seventh">7th Place: %1$s, With %2$d Points</string>
+    <string name="eighth">8th Place: %1$s, With %2$d Points</string>
+    <string name="ninth">9th Place: %1$s, With %2$d Points</string>
+    <string name="tenth">10th Place: %1$s, With %2$d Points</string>
 
 </resources>

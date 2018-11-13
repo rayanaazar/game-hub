@@ -27,7 +27,7 @@ import java.text.MessageFormat;
 import java.util.Objects;
 
 /**
- * The profile menu activity
+ * The profile menu activity_tiles_scores
  */
 public class ProfileMenu extends AppCompatActivity {
 

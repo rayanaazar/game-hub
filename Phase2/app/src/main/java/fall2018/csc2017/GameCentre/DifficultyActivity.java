@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * The difficulty activity class
+ * The difficulty activity_tiles_scores class
  */
 public class DifficultyActivity extends ActivityReaderWriter {
 

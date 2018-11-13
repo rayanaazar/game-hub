@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * The Password activity class
+ * The Password activity_tiles_scores class
  */
 public class PasswordActivity extends AppCompatActivity {
 

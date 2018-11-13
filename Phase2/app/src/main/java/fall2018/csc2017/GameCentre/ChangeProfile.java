@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * The change profile activity class
+ * The change profile activity_tiles_scores class
  */
 public class ChangeProfile extends AppCompatActivity {
 

@@ -32,11 +32,12 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".PasswordActivity" />
         <activity android:name=".ProfileMenu" />
-        <activity android:name=".Scores" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".ChangeProfile" />
 
-        <activity android:name=".TicTacToe.DifficultyActivity" />
+        <activity android:name=".ScoresActivity" />
+        <activity android:name=".MyScoresActivity" />
+        <activity android:name=".LeaderboardActivity" />
     </application>
 
 </manifest>

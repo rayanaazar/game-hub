@@ -18,7 +18,7 @@ import java.util.Objects;
 
 
 /**
- * The change password activity class
+ * The change password activity_tiles_scores class
  */
 public class ChangePassword extends AppCompatActivity {
 

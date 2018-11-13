@@ -76,11 +76,11 @@ public abstract class ActivityReaderWriter extends AppCompatActivity {
                 return moveStack;
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("login activity_tiles_scores", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("login activity_tiles_scores", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("login activity_tiles_scores", "File contained unexpected data type: " + e.toString());
         }
         return null;
     }
