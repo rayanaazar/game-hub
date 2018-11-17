@@ -28,7 +28,7 @@
     <string name="move_counter">Moves:\n %1$d</string>
     <string name="attemptsStr">Chances: 5</string>
     <string name="attemptsRemaining">ATTEMPTS LEFT:</string>
-    <string name="time">Time - 0:0:0</string>
+    <string name="constant_time">Time - 0:0:0</string>
     <string name="title_activity_start">StartActivity</string>
     <string name="scoring">Scoring Menu</string>
     <string name="myScores">My Scores</string>
@@ -50,5 +50,6 @@
     <string name="eighth">8th Place: %1$s, With %2$d Points</string>
     <string name="ninth">9th Place: %1$s, With %2$d Points</string>
     <string name="tenth">10th Place: %1$s, With %2$d Points</string>
+    <string name="time">Time - %1$s : %2$d : %3$f </string>
 
 </resources>
