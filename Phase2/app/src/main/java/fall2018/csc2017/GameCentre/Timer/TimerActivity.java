@@ -1,64 +1,59 @@
 package fall2018.csc2017.GameCentre.Timer;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextPaint;
-import android.util.AttributeSet;
-import android.view.View;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import fall2018.csc2017.GameCentre.R;
-//Todo Complete class
 
 /**
  * A basic TimerModel activity.
  */
-public class TimerActivity extends AppCompatActivity implements TimerView {
+public class TimerActivity extends AppCompatActivity { // implements TimerView {
 
-    /**
-     * The current time
-     */
-    private String curTime;
+    private Timer timer = new Timer();
+    private Timer updateTimer = new Timer();
+    TimerPresenterTask task = new TimerPresenterTask();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sample_timer_activity);
+        timer.schedule(task, 0, 500);
 
-        curTime = getTime();
-        TimerPresenter presenter = new TimerPresenter(curTime);
-    }
-
-    /**
-     * Find and return a String version of TextView time.
-     */
-    private String getTime(){
-        return findViewById(R.id.curTime).toString();
-    }
-
-    @Override
-    public void startTimer() {
-        // presenter.startTimer();
+        updateTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                update();
+            }
+        }, 0, 1000);
     }
 
     @Override
-    public void stopTimer() {
-        // presenter.stopTimer();
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
-    public void resetTimer() {
-        // presenter.resetTimer();
+    protected void onResume() {
+        super.onResume();
     }
 
-    @Override
-    public void updateTimer(boolean lastMove) {
 
+    public void update() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView view = findViewById(R.id.curTime);
+                String time = "Time - " + task.getElapsedTime();
+                view.setText(time);
+            }
+        });
     }
+
+
 }

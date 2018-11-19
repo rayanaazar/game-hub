@@ -50,6 +50,6 @@
     <string name="eighth">8th Place: %1$s, With %2$d Points</string>
     <string name="ninth">9th Place: %1$s, With %2$d Points</string>
     <string name="tenth">10th Place: %1$s, With %2$d Points</string>
-    <string name="time">Time - %1$s : %2$d : %3$f </string>
+    <string name="time">Time - %1% </string>
 
 </resources>

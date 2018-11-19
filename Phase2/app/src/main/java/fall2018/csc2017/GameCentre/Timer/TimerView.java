@@ -31,9 +31,4 @@ public interface TimerView {
      * Reset the timer back to 0s.
      */
     void resetTimer();
-
-    /**
-     * Update the timer based on a user move.
-     */
-    void updateTimer(boolean lastMove);
 }
