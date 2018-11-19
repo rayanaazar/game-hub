@@ -1,11 +1,10 @@
 # Setup Instructions
 
-Create a README.md file containing Android Studio setup instructions: the URL to clone, what to click, what paths to enter. Since at least 4 of you will be doing this, just take good notes on what to do to clone the repo and create the project!
+Yolo it.
 
 ## Cloning the project
 
-* URL to clone: https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0581
-*
+* URL to clone: https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0703
 
 ## Using the App
 
