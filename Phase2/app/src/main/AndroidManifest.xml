@@ -15,8 +15,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".StartingActivity" />
-        <activity android:name=".DifficultyActivity" />
-        <activity android:name=".GameActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +29,7 @@
 
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".PasswordActivity" />
+        <activity android:name=".GameActivity" />
         <activity android:name=".ProfileMenu" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".ChangeProfile" />

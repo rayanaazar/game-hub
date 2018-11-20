@@ -13,6 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.Timer.TimerModel;
 import fall2018.csc2017.GameCentre.Timer.TimerPresenter;
@@ -21,6 +23,9 @@ import fall2018.csc2017.GameCentre.Timer.TimerView;
 /**
  * The game activity_tiles_scores.
  */
+
+//Todo Rework this class entirely, it's bloated
+
 public class GameActivity extends ActivityReaderWriter implements Observer {
 
     /**
@@ -43,6 +48,11 @@ public class GameActivity extends ActivityReaderWriter implements Observer {
      */
     private static int columnWidth, columnHeight;
 
+    private Timer timer;
+
+    TimerPresenter tp;
+
+
     /**
      * Updates the on screen score to match the actual score
      */
@@ -58,7 +68,7 @@ public class GameActivity extends ActivityReaderWriter implements Observer {
         updateTileButtons();
         updateScore();
         boardManager.loadStack();
-        save(boardManager.getMoveStack());
+//        save(boardManager.getMoveStack());
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
@@ -79,16 +89,29 @@ public class GameActivity extends ActivityReaderWriter implements Observer {
         setContentView(R.layout.activity_main);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        TimerView timerView = (TimerView) fragmentManager.findFragmentById(R.id.timer);
+        TimerView timerView = (TimerView) fragmentManager.findFragmentById(R.id.timerFrag);
         if (timerView == null) {
             timerView = TimerView.newInstance();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.timer, timerView);
+            fragmentTransaction.add(R.id.timerFrag, timerView);
             fragmentTransaction.commit();
         }
 
         // Setup Presenter
-        new TimerPresenter(timerView, ViewModelProviders.of(this).get(TimerModel.class));
+        timer = new Timer();
+        tp = new TimerPresenter(timerView, ViewModelProviders.of(this).get(TimerModel.class));
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tp.updateView();
+                    }
+                });
+            }
+        }, 0, 1000);
+
 
         // Add View to activity_tiles_scores
         gridView = findViewById(R.id.grid);
@@ -151,6 +174,23 @@ public class GameActivity extends ActivityReaderWriter implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
+        tp.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tp.updateView();
+                    }
+                });
+            }
+        }, 0, 1000);
     }
 
     @Override

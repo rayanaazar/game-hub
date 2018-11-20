@@ -14,13 +14,9 @@ public class TimerModel extends ViewModel {
      */
     private Calendar refCalendar;
 
-    /**
-     * The time that has elapsed in a minute minute : second second format.
-     */
-    private String elapsedTime;
-
 
     TimerModel() {
+        refCalendar = Calendar.getInstance();
         refCalendar.setTimeInMillis(System.currentTimeMillis());
     }
 
@@ -31,14 +27,6 @@ public class TimerModel extends ViewModel {
      */
     void setCalendar(Long curTime) {
         refCalendar.setTimeInMillis(curTime);
-    }
-
-    String getElapsedTime(){
-        return this.elapsedTime;
-    }
-
-    void setElapsedTime(String elapsedTime) {
-        this.elapsedTime = elapsedTime; // Must be in mm:ss format
     }
 
     /**
@@ -57,7 +45,7 @@ public class TimerModel extends ViewModel {
      * @param time Current time
      * @return An updated time string better suited for our purpose.
      */
-    public String formatString(String time) {
+    String formatString(String time) {
         if (time.length() < 2) {
             return "0" + time;
         }
