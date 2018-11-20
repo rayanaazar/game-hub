@@ -1,6 +1,5 @@
 package fall2018.csc2017.GameCentre;
 
-import android.support.annotation.NonNull;
 
 import java.util.Observable;
 import java.io.Serializable;
@@ -123,7 +122,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 '}';
     }
 
-    @NonNull
+
     @Override
     public Iterator<Tile> iterator() {
         return new TileIterator();

@@ -1,6 +1,5 @@
 package fall2018.csc2017.GameCentre;
 
-import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 
 import java.io.Serializable;
@@ -101,7 +100,7 @@ public class Tile implements Comparable<Tile>, Serializable {
      * @return int based on the values compared
      */
     @Override
-    public int compareTo(@NonNull Tile o) {
+    public int compareTo( Tile o) {
         return o.id - this.id;
     }
 }
