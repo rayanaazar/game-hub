@@ -33,6 +33,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.firebaseui:firebase-ui:4.2.1'
     implementation 'com.firebaseui:firebase-ui-auth:4.2.1'
+    implementation 'com.jakewharton:butterknife:9.0.0-rc2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
     implementation 'com.firebaseui:firebase-ui-database:4.2.1'
     implementation 'com.google.firebase:firebase-database:16.0.5'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'

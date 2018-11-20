@@ -1,8 +1,11 @@
 package fall2018.csc2017.GameCentre;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,6 +13,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import fall2018.csc2017.GameCentre.Timer.TimerModel;
+import fall2018.csc2017.GameCentre.Timer.TimerPresenter;
+import fall2018.csc2017.GameCentre.Timer.TimerView;
 
 /**
  * The game activity_tiles_scores.
@@ -70,6 +77,18 @@ public class GameActivity extends ActivityReaderWriter implements Observer {
         getDimensions();
         createTileButtons(this);
         setContentView(R.layout.activity_main);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        TimerView timerView = (TimerView) fragmentManager.findFragmentById(R.id.timer);
+        if (timerView == null) {
+            timerView = TimerView.newInstance();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.timer, timerView);
+            fragmentTransaction.commit();
+        }
+
+        // Setup Presenter
+        new TimerPresenter(timerView, ViewModelProviders.of(this).get(TimerModel.class));
 
         // Add View to activity_tiles_scores
         gridView = findViewById(R.id.grid);

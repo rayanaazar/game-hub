@@ -15,9 +15,8 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".StartingActivity" />
-        <activity android:name=".GameActivity" />
         <activity android:name=".DifficultyActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".GameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
