@@ -3,6 +3,7 @@ package fall2018.csc2017.GameCentre;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -123,6 +124,52 @@ class BoardManager implements Serializable {
             tiles.add(new Tile(tileNum, numCols * numRows));
         }
         Collections.shuffle(tiles.subList(0, (numCols * numCols) - 1));
+        // Check if current board is solvable, and if not, create another board
+        if (!isSolvable()) {
+            createBoard();
+        }
+    }
+
+    /**
+     * Return whether the current board is solvable following the conditions from
+     * https://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+     *
+     * @return whether the current board is solvable
+     */
+    private boolean isSolvable() {
+        int inversions = getInversions();
+
+        if (board.getNumCols() % 2 != 0) {
+            return inversions % 2 == 0;
+        } else {
+            if (blankIdRow % 2 == 0) {
+                return inversions % 2 == 0;
+            } else {
+                return inversions % 2 != 0;
+            }
+        }
+    }
+
+    /**
+     * Return the number of inversions in this board
+     *
+     * @return the number of inversions in this board
+     */
+    private int getInversions() {
+        ArrayList<Tile> tiles = new ArrayList<>();
+        for (Tile tile : board) {
+            tiles.add(tile);
+        }
+
+        int inversions = 0;
+        for (int i = 0; i < tiles.size(); i++) {
+            for (int j = i + 1; j < tiles.size(); j++) {
+                if (tiles.get(i).getId() > tiles.get(j).getId()) {
+                    inversions++;
+                }
+            }
+        }
+        return inversions;
     }
 
     /**
