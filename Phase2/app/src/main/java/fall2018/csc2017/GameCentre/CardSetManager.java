@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCentre;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,7 +16,7 @@ public class CardSetManager {
     private CardSet cardSet;
 
     /**
-     * The current number of undos left
+     * The current number of undos Left
      */
     private int undos;
 
@@ -41,7 +40,7 @@ public class CardSetManager {
     /**
      * The stack representing the moves
      */
-    private Stack<Board> moveStack;
+    private Stack<CardSet> moveStack;
 
 
 
@@ -59,21 +58,21 @@ public class CardSetManager {
     }
 
     /**
-     * Return the current board.
+     * Return the current cardSet.
      */
     CardSet getCardSet() {
         return cardSet;
     }
 
     /**
-     * Return the number of rows in the board.
+     * Return the number of rows in the cardSet.
      */
     private int getNumRows() {
         return this.numRows;
     }
 
     /**
-     * Return the number of columns in the board.
+     * Return the number of columns in the cardSet.
      */
 
     private int getNumCols() {
@@ -81,7 +80,7 @@ public class CardSetManager {
     }
 
     /**
-     * Create a Board and shuffle it given the size of the board.
+     * Create a cardSet and shuffle it given the size of the cardSet.
      */
     private void createCardSet() {
         for (int cardNum = 0; cardNum != (getCardSetSize()); cardNum++) {
@@ -94,9 +93,9 @@ public class CardSetManager {
 
 
     /**
-     * Return whether the tiles are in row-major order.
+     * Return whether the cards are in row-major order.
      *
-     * @return whether the tiles are in row-major order
+     * @return whether the cards are in row-major order
      */
     boolean puzzleSolved() {
         boolean solved = true;
@@ -171,11 +170,11 @@ public class CardSetManager {
         return this.moveStack.size();
     }
 
-    public Stack<Board> getMoveStack() {
+    public Stack<CardSet> getMoveStack() {
         return moveStack;
     }
 
-    public void setMoveStack(Stack<Board> moveStack) {
+    public void setMoveStack(Stack<CardSet> moveStack) {
         this.moveStack = moveStack;
     }
 
