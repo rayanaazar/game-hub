@@ -1,6 +1,8 @@
 package fall2018.csc2017.GameCentre;
 
 
+import android.support.annotation.NonNull;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -24,14 +26,14 @@ public class CardSet {
     private int numCols;
 
     /**
-     * The tiles on the board in row-major order.
+     * The cards on the card set in row-major order.
      */
     private Card[][] cards;
 
     /**
      * The back of all cards in a set of cards
      */
-    private Card backcard;
+    private Card backCard;
 
     /**
      * the order of all the cards in the set
@@ -40,91 +42,94 @@ public class CardSet {
 
 
     /**
-     * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == numRows * numCols
+     * A new card set  of cards in row-major order.
+     * Precondition: len(cards) == numRows * numCols
      *
-     * @param cards the tiles for the board
+     * @param cards the cards for the card set.
      */
     CardSet(List<Card> cards, int numRows, int numCols,Card backCard) {
         this.numRows = numRows;
         this.numCols = numCols;
         this.cards = new Card[numRows][numCols];
-        this.backcard = backCard;
+        this.backCard = backCard;
         this.setOrder = new Card[numRows][numCols];
         createSet(cards,this.cards);
         createSet(cards, this.setOrder);
     }
 
 
-
+    /**
+     * fill cards with cards.
+     *
+     * @param c  - cards
+     */
     private void createSet(List<Card> c, Card[][] setToFill){
 
-        Iterator<Card> iter = c.iterator();
+        Iterator<Card> iterator = c.iterator();
         for (int row = 0; row != this.getNumRows(); row++) {
             for (int col = 0; col != this.getNumCols(); col++) {
-                setToFill[row][col] = iter.next();
+                setToFill[row][col] = iterator.next();
             }
         }
 
     }
 
     /**
-     * Return the number of columns on the board.
+     * Return the number of columns in the card set.
      *
-     * @return the number of columns on the board.
+     * @return the number of columns in the card set.
      */
     public int getNumCols() {
         return this.numCols;
     }
 
     /**
-     * Return the number of rows on the board.
+     * Return the number of rows in the card set.
      *
-     * @return the number of rows on the board.
+     * @return the number of rows in the card set.
      */
     public int getNumRows() {
         return this.numRows;
     }
 
     /**
-     * Return the number of tiles on the board.
+     * Return the number of cards the card set.
      *
-     * @return the number of tiles on the board
+     * @return the number of cards the card set.
      */
     int numCards() {
         return numRows * numCols;
     }
 
     /**
-     * Return the tile at (row, col)
+     * Return the card at (row, col)
      *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
+     * @param row the card row
+     * @param col the card column
+     * @return the card at (row, col)
      */
-    Card getCard(int row, int col) {
+    public Card getCard(int row, int col) {
         return cards[row][col];
     }
 
     /**
-     * Swap the tiles at (row1, col1) and (row2, col2)
-     *
+     * Swap the card with the back card.
      * @param row the card row
      * @param col the card col
      */
     void swapCards(int row, int col) {
-        Card cardtoswap = cards[row][col];
-        if (cardtoswap.getId() == numCols*numRows){
+        Card cardToSwap = cards[row][col];
+        if (cardToSwap.getId() == numCols*numRows + 1){
             cards[row][col] = setOrder[row][col];
         }
         else {
-            cards[row][row] = backcard;
+            cards[row][row] = backCard;
         }
 
     }
 
-
     @Override
+    @NonNull
     public String toString() {
         return "Set of Cards{" +
                 "cards=" + Arrays.toString(cards) +
@@ -177,10 +182,10 @@ public class CardSet {
         }
 
         /**
-         * Performs operations in iterating through the 2D array and assigning the next tile
+         * Performs operations in iterating through the 2D array and assigning the next card
          * object for the Iterable
          *
-         * @return whether the operation to assign a current tile and increment the column count
+         * @return whether the operation to assign a current card and increment the column count
          * is possible
          */
 
@@ -196,7 +201,7 @@ public class CardSet {
         }
 
         /**
-         * Checks whether the column tile is the last column tile in the row. Increments the row
+         * Checks whether the column card is the last column card in the row. Increments the row
          * if condition is satisfied.
          */
         private void reset() {
