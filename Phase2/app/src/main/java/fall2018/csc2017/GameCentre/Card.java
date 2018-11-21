@@ -4,8 +4,6 @@ import android.util.SparseIntArray;
 
 import java.io.Serializable;
 
-import fall2018.csc2017.GameCentre.R;
-
 /**
  * A card in a matching cards game.
  */
@@ -70,14 +68,13 @@ public class Card implements Comparable<fall2018.csc2017.GameCentre.Card>, Seria
         int[] drawables = new int[]{
                 R.drawable.Card_1, R.drawable.Card_2, R.drawable.Card_3, R.drawable.Card_4,
                 R.drawable.Card_5, R.drawable.Card_6, R.drawable.Card_7, R.drawable.Card_8,
-                R.drawable.Card_9, R.drawable.Card_10, R.drawable.Card_11, R.drawable.Card_12,
-                R.drawable.Card_13, R.drawable.Card_14, R.drawable.Card_15, R.drawable.Card_16,
-                R.drawable.Card_W
+                R.drawable.Card_w
         };
 
         for (int i = 0; i < boardSize - 1; i++) {
             backgroundIDLookup.append(i + 1, drawables[i]);
         }
+        backgroundIDLookup.append(boardSize+1,drawables[drawables.length - 1]);
         return backgroundIDLookup;
     }
 
