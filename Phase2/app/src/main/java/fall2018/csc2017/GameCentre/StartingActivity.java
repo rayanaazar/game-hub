@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 
+import fall2018.csc2017.GameCentre.ui.login.view.LoginActivity;
+
 /**
  * The initial activity_tiles_scores for the sliding puzzle tile game.
  */

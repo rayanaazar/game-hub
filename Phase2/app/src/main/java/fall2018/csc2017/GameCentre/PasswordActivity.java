@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import fall2018.csc2017.GameCentre.ui.login.view.LoginActivity;
+
 /**
  * The Password activity_tiles_scores class
  */
