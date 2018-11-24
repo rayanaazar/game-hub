@@ -24,6 +24,14 @@ public class Card implements Comparable<fall2018.csc2017.GameCentre.Card>, Seria
      */
     private int id;
 
+    /**
+     * Collection of drawables for the Card game.
+     */
+    private int[] drawables = new int[]{
+            R.drawable.card_1, R.drawable.card_2, R.drawable.card_3, R.drawable.card_4,
+            R.drawable.card_5, R.drawable.card_6, R.drawable.card_7, R.drawable.card_8,
+            R.drawable.card_w
+    };
 
 
     /**
@@ -34,8 +42,7 @@ public class Card implements Comparable<fall2018.csc2017.GameCentre.Card>, Seria
     Card(int backgroundId, int boardSize) {
         this.boardSize = boardSize;
         this.id = backgroundId + 1;
-        SparseIntArray lookup = CreateLookUp(); // Set up the background based on id.
-        this.background = lookup.get(id);
+        this.background = drawables[backgroundId - 1];
     }
 
     /**
@@ -56,27 +63,6 @@ public class Card implements Comparable<fall2018.csc2017.GameCentre.Card>, Seria
         return id;
     }
 
-
-    /**
-     * Returns a SparseIntArray that maps each card key to a drawable integer image pointer
-     *
-     * @return returns an object has a mapped range of ints to images
-     */
-
-    private SparseIntArray CreateLookUp() {
-        SparseIntArray backgroundIDLookup = new SparseIntArray();
-        int[] drawables = new int[]{
-                R.drawable.Card_1, R.drawable.Card_2, R.drawable.Card_3, R.drawable.Card_4,
-                R.drawable.Card_5, R.drawable.Card_6, R.drawable.Card_7, R.drawable.Card_8,
-                R.drawable.Card_w
-        };
-
-        for (int i = 0; i < boardSize - 1; i++) {
-            backgroundIDLookup.append(i + 1, drawables[i]);
-        }
-        backgroundIDLookup.append(boardSize+1,drawables[drawables.length - 1]);
-        return backgroundIDLookup;
-    }
 
     /**
      * Compares two cards
