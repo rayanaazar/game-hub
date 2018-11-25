@@ -4,24 +4,24 @@
 
 
     <item
-        android:id="@+id/logoutMenu"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom"
-        android:title="Logout">
+        android:id="@+id/mainView"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_home"
+        android:title="Main">
+    </item>
+
+    <item
+        android:id="@+id/leaderboards"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_leaderboards"
+        android:title="Leaderboard">
     </item>
 
     <item
         android:id="@+id/profileMenu"
-        android:orderInCategory="200"
         app:showAsAction="never"
+        android:icon="@drawable/ic_settings"
         android:title="Profile">
-    </item>
-
-    <item
-        android:id="@+id/refreshMenu"
-        android:orderInCategory="300"
-        app:showAsAction="never"
-        android:title="Refresh">
     </item>
 
 </menu>
