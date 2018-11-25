@@ -3,11 +3,13 @@ package fall2018.csc2017.GameCentre.games;
 
 import android.support.annotation.NonNull;
 
+import java.util.Observable;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
+
+import fall2018.csc2017.GameCentre.games.Tile;
 
 /**
  * The sliding tiles board.
@@ -27,7 +29,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The tiles on the board in row-major order.
      */
-    protected Tile[][] tiles;
+    private Tile[][] tiles;
 
 
     /**

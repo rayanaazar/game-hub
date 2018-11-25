@@ -12,7 +12,7 @@
         android:layout_height="570dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        tools:context="fall2018.csc2017.GameCentre.games.puzzle.GameActivity" />
+        tools:context="fall2018.csc2017.GameCentre.games.puzzle.view.GameActivity" />
 
     <Button
         android:id="@+id/UndoButton"

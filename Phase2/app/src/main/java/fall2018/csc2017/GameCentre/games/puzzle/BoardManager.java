@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-import  fall2018.csc2017.GameCentre.games.puzzle.PuzzleBoard;
 import fall2018.csc2017.GameCentre.games.Tile;
 
 /**

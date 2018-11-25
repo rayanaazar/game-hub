@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.puzzle;
+package fall2018.csc2017.GameCentre.games.puzzle.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -24,6 +24,7 @@ import fall2018.csc2017.GameCentre.Timer.TimerModel;
 import fall2018.csc2017.GameCentre.Timer.TimerPresenter;
 import fall2018.csc2017.GameCentre.Timer.TimerView;
 import fall2018.csc2017.GameCentre.games.Board;
+import fall2018.csc2017.GameCentre.games.puzzle.BoardManager;
 
 /**
  * The game activity_tiles_scores.
