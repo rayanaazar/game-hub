@@ -51,7 +51,7 @@
     <string name="ninth">9th Place: %1$s, With %2$d Points</string>
     <string name="tenth">10th Place: %1$s, With %2$d Points</string>
     <string name="time">Time - %1% </string>
-    <string name="email">ID</string>
+    <string name="email">EMail</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>

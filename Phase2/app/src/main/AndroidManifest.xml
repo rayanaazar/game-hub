@@ -27,12 +27,10 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".ui.accountCreation.view.RegistrationActivity" />
         <activity android:name=".PasswordActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".ProfileMenu" />
         <activity android:name=".ChangePassword" />
-        <activity android:name=".ChangeProfile" />
 
         <activity android:name=".ScoresActivity" />
         <activity android:name=".MyScoresActivity" />

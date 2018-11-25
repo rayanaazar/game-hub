@@ -147,17 +147,18 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF" />
             <View
+                android:id="@+id/spacingView"
                 android:layout_below="@+id/loginBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="5dp"
+                android:layout_height="25dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/loginBtn"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="37dp"
+                android:layout_below="@+id/spacingView"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="-2dp"
                 android:layout_toStartOf="@+id/registrationTV"
                 android:fontFamily="sans-serif-light"
                 android:text="Don't have an account? "
@@ -168,10 +169,10 @@
                 android:id="@+id/registrationTV"
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
-                android:layout_below="@id/loginBtn"
+                android:layout_below="@id/spacingView"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="45dp"
+                android:layout_marginEnd="31dp"
                 android:clickable="true"
                 android:fontFamily="sans-serif-medium"
                 android:text="Make Profile"

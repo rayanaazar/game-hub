@@ -60,8 +60,6 @@ public class StartingActivity extends ActivityReaderWriter {
                     switchToDifficulty();
                 } else if (i == 1) {
                     executeLoadGameFunctionality();
-                } else if (i == 2) {
-                    startActivity(new Intent(StartingActivity.this, ProfileMenu.class));
                 } else if (i == 3) {
                     startActivity(new Intent(StartingActivity.this, ScoresActivity.class));
                 } else {
