@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCentre.ui.menu.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,12 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import fall2018.csc2017.GameCentre.games.puzzle.DifficultyActivity;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.ui.menu.MenuContract;
+import fall2018.csc2017.GameCentre.ui.menu.presenter.RecyclerViewAdapter;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements MenuContract.View {
 
     private static final String TAG = MenuActivity.class.getSimpleName();
 
@@ -22,6 +26,7 @@ public class MainFragment extends Fragment {
     private ArrayList<String> games = new ArrayList<>();
     private ArrayList<String> gameImages = new ArrayList<>();
 
+    private RecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -46,10 +51,27 @@ public class MainFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), games, gameImages);
+        adapter = new RecyclerViewAdapter(view.getContext(), games, gameImages, this);
         recyclerView.setAdapter(adapter);
 
 
         return view;
     }
+
+    @Override
+    public void openPuzzleGame() {
+        startActivity(new Intent(getActivity(), DifficultyActivity.class));
+
+    }
+
+    @Override
+    public void openTTT() {
+        //TODO
+    }
+
+    @Override
+    public void openMatchingGame() {
+        //TODO
+    }
+
 }

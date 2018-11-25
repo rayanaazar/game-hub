@@ -1,152 +1,303 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fall2018.csc2017.GameCentre.DifficultyActivity"
-    android:background="@drawable/gradient">
+    tools:context=".games.puzzle.DifficultyActivity"
+    android:background="@color/grey_5"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/DifficultyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:contentDescription="@string/diff_selection"
-        android:fontFamily="casual"
-        android:text="@string/diff_selection"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="24sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <Button
-        android:id="@+id/EasyButton"
-        android:layout_width="280dp"
-        android:layout_height="41dp"
-        android:layout_alignEnd="@+id/EasyView"
-        android:layout_alignBottom="@+id/EasyView"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/colorAccent"
-        android:clickable="true" />
-
-    <Button
-        android:id="@+id/MediumButton"
-        android:layout_width="280dp"
-        android:layout_height="41dp"
-        android:layout_alignEnd="@+id/MediumView"
-        android:layout_alignBottom="@+id/MediumView"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/colorAccent"
-        android:clickable="true" />
-
-    <Button
-        android:id="@+id/HardButton"
-        android:layout_width="280dp"
-        android:layout_height="41dp"
-        android:layout_alignEnd="@+id/HardView"
-        android:layout_alignBottom="@+id/HardView"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/colorAccent"
-        android:clickable="true" />
-
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/EasyView"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="450dp"
-        app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="10dp">
-
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:scrollingCache="true">
 
-
-            <TextView
-                android:id="@+id/EasyText"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/easy"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textColor="#fff"
-                android:textSize="20sp" />
-        </RelativeLayout>
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp" />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:tint="@color/blue_grey_400"
+                    android:src="@drawable/jetpack_logo" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="Please select a difficulty"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/grey_80" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:cardCornerRadius="1dp"
+                        app:cardElevation="1dp"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/nineTiles"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <RelativeLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/shape_circle_outline_2dp" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_margin="5dp"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/ic_3x3" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="50dp"
+                                android:text="9 tile board"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_80"
+                                app:fontFamily="sans-serif-medium" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="15dp"
+                        android:layout_height="0dp" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:cardCornerRadius="1dp"
+                        app:cardElevation="1dp"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:id="@+id/sixteenTiles"
+                            android:clickable="true"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <RelativeLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/shape_circle_outline_2dp" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_margin="7dp"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/ic_4x4" />
+
+                            </RelativeLayout>
 
 
-    </android.support.v7.widget.CardView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="50dp"
+                                android:text="16 tile board"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_80"
+                                app:fontFamily="sans-serif-medium" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/MediumView"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="325dp"
-        app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="10dp">
+                        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                    </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/MediumText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/medium"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textColor="#fff"
-                android:textSize="20sp" />
+                </LinearLayout>
 
-        </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
 
-    </android.support.v7.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/HardView"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="200dp"
-        app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="10dp">
+                    <android.support.v7.widget.CardView
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:cardCornerRadius="1dp"
+                        app:cardElevation="1dp"
+                        app:cardUseCompatPadding="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:id="@+id/twentyFiveTiles"
+                            android:clickable="true"
+                            android:orientation="vertical"
+                            android:padding="15dp">
 
-            <TextView
-                android:id="@+id/HardText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/hard"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textColor="#fff"
-                android:textSize="20sp" />
+                            <RelativeLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp">
 
-        </RelativeLayout>
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/shape_circle_outline_2dp" />
 
-    </android.support.v7.widget.CardView>
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_margin="8dp"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/ic_5x5" />
 
-</RelativeLayout>
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="50dp"
+                                android:text="25 tile board"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_80"
+                                app:fontFamily="sans-serif-medium" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="15dp"
+                        android:layout_height="0dp" />
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:cardCornerRadius="1dp"
+                        app:cardElevation="1dp"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:id="@+id/thirtySixTiles"
+
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <RelativeLayout
+                                android:layout_width="35dp"
+                                android:layout_height="35dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/shape_circle_outline_2dp" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_margin="7dp"
+                                    android:paddingTop="2dp"
+                                    android:tint="@color/blue_grey_400"
+                                    app:srcCompat="@drawable/ic_6x6" />
+
+                            </RelativeLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="50dp"
+                                android:text="36 tile board"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_80"
+                                app:fontFamily="sans-serif-medium" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</LinearLayout>

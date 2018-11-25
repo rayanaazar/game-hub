@@ -2,6 +2,8 @@ package fall2018.csc2017.GameCentre;
 
 import org.junit.Test;
 
+import fall2018.csc2017.GameCentre.games.Tile;
+
 import static org.junit.Assert.*;
 
 public class TileTest {

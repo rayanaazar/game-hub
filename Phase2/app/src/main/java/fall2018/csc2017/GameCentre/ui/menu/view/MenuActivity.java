@@ -11,9 +11,8 @@ import android.view.MenuItem;
 import java.util.Objects;
 
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.ui.menu.MenuContract;
 
-public class MenuActivity extends AppCompatActivity implements MenuContract.View {
+public class MenuActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
