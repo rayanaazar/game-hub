@@ -16,12 +16,12 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
-import fall2018.csc2017.GameCentre.PasswordActivity;
+import fall2018.csc2017.GameCentre.ui.PasswordActivity;
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.StartingActivity;
 import fall2018.csc2017.GameCentre.ui.accountCreation.view.RegistrationActivity;
 import fall2018.csc2017.GameCentre.ui.login.LoginContract;
 import fall2018.csc2017.GameCentre.ui.login.presenter.LoginPresenter;
+import fall2018.csc2017.GameCentre.ui.menu.view.MenuActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void beginMainMenuActivity() {
         finish();
-        startActivity(new Intent(this, StartingActivity.class));
+        startActivity(new Intent(this, MenuActivity.class));
         displayProgress(false);
     }
 

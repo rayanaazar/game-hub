@@ -17,9 +17,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.StartingActivity;
 import fall2018.csc2017.GameCentre.ui.accountCreation.RegistrationContract;
 import fall2018.csc2017.GameCentre.ui.accountCreation.presenter.RegistrationPresenter;
+import fall2018.csc2017.GameCentre.ui.menu.view.MenuActivity;
 
 public class RegistrationActivity extends AppCompatActivity implements RegistrationContract.View {
 
@@ -75,11 +75,11 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     private void checkRegistrationDetails(){
 
-        String usernameStr = Objects.requireNonNull(username.getText()).toString().trim();
-        String passwordStr =Objects.requireNonNull(password.getText()).toString().trim();
-        emailStr = Objects.requireNonNull(email.getText()).toString().trim();
+        String usernameStr = Objects.requireNonNull(username.getText()).toString();
+        String passwordStr =Objects.requireNonNull(password.getText()).toString();
+        emailStr = Objects.requireNonNull(email.getText()).toString();
         String confirmPasswordStr =
-                Objects.requireNonNull(confirmPassword.getText()).toString().trim();
+                Objects.requireNonNull(confirmPassword.getText()).toString();
 
         checkInputs(usernameStr, passwordStr, confirmPasswordStr);
 
@@ -138,7 +138,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     @Override
     public void startMainMenuActivity() {
         finish();
-        startActivity(new Intent(getApplicationContext(), StartingActivity.class));
+        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
         displayProgress(false);
     }
 }
