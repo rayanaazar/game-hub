@@ -2,6 +2,7 @@ package fall2018.csc2017.GameCentre.ui.menu.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,17 +27,15 @@ public class MainFragment extends Fragment implements MenuContract.View {
     private ArrayList<String> games = new ArrayList<>();
     private ArrayList<String> gameImages = new ArrayList<>();
 
-    private RecyclerViewAdapter adapter;
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
         Log.d(TAG, "preparing bitmaps");
         gameImages.add(getString(R.string.tictactoeIcon));
-        games.add("Tic-Tac-Toe");
+        games.add("TTT");
 
         gameImages.add(getString(R.string.slidingTilesIcon));
         games.add("Puzzle");
@@ -51,7 +50,7 @@ public class MainFragment extends Fragment implements MenuContract.View {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecyclerViewAdapter(view.getContext(), games, gameImages, this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(view.getContext(), games, gameImages, this);
         recyclerView.setAdapter(adapter);
 
 

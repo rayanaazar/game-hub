@@ -33,8 +33,8 @@
         <activity android:name=".games.puzzle.view.DifficultyActivity" />
 
         <activity android:name=".ScoresActivity" />
-        <activity android:name=".MyScoresActivity" />
-        <activity android:name=".LeaderboardActivity" />
+        <activity android:name=".MyScores.MyScoresActivity" />
+        <activity android:name=".Leaderboard.LeaderboardActivity" />
     </application>
 
 </manifest>

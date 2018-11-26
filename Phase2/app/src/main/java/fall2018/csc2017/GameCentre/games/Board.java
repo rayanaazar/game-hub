@@ -71,6 +71,22 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
+     * Get the array of tiles
+     * @return the array of tiles
+     */
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
+    /**
+     * Set the array of tiles
+     * @param tiles a 2D array of tiles
+     */
+    public void setTiles(Tile[][] tiles) {
+        this.tiles = tiles;
+    }
+
+    /**
      * Return the number of tiles on the board.
      *
      * @return the number of tiles on the board
