@@ -1,34 +1,105 @@
 package fall2018.csc2017.GameCentre.Timer;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
-import android.util.AttributeSet;
-import android.view.View;
+/*
+Adapted from : https://github.com/shanestaples/android-timer-mvp-example/blob/master/app/src/main/java/com/shanestaples/example/timermvp/timer/TimerFragment.java
 
+This adaptation of a timer view is better suited to our needs (and counts forwards instead of backwards)
+ */
+
+import android.arch.lifecycle.ViewModelProviders;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import fall2018.csc2017.GameCentre.R;
 
 /**
- * Outlines the basic methods a TimerModel View should have.
+ * A basic TimerView activity. This is meant as fragment in a bigger screen.
  */
-public interface TimerView {
+public class TimerView extends Fragment implements TimerContract.View {
 
     /**
-     * Start the timer where it was left off. If this is a new Timer, start at 0.
+     * A presenter used to act on and update the data.
      */
-    void startTimer();
+    private TimerContract.Presenter timerPresenter;
 
     /**
-     * Stop the timer but keep its value intact.
+     * To help manage the binding.
      */
-    void stopTimer();
+    private Unbinder unbinder;
+
+    @BindView(R.id.curTime)
+    TextView textView;
+
+    public static TimerView newInstance() {
+        return new TimerView();
+    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.sample_timer_activity,
+                container, false); // Inflate layout in new container
+        unbinder = ButterKnife.bind(this, rootView);
+        if (timerPresenter == null) {
+            timerPresenter = new TimerPresenter(this,
+                    ViewModelProviders.of(this).get(TimerModel.class));
+        }
+        timerPresenter.start();
+        return rootView;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        timerPresenter.stop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+
+    @Override
+    public void setPresenter(TimerContract.Presenter presenter) {
+        this.timerPresenter = presenter;
+    }
+
+
+    @Override
+    public void update(String time) {
+        String newTime = "Time - " + time;
+        textView.setText(newTime);
+    }
+
+
+    @Override
+    public String getCurTime() {
+        return formatTime(textView.getText().toString());
+    }
 
     /**
-     * Reset the timer back to 0s.
+     * Take oldTime and format it so we return it in a minute minute : second second format.
+     *
+     * @param oldTime The time, in the format Time - mm:ss
+     * @return A String object of the format mm:ss
      */
-    void resetTimer();
+    public String formatTime(String oldTime) {
+        int dashIndex = oldTime.indexOf('-') + 1;
+        return oldTime.substring(dashIndex);
+    }
 }

@@ -1,10 +1,11 @@
 # Setup Instructions
 
-Yolo it.
-
 ## Cloning the project
 
 * URL to clone: https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0703
+* Choose Gradle (not Android Gradle) and navigate to group_0703/Phase2...
+
+
 
 ## Using the App
 

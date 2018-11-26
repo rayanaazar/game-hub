@@ -25,7 +25,7 @@
     <string name="hard">Hard (5x5, 1 Undo)</string>
     <string name="logout">logout</string>
     <string name="undo">undo</string>
-    <string name="move_counter">Moves:\n %1$d</string>
+    <string name="move_counter">Moves: %1$d</string>
     <string name="attemptsStr">Chances: 5</string>
     <string name="attemptsRemaining">ATTEMPTS LEFT:</string>
     <string name="constant_time">Time - 0:0:0</string>
@@ -51,5 +51,13 @@
     <string name="ninth">9th Place: %1$s, With %2$d Points</string>
     <string name="tenth">10th Place: %1$s, With %2$d Points</string>
     <string name="time">Time - %1% </string>
+    <string name="email">EMail</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="tictactoeIcon"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gamecenter-4564c.appspot.com/o/tic-tac-toe.png?alt=media&token=0dacc7ff-c905-49ea-b3f8-32e72c1a3eed]]></string>
+    <string name="slidingTilesIcon"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gamecenter-4564c.appspot.com/o/puzzle.png?alt=media&token=d8fd5424-91e9-495f-9adb-becba7bf5327]]></string>
+    <string name="matchingGameIcon"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gamecenter-4564c.appspot.com/o/poker.png?alt=media&token=20e49ea0-007f-484c-947b-b92897ca7db2]]></string>
 
 </resources>
