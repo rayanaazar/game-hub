@@ -3,28 +3,19 @@ package fall2018.csc2017.GameCentre.games;
 
 import android.support.annotation.NonNull;
 
-import java.util.Observable;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import fall2018.csc2017.GameCentre.games.Tile;
+import fall2018.csc2017.GameCentre.games.Game.GameBoard;
+
 
 /**
  * The sliding tiles board.
  */
-public class Board extends Observable implements Serializable, Iterable<Tile> {
-
-    /**
-     * The number of rows.
-     */
-    private int numRows;
-
-    /**
-     * The number of rows.
-     */
-    private int numCols;
+public class Board extends GameBoard implements Serializable, Iterable<Tile> {
 
     /**
      * The tiles on the board in row-major order.
@@ -38,46 +29,29 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      *
      * @param tiles the tiles for the board
      */
-    public Board(List<Tile> tiles, int numRows, int numCols) {
-        this.numRows = numRows;
-        this.numCols = numCols;
-        this.tiles = new Tile[numRows][numCols];
+       public Board(List<Tile> tiles, int numRows, int numCols) {
+           super(numRows,numCols);
+           this.tiles = new Tile[numRows][numCols];
+           createTileBoard(tiles, this.tiles);
+    }
 
-        Iterator<Tile> iterator = tiles.iterator();
 
+    /**
+     * fill tiles with tiles.
+     *
+     * @param t  - tiles
+     */
+    private void createTileBoard(List<Tile> t, Tile[][] setToFill){
+
+        Iterator<Tile> iterator = t.iterator();
         for (int row = 0; row != this.getNumRows(); row++) {
             for (int col = 0; col != this.getNumCols(); col++) {
-                this.tiles[row][col] = iterator.next();
+                setToFill[row][col] = iterator.next();
             }
         }
+
     }
 
-    /**
-     * Return the number of columns on the board.
-     *
-     * @return the number of columns on the board.
-     */
-    public int getNumCols() {
-        return this.numCols;
-    }
-
-    /**
-     * Return the number of rows on the board.
-     *
-     * @return the number of rows on the board.
-     */
-    public int getNumRows() {
-        return this.numRows;
-    }
-
-    /**
-     * Return the number of tiles on the board.
-     *
-     * @return the number of tiles on the board
-     */
-    public int numTiles() {
-        return numRows * numCols;
-    }
 
     /**
      * Return the tile at (row, col)
@@ -99,12 +73,21 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 '}';
     }
 
+    public void exchangeTiles(int row1, int col1, int row2, int col2) {
+        Tile tmp = tiles[row1][col1];
+        tiles[row1][col1] = tiles[row2][col2];
+        tiles[row2][col2] = tmp;
+
+        setChanged();
+        notifyObservers();
+    }
+
+
 
     @NonNull
     @Override
     public Iterator<Tile> iterator() {
-        return new TileIterator();
-    }
+        return new TileIterator();}
 
     private class TileIterator implements Iterator<Tile> {
         /**

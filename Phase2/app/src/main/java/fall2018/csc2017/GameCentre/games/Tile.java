@@ -1,46 +1,13 @@
 package fall2018.csc2017.GameCentre.games;
-
-import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
-
-import java.io.Serializable;
-
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.games.Game.GamePiece;
 
 
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public class Tile implements Comparable<Tile>, Serializable {
-
-
-    /**
-     * The numbers of tiles that needs to be mapped.
-     */
-    private int boardSize;
-
-    /**
-     * The background id to find the tile image.
-     */
-    private int background;
-
-    /**
-     * The unique id.
-     */
-    private int id;
-
-    /**
-     * A Tile with id and background. The background may not have a corresponding image.
-     *
-     * @param id         the id
-     * @param background the background
-     */
-    public Tile(int id, int background, int boardSize) {
-        this.boardSize = boardSize;
-        this.id = id;
-        this.background = background;
-    }
-
+public class Tile extends GamePiece {
 
     /**
      * A tile with a background id; look up and set the id.
@@ -48,30 +15,8 @@ public class Tile implements Comparable<Tile>, Serializable {
      * @param backgroundId the background
      */
     public Tile(int backgroundId, int boardSize) {
-        this.boardSize = boardSize;
-        this.id = backgroundId + 1;
-        SparseIntArray lookup = CreateLookUp(); // Set up the background based on id.
-        this.background = lookup.get(id);
+        super(backgroundId, boardSize);
     }
-
-    /**
-     * Return the background id.
-     *
-     * @return the background id
-     */
-    public int getBackground() {
-        return background;
-    }
-
-    /**
-     * Return the tile id.
-     *
-     * @return the tile id
-     */
-    public int getId() {
-        return id;
-    }
-
 
     /**
      * Returns a SparseIntArray that maps each tile key to a drawable integer image pointer
@@ -79,7 +24,8 @@ public class Tile implements Comparable<Tile>, Serializable {
      * @return returns an object has a mapped range of ints to images
      */
 
-    private SparseIntArray CreateLookUp() {
+
+    public SparseIntArray CreateLookUp() {
         SparseIntArray backgroundIDLookup = new SparseIntArray();
         int[] drawables = new int[]{
                 R.drawable.tile_1, R.drawable.tile_2, R.drawable.tile_3, R.drawable.tile_4,
@@ -95,11 +41,5 @@ public class Tile implements Comparable<Tile>, Serializable {
             backgroundIDLookup.append(i + 1, drawables[i]);
         }
         return backgroundIDLookup;
-    }
-
-
-    @Override
-    public int compareTo(@NonNull Tile o) {
-        return o.id - this.id;
     }
 }

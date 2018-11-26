@@ -1,15 +1,13 @@
-package fall2018.csc2017.GameCentre.games.puzzle.view;
+package fall2018.csc2017.GameCentre.games.Game.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
-import fall2018.csc2017.GameCentre.games.ActivityReaderWriter;
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.games.puzzle.BoardManager;
+import fall2018.csc2017.GameCentre.games.Game.BoardManager;
 
 /**
  * The difficulty activity_tiles_scores class

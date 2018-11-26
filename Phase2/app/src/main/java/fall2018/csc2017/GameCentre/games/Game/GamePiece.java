@@ -10,17 +10,17 @@ abstract public class GamePiece implements Comparable<GamePiece> ,Serializable {
     /**
      * The numbers of game pieces needed  to be mapped.
      */
-    private int boardSize;
+    protected int boardSize;
 
     /**
      * The background id to find the game piece image.
      */
-    private int background;
+    protected int background;
 
     /**
      * The unique id.
      */
-    private int id;
+    protected int id;
 
 
     /**

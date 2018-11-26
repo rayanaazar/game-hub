@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.puzzle;
+package fall2018.csc2017.GameCentre.games.Game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+import fall2018.csc2017.GameCentre.games.Board;
 import fall2018.csc2017.GameCentre.games.Tile;
 
 /**
@@ -306,3 +307,7 @@ public class BoardManager implements Serializable {
     }
 
 }
+
+
+
+
