@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.Timer;
+package fall2018.csc2017.GameCentre.games.timer.view;
 
 /*
 Adapted from : https://github.com/shanestaples/android-timer-mvp-example/blob/master/app/src/main/java/com/shanestaples/example/timermvp/timer/TimerFragment.java
@@ -21,6 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.games.timer.TimerContract;
+import fall2018.csc2017.GameCentre.games.timer.model.TimerModel;
+import fall2018.csc2017.GameCentre.games.timer.presenter.TimerPresenter;
 
 /**
  * A basic TimerView activity. This is meant as fragment in a bigger screen.

@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.Timer;
+package fall2018.csc2017.GameCentre.games.timer.model;
 
 import android.arch.lifecycle.ViewModel;
 
@@ -25,7 +25,7 @@ public class TimerModel extends ViewModel {
      *
      * @param curTime A long value specifying the current time in milliseconds.
      */
-    void setCalendar(Long curTime) {
+    public void setCalendar(Long curTime) {
         refCalendar.setTimeInMillis(curTime);
     }
 
@@ -35,7 +35,7 @@ public class TimerModel extends ViewModel {
      * @return A Calendar object representing the exact time of when TimerModel was last
      * changed.
      */
-    Calendar getRefCalendar() {
+    public Calendar getRefCalendar() {
         return this.refCalendar;
     }
 
@@ -45,7 +45,7 @@ public class TimerModel extends ViewModel {
      * @param time Current time
      * @return An updated time string better suited for our purpose.
      */
-    String formatString(String time) {
+    public String formatString(String time) {
         if (time.length() < 2) {
             return "0" + time;
         }

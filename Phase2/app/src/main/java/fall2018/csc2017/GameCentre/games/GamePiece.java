@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.Game;
+package fall2018.csc2017.GameCentre.games;
 
 import android.support.annotation.NonNull;
 import android.util.SparseIntArray;

@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.Game;
+package fall2018.csc2017.GameCentre.games;
 import android.support.annotation.NonNull;
 
 import java.util.Observable;
@@ -31,7 +31,7 @@ abstract public class GameBoard extends Observable {
      *
      * @return the number of columns in board.
      */
-    protected int getNumCols() {
+    public int getNumCols() {
         return this.numCols;
     }
 
@@ -40,7 +40,7 @@ abstract public class GameBoard extends Observable {
      *
      * @return the number of rows in board.
      */
-    protected int getNumRows() {
+    public int getNumRows() {
         return this.numRows;
     }
 

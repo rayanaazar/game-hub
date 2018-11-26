@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.Game.view;
+package fall2018.csc2017.GameCentre.games.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,15 +17,14 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import fall2018.csc2017.GameCentre.games.ActivityReaderWriter;
 import fall2018.csc2017.GameCentre.games.CustomAdapter;
-import fall2018.csc2017.GameCentre.GestureDetectGridView;
+import fall2018.csc2017.GameCentre.games.GestureDetectGridView;
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.Timer.TimerModel;
-import fall2018.csc2017.GameCentre.Timer.TimerPresenter;
-import fall2018.csc2017.GameCentre.Timer.TimerView;
-import fall2018.csc2017.GameCentre.games.Board;
-import fall2018.csc2017.GameCentre.games.Game.BoardManager;
+import fall2018.csc2017.GameCentre.games.timer.model.TimerModel;
+import fall2018.csc2017.GameCentre.games.timer.presenter.TimerPresenter;
+import fall2018.csc2017.GameCentre.games.timer.view.TimerView;
+import fall2018.csc2017.GameCentre.games.puzzle.presenter.Board;
+import fall2018.csc2017.GameCentre.games.puzzle.presenter.BoardManager;
 
 /**
  * The game activity_tiles_scores.
@@ -32,7 +32,7 @@ import fall2018.csc2017.GameCentre.games.Game.BoardManager;
 
 //Todo Rework this class entirely, it's bloated
 
-public class GameActivity extends ActivityReaderWriter implements Observer {
+public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * The board manager.

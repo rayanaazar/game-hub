@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.Game;
+package fall2018.csc2017.GameCentre.games.puzzle.presenter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,8 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-import fall2018.csc2017.GameCentre.games.Board;
-import fall2018.csc2017.GameCentre.games.Tile;
+import fall2018.csc2017.GameCentre.games.GameBoardManager;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
@@ -46,20 +45,16 @@ public class BoardManager extends GameBoardManager implements Serializable {
      *
      * @param board the board
      */
-    public BoardManager(Board board, int undos) {
-        this.board = board;
-        this.numCols = board.getNumCols();
-        this.numRows = board.getNumRows();
-        this.undos = undos;
 
+    public BoardManager(Board board, int undos) {
+        super(board, undos);
     }
 
     /**
      * Manage a new shuffled board with 0 undos.
      */
     public BoardManager(int numRows, int numCols) {
-        this.numRows = numRows;
-        this.numCols = numCols;
+        super(numRows,numCols);
         createBoard();
         this.board = new Board(tiles, numRows, numCols);
         this.undos = 0;
@@ -145,12 +140,9 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * Loads the current board to the stack
      */
     public void loadStack() {
-        this.moveStack.push(this.getBoard());
     }
 
     public void undo() {
-        this.moveStack.pop();
-        this.board = moveStack.pop();
     }
 
     /**

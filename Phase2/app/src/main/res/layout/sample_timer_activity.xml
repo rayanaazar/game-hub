@@ -4,7 +4,7 @@
     android:layout_height="60dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="470dp"
-    tools:context=".Timer.TimerView"
+    tools:context=".games.timer.view.TimerView"
     android:background="@drawable/gradient">
 
     <ImageView

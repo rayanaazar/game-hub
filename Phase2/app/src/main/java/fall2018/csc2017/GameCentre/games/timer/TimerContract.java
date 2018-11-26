@@ -1,5 +1,8 @@
-package fall2018.csc2017.GameCentre.Timer;
+package fall2018.csc2017.GameCentre.games.timer;
 
+
+import fall2018.csc2017.GameCentre.games.timer.presenter.BaseTimerPresenter;
+import fall2018.csc2017.GameCentre.games.timer.view.BaseTimerView;
 
 /**
  * Outlines the basic methods a Timer should have in the MVP model.

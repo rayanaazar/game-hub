@@ -1,7 +1,7 @@
-package fall2018.csc2017.GameCentre.games;
+package fall2018.csc2017.GameCentre.games.puzzle.presenter;
 import android.util.SparseIntArray;
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.games.Game.GamePiece;
+import fall2018.csc2017.GameCentre.games.GamePiece;
 
 
 /**

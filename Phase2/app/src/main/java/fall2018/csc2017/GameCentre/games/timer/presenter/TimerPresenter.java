@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.Timer;
+package fall2018.csc2017.GameCentre.games.timer.presenter;
 
 
 import android.os.Looper;
@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.os.Handler;
 
 import java.util.Calendar;
+
+import fall2018.csc2017.GameCentre.games.timer.TimerContract;
+import fall2018.csc2017.GameCentre.games.timer.model.TimerModel;
 
 
 /**

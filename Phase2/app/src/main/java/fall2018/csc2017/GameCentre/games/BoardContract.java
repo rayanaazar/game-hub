@@ -1,7 +1,9 @@
 package fall2018.csc2017.GameCentre.games;
 
 
-import fall2018.csc2017.GameCentre.Timer.BaseTimerView;
+import fall2018.csc2017.GameCentre.games.puzzle.presenter.Board;
+import fall2018.csc2017.GameCentre.games.timer.view.BaseTimerView;
+import fall2018.csc2017.GameCentre.games.puzzle.presenter.Tile;
 
 /**
  * Outlines the basic methods an interactive GameBoard must have for a matching tiles game.

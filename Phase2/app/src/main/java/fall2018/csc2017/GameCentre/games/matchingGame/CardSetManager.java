@@ -1,15 +1,12 @@
-package fall2018.csc2017.GameCentre.ui;
+package fall2018.csc2017.GameCentre.games.matchingGame;
 
-
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
-import fall2018.csc2017.GameCentre.games.Game.GameBoardManager;
+import fall2018.csc2017.GameCentre.games.GameBoardManager;
 
 public class CardSetManager extends GameBoardManager {
 
@@ -38,7 +35,7 @@ public class CardSetManager extends GameBoardManager {
     /**
      * Return the current cardSet.
      */
-    CardSet getCardSet() {
+    private CardSet getCardSet() {
         return cardSet;
     }
 
@@ -102,7 +99,8 @@ public class CardSetManager extends GameBoardManager {
      *
      * @param position the position
      */
-    void touchMove(int position) {
+    @Override
+    public void touchMove(int position) {
         int[] positions = getCardSetPositions(position);
         if (isValidTap(position)) {
             getCardSet().swapCards(positions[0],positions[1]);

@@ -1,8 +1,8 @@
-package fall2018.csc2017.GameCentre.games.Game;
+package fall2018.csc2017.GameCentre.games;
 
 import java.util.Stack;
 
-import fall2018.csc2017.GameCentre.ui.CardSet;
+import fall2018.csc2017.GameCentre.games.puzzle.presenter.Board;
 
 public abstract class GameBoardManager {
 
@@ -22,6 +22,10 @@ public abstract class GameBoardManager {
      */
     protected Stack<? extends GameBoard> moveStack;
 
+    protected GameBoard board;
+
+    protected int undos;
+
     /**
      * Manage a new shuffled set of game pieces of a given size .
      */
@@ -30,6 +34,13 @@ public abstract class GameBoardManager {
         this.numCols = numCols;
         this.moveStack = new Stack<>();
     }
+
+    public GameBoardManager(GameBoard board, int undos)
+    {
+        this.board = board;
+        this.undos = undos;
+    }
+
 
     /**
      * Return the number of rows in the board.
@@ -47,13 +58,13 @@ public abstract class GameBoardManager {
     }
 
 
-    public abstract Boolean puzzleSolved();
+    public abstract boolean puzzleSolved();
 
 
     public abstract void touchMove(int position);
 
 
-    public abstract Boolean isValidTap(int position);
+    public abstract boolean isValidTap(int position);
 
 
     /**

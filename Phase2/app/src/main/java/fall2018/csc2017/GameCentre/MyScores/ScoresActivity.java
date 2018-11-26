@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.MyScores;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.leaderboard.LeaderboardActivity;
-import fall2018.csc2017.GameCentre.MyScores.MyScoresActivity;
 
 /**
  * Activity for working with scores
  */
+
+//TODO Spencer since I implmeneted the 3 tabs for scores you don't need this -> Please remove and move the logic into the fragments.
 public class ScoresActivity extends AppCompatActivity {
 
     private String game;

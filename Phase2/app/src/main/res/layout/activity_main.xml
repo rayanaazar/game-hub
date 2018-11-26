@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <fall2018.csc2017.GameCentre.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <fall2018.csc2017.GameCentre.games.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/timerFrag"
-        android:name="fall2018.csc2017.GameCentre.Timer.TimerView"
+        android:name="fall2018.csc2017.GameCentre.games.timer.view.TimerView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_above="@+id/UndoButton"

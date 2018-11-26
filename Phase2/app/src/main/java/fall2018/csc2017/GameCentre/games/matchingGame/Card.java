@@ -1,11 +1,9 @@
-package fall2018.csc2017.GameCentre.ui;
+package fall2018.csc2017.GameCentre.games.matchingGame;
 
 import android.util.SparseIntArray;
 
-import java.io.Serializable;
-
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.games.Game.GamePiece;
+import fall2018.csc2017.GameCentre.games.GamePiece;
 
 /**
  * A card in a matching cards game.

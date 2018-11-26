@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.Game.view;
+package fall2018.csc2017.GameCentre.games.puzzle.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.games.Game.BoardManager;
+import fall2018.csc2017.GameCentre.games.puzzle.presenter.BoardManager;
+import fall2018.csc2017.GameCentre.games.view.GameActivity;
 
 /**
  * The difficulty activity_tiles_scores class
  */
+
+//TODO find out a way template off of 1 xml activity for difficulty but rebase it to meet each game's requirement
 public class DifficultyActivity extends AppCompatActivity {
 
     private LinearLayout easy, okay, difficult, extreme;

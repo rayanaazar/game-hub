@@ -1,15 +1,15 @@
-package fall2018.csc2017.GameCentre.Timer;
+package fall2018.csc2017.GameCentre.games.timer.presenter;
 
 public interface BaseTimerPresenter {
 
     /**
      * Start the timer.
      */
-    void start();
+    public void start();
 
     /**
      * Stop the timer.
      */
-    void stop();
+    public void stop();
 
 }
