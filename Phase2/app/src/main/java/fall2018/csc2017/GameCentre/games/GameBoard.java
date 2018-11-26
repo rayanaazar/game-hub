@@ -40,7 +40,7 @@ abstract public class GameBoard extends Observable {
      *
      * @return the number of rows in board.
      */
-    public int getNumRows() {
+    protected int getNumRows() {
         return this.numRows;
     }
 
