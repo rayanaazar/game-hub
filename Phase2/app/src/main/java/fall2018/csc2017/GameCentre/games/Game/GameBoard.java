@@ -17,7 +17,9 @@ abstract public class GameBoard extends Observable {
     protected int numCols;
 
 
-
+    /**
+     * A new board with rows and columns.
+     */
     public GameBoard(int numRows, int numCols) {
         this.numRows = numRows;
         this.numCols = numCols;

@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.ui;
 
 
 import android.support.annotation.NonNull;
@@ -7,23 +7,14 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import fall2018.csc2017.GameCentre.games.Game.GameBoard;
 
 
 /**
  * The set of cards to be matched.
  */
-public class CardSet {
+public class CardSet extends GameBoard {
 
-
-    /**
-     * The number of rows.
-     */
-    private int numRows;
-
-    /**
-     * The number of rows.
-     */
-    private int numCols;
 
     /**
      * The cards on the card set in row-major order.
@@ -48,15 +39,13 @@ public class CardSet {
      * @param cards the cards for the card set.
      */
     CardSet(List<Card> cards, int numRows, int numCols,Card backCard) {
-        this.numRows = numRows;
-        this.numCols = numCols;
+        super(numRows,numCols);
         this.cards = new Card[numRows][numCols];
         this.backCard = backCard;
         this.setOrder = new Card[numRows][numCols];
         createSet(cards,this.cards);
         createSet(cards, this.setOrder);
     }
-
 
     /**
      * fill cards with cards.
@@ -74,32 +63,6 @@ public class CardSet {
 
     }
 
-    /**
-     * Return the number of columns in the card set.
-     *
-     * @return the number of columns in the card set.
-     */
-    public int getNumCols() {
-        return this.numCols;
-    }
-
-    /**
-     * Return the number of rows in the card set.
-     *
-     * @return the number of rows in the card set.
-     */
-    public int getNumRows() {
-        return this.numRows;
-    }
-
-    /**
-     * Return the number of cards the card set.
-     *
-     * @return the number of cards the card set.
-     */
-    int numCards() {
-        return numRows * numCols;
-    }
 
     /**
      * Return the card at (row, col)

@@ -1,5 +1,7 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.ui;
 
+
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
-public class CardSetManager {
+import fall2018.csc2017.GameCentre.games.Game.GameBoardManager;
+
+public class CardSetManager extends GameBoardManager {
 
     /**
      * The set of cards  being managed.
@@ -16,45 +20,19 @@ public class CardSetManager {
     private CardSet cardSet;
 
     /**
-     * The current number of undos Left
-     */
-    private int undos;
-
-    /**
      * Maximum number of cards on the board.
      */
     private List<Card> cards = new ArrayList<>();
 
 
     /**
-     * The number of rows in the card set.
-     */
-    private int numRows;
-
-    /**
-     * The number of columns in the card set.
-     */
-
-    private int numCols;
-
-    /**
-     * The stack representing the moves
-     */
-    private Stack<CardSet> moveStack;
-
-
-
-    /**
      * Manage a new shuffled card set of a given size and number of undos.
      */
-    CardSetManager(int numRows, int numCols, int undos) {
-        this.numRows = numRows;
-        this.numCols = numCols;
+    public CardSetManager(int numRows, int numCols) {
+        super(numRows,numCols);
         createCardSet();
         Card blankCard = new Card(numCols * numRows, numCols * numRows);
         this.cardSet = new CardSet(cards, numRows, numCols, blankCard);
-        this.undos = undos;
-        this.moveStack = new Stack<>();
     }
 
     /**
@@ -64,20 +42,6 @@ public class CardSetManager {
         return cardSet;
     }
 
-    /**
-     * Return the number of rows in the cardSet.
-     */
-    private int getNumRows() {
-        return this.numRows;
-    }
-
-    /**
-     * Return the number of columns in the cardSet.
-     */
-
-    private int getNumCols() {
-        return this.numCols;
-    }
 
     /**
      * Create a cardSet and shuffle it given the size of the cardSet.
@@ -97,7 +61,7 @@ public class CardSetManager {
      *
      * @return whether the cards are in row-major order
      */
-    boolean puzzleSolved() {
+    public boolean puzzleSolved() {
         boolean solved = true;
         Iterator<Card> iter = cardSet.iterator();
         while (iter.hasNext()){
@@ -117,7 +81,7 @@ public class CardSetManager {
      * @return size of card set.
      */
     private int getCardSetSize(){
-        return getNumCols() * getNumRows();
+        return getCardSet().numPieces();
     }
 
     /**
@@ -160,22 +124,5 @@ public class CardSetManager {
 
     }
 
-
-    /**
-     * Returns the current score.
-     *
-     * @return the current score.
-     */
-    public int getScore() {
-        return this.moveStack.size();
-    }
-
-    public Stack<CardSet> getMoveStack() {
-        return moveStack;
-    }
-
-    public void setMoveStack(Stack<CardSet> moveStack) {
-        this.moveStack = moveStack;
-    }
 
 }

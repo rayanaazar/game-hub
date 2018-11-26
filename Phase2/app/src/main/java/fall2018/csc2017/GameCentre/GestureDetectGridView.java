@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 import android.widget.GridView;
 
 import fall2018.csc2017.GameCentre.games.MovementController;
-import fall2018.csc2017.GameCentre.games.puzzle.BoardManager;
+import fall2018.csc2017.GameCentre.games.Game.BoardManager;
 
 /**
  * The gesture detect grid view class

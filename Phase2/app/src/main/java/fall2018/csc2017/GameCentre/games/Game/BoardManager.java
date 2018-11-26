@@ -12,13 +12,13 @@ import fall2018.csc2017.GameCentre.games.Tile;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-public class BoardManager implements Serializable {
+public class BoardManager extends GameBoardManager implements Serializable {
 
     /**
      * The board being managed.
      */
 
-    private PuzzleBoard board;
+    private Board board;
 
     /**
      * The current number of undos left
@@ -28,26 +28,8 @@ public class BoardManager implements Serializable {
     /**
      * Maximum number of tiles on the board.
      */
-
     private List<Tile> tiles = new ArrayList<>();
 
-
-    /**
-     * The number of rows in the Board.
-     */
-
-    private int numRows;
-
-    /**
-     * The number of columns in the Board.
-     */
-
-    private int numCols;
-
-    /**
-     * The stack representing the moves
-     */
-    private Stack<PuzzleBoard> moveStack;
 
     /**
      * Managing board positions
@@ -64,12 +46,12 @@ public class BoardManager implements Serializable {
      *
      * @param board the board
      */
-    public BoardManager(PuzzleBoard board, int undos) {
+    public BoardManager(Board board, int undos) {
         this.board = board;
         this.numCols = board.getNumCols();
         this.numRows = board.getNumRows();
         this.undos = undos;
-        this.moveStack = new Stack<>();
+
     }
 
     /**
@@ -79,7 +61,7 @@ public class BoardManager implements Serializable {
         this.numRows = numRows;
         this.numCols = numCols;
         createBoard();
-        this.board = new PuzzleBoard(tiles, numRows, numCols);
+        this.board = new Board(tiles, numRows, numCols);
         this.undos = 0;
         this.moveStack = new Stack<>();
     }
@@ -88,35 +70,20 @@ public class BoardManager implements Serializable {
      * Manage a new shuffled board of a given size and number of undos.
      */
     public BoardManager(int numRows, int numCols, int undos) {
-        this.numRows = numRows;
-        this.numCols = numCols;
+        super(numRows, numCols);
         createBoard();
-        this.board = new PuzzleBoard(tiles, numRows, numCols);
+        this.board = new Board(tiles, numRows, numCols);
         this.undos = undos;
-        this.moveStack = new Stack<>();
+
     }
 
     /**
      * Return the current board.
      */
-    public PuzzleBoard getBoard() {
+    public Board getBoard() {
         return board;
     }
 
-    /**
-     * Return the number of rows in the board.
-     */
-    public int getNumRows() {
-        return this.numRows;
-    }
-
-    /**
-     * Return the number of columns in the board.
-     */
-
-    public int getNumCols() {
-        return this.numCols;
-    }
 
     /**
      * Create a Board and shuffle it given the size of the board.
@@ -196,7 +163,7 @@ public class BoardManager implements Serializable {
         int count = 1;
         for (Tile curr : board) {
             int currentID = curr.getId();
-            if (currentID != count || currentID > board.numTiles()) {
+            if (currentID != count || currentID > board.numPieces()) {
                 solved = false;
                 break;
             }
@@ -286,27 +253,11 @@ public class BoardManager implements Serializable {
      */
 
     private int getBlankID() {
-        return board.numTiles();
-    }
-
-    /**
-     * Returns the current score.
-     *
-     * @return the current score.
-     */
-    public int getScore() {
-        return this.moveStack.size();
-    }
-
-    public Stack<PuzzleBoard> getMoveStack() {
-        return moveStack;
-    }
-
-    public void setMoveStack(Stack<PuzzleBoard> moveStack) {
-        this.moveStack = moveStack;
+        return board.numPieces();
     }
 
 }
+
 
 
 
