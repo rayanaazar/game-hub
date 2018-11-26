@@ -27,9 +27,11 @@ public class PuzzleBoard extends Board {
      * @param col2 the second tile col
      */
     void exchangeTiles(int row1, int col1, int row2, int col2) {
+        Tile[][] tiles = getTiles();
         Tile tmp = tiles[row1][col1];
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = tmp;
+        setTiles(tiles);
 
         setChanged();
         notifyObservers();
