@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.Leaderboard;
+package fall2018.csc2017.GameCentre.leaderboard;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
