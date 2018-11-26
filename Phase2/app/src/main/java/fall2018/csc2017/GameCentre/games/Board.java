@@ -29,7 +29,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles;
+    public Tile[][] tiles;
 
 
     /**

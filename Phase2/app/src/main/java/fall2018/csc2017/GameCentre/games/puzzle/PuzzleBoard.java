@@ -26,7 +26,7 @@ public class PuzzleBoard extends Board {
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    void exchangeTiles(int row1, int col1, int row2, int col2) {
+    public void exchangeTiles(int row1, int col1, int row2, int col2) {
         Tile tmp = tiles[row1][col1];
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = tmp;
