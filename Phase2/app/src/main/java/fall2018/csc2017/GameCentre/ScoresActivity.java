@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import fall2018.csc2017.GameCentre.leaderboard.LeaderboardActivity;
+import fall2018.csc2017.GameCentre.MyScores.MyScoresActivity;
+
 /**
  * Activity for working with scores
  */

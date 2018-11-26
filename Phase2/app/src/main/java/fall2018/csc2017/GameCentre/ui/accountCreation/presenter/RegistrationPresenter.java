@@ -21,7 +21,7 @@ public class RegistrationPresenter implements RegistrationContract.Presenter {
     private RegistrationContract.View registerView;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference elemRef = database.getReference("uid");
+    private DatabaseReference elemRef = database.getReference("gamecenter-4564c");
     private Account account;
 
     public RegistrationPresenter(RegistrationContract.View registerView){
