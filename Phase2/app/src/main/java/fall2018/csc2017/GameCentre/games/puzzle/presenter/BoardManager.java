@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
 
 import fall2018.csc2017.GameCentre.games.GameBoardManager;
 
@@ -19,10 +18,6 @@ public class BoardManager extends GameBoardManager implements Serializable {
 
     private Board board;
 
-    /**
-     * The current number of undos left
-     */
-    private int undos;
 
     /**
      * Maximum number of tiles on the board.
@@ -41,34 +36,15 @@ public class BoardManager extends GameBoardManager implements Serializable {
     private int col, row, blankIdCol, blankIdRow;
 
     /**
-     * Manage a board that has been loaded.
-     *
-     * @param board the board
-     */
-
-    public BoardManager(Board board, int undos) {
-        super(board, undos);
-    }
-
-    /**
-     * Manage a new shuffled board with 0 undos.
-     */
-    public BoardManager(int numRows, int numCols) {
-        super(numRows,numCols);
-        createBoard();
-        this.board = new Board(tiles, numRows, numCols);
-        this.undos = 0;
-        this.moveStack = new Stack<>();
-    }
-
-    /**
      * Manage a new shuffled board of a given size and number of undos.
      */
     public BoardManager(int numRows, int numCols, int undos) {
         super(numRows, numCols);
         createBoard();
         this.board = new Board(tiles, numRows, numCols);
-        this.undos = undos;
+
+        // write the number of undos into the firebase database
+//        this.undos = undos;
 
     }
 
@@ -87,8 +63,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
         for (int tileNum = 0; tileNum != (numCols * numRows); tileNum++) {
             tiles.add(new Tile(tileNum, numCols * numRows));
         }
-        Collections.shuffle(tiles.subList(0, (numCols * numCols) - 1));
-        // Check if current board is solvable, and if not, create another board
+        Collections.shuffle(tiles);
         if (!isSolvable()) {
             createBoard();
         }

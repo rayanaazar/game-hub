@@ -19,6 +19,8 @@ public class DifficultyActivity extends AppCompatActivity {
 
     private LinearLayout easy, okay, difficult, extreme;
 
+    private BoardManager boardManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +50,7 @@ public class DifficultyActivity extends AppCompatActivity {
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // the boardManager has to contact firebase and uid -> game -> puzzle -> game counter -> moves: something , undos: 5
-                new BoardManager(3, 3, 5);
+                boardManager = new BoardManager(3, 3, 5);
                 beginGame(v);
             }
         });
@@ -62,7 +63,7 @@ public class DifficultyActivity extends AppCompatActivity {
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BoardManager(4, 4, 3);
+                boardManager = new BoardManager(4, 4, 3);
                 beginGame(v);
             }
         });
@@ -75,7 +76,7 @@ public class DifficultyActivity extends AppCompatActivity {
         difficult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BoardManager(5, 5, 1);
+                boardManager = new BoardManager(5, 5, 1);
                 beginGame(v);
             }
         });
@@ -85,7 +86,7 @@ public class DifficultyActivity extends AppCompatActivity {
         extreme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BoardManager(5, 5, 0);
+                boardManager = new BoardManager(5, 5, 0);
                 beginGame(v);
             }
         });

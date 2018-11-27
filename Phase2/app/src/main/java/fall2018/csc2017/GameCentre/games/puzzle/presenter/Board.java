@@ -30,7 +30,7 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
      *
      * @param tiles the tiles for the board
      */
-       public Board(List<Tile> tiles, int numRows, int numCols) {
+    Board(List<Tile> tiles, int numRows, int numCols) {
            super(numRows,numCols);
            this.tiles = new Tile[numRows][numCols];
            createTileBoard(tiles, this.tiles);
@@ -45,8 +45,8 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
     private void createTileBoard(List<Tile> t, Tile[][] setToFill){
 
         Iterator<Tile> iterator = t.iterator();
-        for (int row = 0; row != this.getNumRows(); row++) {
-            for (int col = 0; col != this.getNumCols(); col++) {
+        for (int row = 0; row != super.getNumRows(); row++) {
+            for (int col = 0; col != super.getNumCols(); col++) {
                 setToFill[row][col] = iterator.next();
             }
         }
@@ -74,7 +74,7 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
                 '}';
     }
 
-    public void exchangeTiles(int row1, int col1, int row2, int col2) {
+    void exchangeTiles(int row1, int col1, int row2, int col2) {
         Tile tmp = tiles[row1][col1];
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = tmp;

@@ -2,8 +2,6 @@ package fall2018.csc2017.GameCentre.games;
 
 import java.util.Stack;
 
-import fall2018.csc2017.GameCentre.games.puzzle.presenter.Board;
-
 public abstract class GameBoardManager {
 
     /**
@@ -24,7 +22,6 @@ public abstract class GameBoardManager {
 
     protected GameBoard board;
 
-    protected int undos;
 
     /**
      * Manage a new shuffled set of game pieces of a given size .
@@ -33,12 +30,6 @@ public abstract class GameBoardManager {
         this.numRows = numRows;
         this.numCols = numCols;
         this.moveStack = new Stack<>();
-    }
-
-    public GameBoardManager(GameBoard board, int undos)
-    {
-        this.board = board;
-        this.undos = undos;
     }
 
 
