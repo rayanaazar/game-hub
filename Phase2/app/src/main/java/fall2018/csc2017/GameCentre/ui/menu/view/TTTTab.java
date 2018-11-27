@@ -12,9 +12,17 @@ import fall2018.csc2017.GameCentre.R;
 
 public class TTTTab extends Fragment {
 
+    private TabPresenter presenter;
+    private final String game = "Tic Tac Toe";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.ttt_fragment_for_leaderboard,container,false);
+        View v = inflater.inflate(R.layout.leaderboard_tab_fragment, container,false);
+        presenter = new TabPresenter(v, this, game);
+
+        presenter.updateMyScore();
+        presenter.updateScores();
+        return v;
     }
 }

@@ -35,13 +35,13 @@ public class MainFragment extends Fragment implements MenuContract.View {
 
         Log.d(TAG, "preparing bitmaps");
         gameImages.add(getString(R.string.tictactoeIcon));
-        games.add("TTT");
+        games.add("Tic Tac Toe");
 
         gameImages.add(getString(R.string.slidingTilesIcon));
-        games.add("Puzzle");
+        games.add("Sliding Tiles");
 
         gameImages.add(getString(R.string.matchingGameIcon));
-        games.add("Matching Cards");
+        games.add("Matching Game");
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
