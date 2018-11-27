@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import java.util.Objects;
 
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.ui.menu.view.leaderboard.LeaderboardFragment;
 
 public class MenuActivity extends AppCompatActivity{
 
