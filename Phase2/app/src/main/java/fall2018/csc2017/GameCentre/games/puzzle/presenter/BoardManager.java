@@ -39,7 +39,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
     /**
      * Default constructor
      */
-    public BoardManager() {}
+    public BoardManager() {this.firebaseConnection = new TileFirebaseConnection();}
 
     /**
      * Manage a new shuffled board of a given size and number of undos.
@@ -49,6 +49,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
         createBoard();
         this.board = new Board(tiles, numRows, numCols);
         this.undos = undos;
+        this.firebaseConnection = new TileFirebaseConnection();
     }
 
     /**
