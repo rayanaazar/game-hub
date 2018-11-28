@@ -67,13 +67,18 @@ public class TimerPresenter implements TimerContract.Presenter {
 
     @Override
     public void stop() {
+
         handler.removeCallbacks(updateRunnable);
     }
 
+
     @Override
     public void updateView() {
-        timerView.update(getElapsedTime());
+        if (timerView != null) {
+            timerView.update(getElapsedTime());
+        }
     }
+
 
     /**
      * Get the time that has elapsed, since the timer started.
@@ -94,6 +99,7 @@ public class TimerPresenter implements TimerContract.Presenter {
     /**
      * Starting from two calendars, one of the current time and one of reference, return an array
      * representing the time difference between the two.
+     *
      * @param curCalendar A calendar of the current time.
      * @param refCalendar A calendar of some time of reference.
      * @return An integer array, with the minutes difference at index 0, and the seconds difference

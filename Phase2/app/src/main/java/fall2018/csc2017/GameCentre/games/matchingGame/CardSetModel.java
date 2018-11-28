@@ -79,12 +79,8 @@ public class CardSetModel extends GameBoard {
      * @param col the card col
      */
     void swapCards(int row, int col) {
-        CardPresenter cardToSwap = cards[row][col];
-        if (cardToSwap.getId() == numCols * numRows + 1) {
-            cards[row][col] = setOrder[row][col];
-            setChanged();
-            notifyObservers();
-        }
+        CardPresenter cardToSwap = getCard(row, col);
+        cardToSwap.flip();
     }
 
     @Override
@@ -171,6 +167,5 @@ public class CardSetModel extends GameBoard {
         }
 
     }
-
 }
 

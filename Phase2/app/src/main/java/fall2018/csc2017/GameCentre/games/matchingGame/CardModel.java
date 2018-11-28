@@ -15,7 +15,7 @@ public class CardModel extends ViewModel {
 
     public CardModel(int frontImage) {
         this.isMatched = false;
-        this.isFlipped = false;
+        this.isFlipped = true;
         this.frontImage = frontImage;
     }
 

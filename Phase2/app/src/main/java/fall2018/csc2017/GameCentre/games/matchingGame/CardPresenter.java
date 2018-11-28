@@ -37,11 +37,24 @@ public class CardPresenter extends GamePiece {
             cardModel.setFlipped(false);
             cardView.setBackgroundResource(R.drawable.card_w);
         }
+
     }
 
     @Override
     public int getBackground() {
         return cardModel.getFrontImage();
+    }
+
+    public boolean isMatched() {
+        return this.cardModel.isMatched();
+    }
+
+    public boolean isFlipped() {
+        return this.cardModel.isFlipped();
+    }
+
+    public void setMatched(boolean isMatched) {
+        this.cardModel.setMatched(isMatched);
     }
 
     /**

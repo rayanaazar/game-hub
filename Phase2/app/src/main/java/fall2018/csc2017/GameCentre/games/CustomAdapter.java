@@ -24,14 +24,14 @@ public class CustomAdapter extends BaseAdapter {
     /**
      * The list of buttons
      */
-    private ArrayList<Button> mButtons = null;
+    private ArrayList<? extends Button> mButtons = null;
 
     /**
      * The column width and height based on the current device
      */
     private int mColumnWidth, mColumnHeight;
 
-    public CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
+    public CustomAdapter(ArrayList<? extends Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

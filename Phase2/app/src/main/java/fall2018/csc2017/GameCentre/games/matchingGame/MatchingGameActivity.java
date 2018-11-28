@@ -3,6 +3,7 @@ package fall2018.csc2017.GameCentre.games.matchingGame;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -31,10 +32,12 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
      */
     private CardSetManager cardSetManager;
 
+    private int dimensions;
+
     /**
      * The buttons to display.
      */
-    private ArrayList<Button> tileButtons;
+    private ArrayList<CardView> tileButtons;
 
     /**
      * The gesture detector
@@ -59,35 +62,24 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cardSetManager = new CardSetManager(4, 4);
+        dimensions = 4;
         createTileButtons(this);
+        cardSetManager = new CardSetManager(4, 4, this.tileButtons);
         setContentView(R.layout.activity_main);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        TimerView timerView = (TimerView) fragmentManager.findFragmentById(R.id.timerFrag);
-        if (timerView == null) {
-            timerView = TimerView.newInstance();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.timerFrag, timerView);
-            fragmentTransaction.commit();
-        }
-
-        // Setup Presenter
-        timer = new Timer();
-        tp = new TimerPresenter(timerView, ViewModelProviders.of(this).get(TimerModel.class));
-        timer.scheduleAtFixedRate(new TimerTask() {
+        setUpTimer();
+        setUpGrid();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tp.updateView();
-                    }
-                });
+                for (CardView cv : tileButtons) {
+                    cv.flip();
+                }
             }
-        }, 0, 1000);
+        }, 2000);
+    }
 
-
+    private void setUpGrid() {
         // Add View to activity_tiles_scores
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(cardSetManager.getNumCols());
@@ -112,6 +104,32 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
                 });
     }
 
+    private void setUpTimer() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        TimerView timerView = (TimerView) fragmentManager.findFragmentById(R.id.timerFrag);
+        if (timerView == null) {
+            timerView = TimerView.newInstance();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.timerFrag, timerView);
+            fragmentTransaction.commit();
+        }
+
+        // Setup Presenter
+        timer = new Timer();
+        tp = new TimerPresenter(timerView, ViewModelProviders.of(this).get(TimerModel.class));
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tp.updateView();
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
+
     /**
      * Create the buttons for displaying the tiles.
      *
@@ -119,8 +137,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
      */
     private void createTileButtons(Context context) {
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != cardSetManager.getNumRows(); row++) {
-            for (int col = 0; col != cardSetManager.getNumCols(); col++) {
+        for (int row = 0; row != dimensions; row++) {
+            for (int col = 0; col != dimensions; col++) {
                 CardView tmp = new CardView(context);
                 this.tileButtons.add(tmp);
             }
@@ -133,10 +151,13 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
     private void updateTileButtons() {
         CardSetModel board = cardSetManager.getCardSetModel();
         int nextPos = 0;
-        for (Button b : tileButtons) {
+        for (CardView b : tileButtons) {
             int row = nextPos / cardSetManager.getNumRows();
             int col = nextPos % cardSetManager.getNumCols();
-            b.setBackgroundResource(board.getCard(row, col).getBackground());
+
+            if ((b.cardPresenter.isFlipped())) {
+                b.setBackgroundResource(board.getCard(row, col).getBackground());
+            }
             nextPos++;
         }
     }
@@ -148,12 +169,28 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
     @Override
     protected void onPause() {
         super.onPause();
+        timer.cancel();
+        tp.stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+        tp.stop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        timer.cancel();
         tp.stop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {

@@ -86,7 +86,9 @@ public class TimerView extends Fragment implements TimerContract.View {
     @Override
     public void update(String time) {
         String newTime = "Time - " + time;
-        textView.setText(newTime);
+        if (textView != null) {
+            textView.setText(newTime);
+        }
     }
 
 
