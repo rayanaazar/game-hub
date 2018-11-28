@@ -17,12 +17,15 @@ public class BoardManager extends GameBoardManager implements Serializable {
      */
     private Board board;
 
-
     /**
      * Maximum number of tiles on the board.
      */
     private List<Tile> tiles = new ArrayList<>();
 
+    /**
+     * The connection to firebase to allow for saving and loading
+     */
+    private TileFirebaseConnection firebaseConnection;
 
     /**
      * Managing board positions
@@ -30,8 +33,13 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * row: describes the row of the board
      * blankIdCol; captures the column position of the blank tile
      * blankIdRow: captures the row position of the blank tile.
+     * undos: number of undos left for the board     */
+    private int col, row, blankIdCol, blankIdRow, undos;
+
+    /**
+     * Default constructor
      */
-    private int col, row, blankIdCol, blankIdRow;
+    public BoardManager() {}
 
     /**
      * Manage a new shuffled board of a given size and number of undos.
@@ -40,7 +48,14 @@ public class BoardManager extends GameBoardManager implements Serializable {
         super(numRows, numCols);
         createBoard();
         this.board = new Board(tiles, numRows, numCols);
+        this.undos = undos;
     }
+
+    /**
+     * Returns the number of undos left
+     * @return the number of undos left
+     */
+    public int getUndos() { return undos; }
 
     /**
      * Return the current board.
@@ -118,12 +133,47 @@ public class BoardManager extends GameBoardManager implements Serializable {
     }
 
     /**
-     * Loads the current board to the stack
+     * Gets the current score for the game
+     * @return the score
      */
-    public void loadStack() {
+    public int getScore() { return this.firebaseConnection.getScore(); }
+
+    /**
+     * Loads the current board to the database
+     */
+    public void load() {
+        // Load most recent data
+        TileState state = firebaseConnection.load();
+        String[] split = state.getDimensions().split("x");
+
+        // Enforce the data obtained
+        this.board = new Board(state.getLatestMoveStr(), Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+        this.undos = state.getUndos();
+        // TODO Add timer
     }
 
+    /**
+     * Undos our current movement
+     */
     public void undo() {
+        // TODO: Add error handling, ie: this is the first state, and no more undos
+        // Get the most recent data
+        TileState currState = firebaseConnection.load();
+        this.undos = currState.getUndos() - 1;
+
+        // Get the move string from before the current one
+        String moveStr = firebaseConnection.loadPrevMoves().getLatestMoveStr();
+
+        // Enforce data obtained
+        String[] split = currState.getDimensions().split("x");
+        this.board = new Board(moveStr, Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+    }
+
+    /**
+     * Saves the current board data to the database
+     */
+    public void save() {
+        firebaseConnection.save(this);
     }
 
     /**

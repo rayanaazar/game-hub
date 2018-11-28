@@ -23,8 +23,6 @@ public class Tile extends GamePiece {
      *
      * @return returns an object has a mapped range of ints to images
      */
-
-
     public SparseIntArray CreateLookUp() {
         SparseIntArray backgroundIDLookup = new SparseIntArray();
         int[] drawables = new int[]{

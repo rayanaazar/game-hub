@@ -2,9 +2,11 @@ package fall2018.csc2017.GameCentre.games.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,13 +14,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.games.CustomAdapter;
-import fall2018.csc2017.GameCentre.games.DataActivity;
 import fall2018.csc2017.GameCentre.games.GestureDetectGridView;
 import fall2018.csc2017.GameCentre.games.puzzle.presenter.Board;
 import fall2018.csc2017.GameCentre.games.puzzle.presenter.BoardManager;
@@ -32,7 +32,7 @@ import fall2018.csc2017.GameCentre.games.timer.view.TimerView;
 
 //Todo Rework this class entirely, it's bloated
 
-public class GameActivity extends DataActivity implements Observer {
+public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * The board manager.
@@ -73,14 +73,15 @@ public class GameActivity extends DataActivity implements Observer {
     public void display() {
         updateTileButtons();
         updateScore();
-        boardManager.loadStack();
-        save((Stack<Board>) boardManager.getMoveStack());
+        boardManager.save();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Get the board manager made in Difficulty activity
+        boardManager = (BoardManager) getIntent().getSerializableExtra("BOARD");
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 

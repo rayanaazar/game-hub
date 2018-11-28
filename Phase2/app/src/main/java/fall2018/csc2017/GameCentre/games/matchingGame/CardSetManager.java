@@ -33,6 +33,13 @@ public class CardSetManager extends GameBoardManager {
     }
 
     /**
+     * Returns the current score
+     * @return the current score
+     * TODO: Implement this!
+     */
+    public int getScore() { return 3; }
+
+    /**
      * Return the current cardSet.
      */
     private CardSet getCardSet() {

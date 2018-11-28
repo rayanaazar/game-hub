@@ -25,6 +25,10 @@ abstract public class GameBoard extends Observable {
         this.numCols = numCols;
     }
 
+    /**
+     * Default Constructor
+     */
+    public GameBoard() {}
 
     /**
      * Return the number of columns in board.
