@@ -41,6 +41,11 @@ public class CardSetManager extends GameBoardManager {
      */
     private int[] firstCardInfo;
 
+    /**
+     * TODO: make this work
+     * @return
+     */
+    public int getScore() { return 3; }
 
     /**
      * Manage a new shuffled card set of a given size and number of undos.
