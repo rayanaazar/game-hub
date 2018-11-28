@@ -31,9 +31,7 @@ public class CardPresenter extends GamePiece {
         if (!cardModel.isFlipped() && !cardModel.isMatched()) {
             cardModel.setFlipped(true);
             cardView.setBackgroundResource(getBackground());
-        }
-
-        else if (cardModel.isFlipped() && !cardModel.isMatched()) {
+        } else if (cardModel.isFlipped() && !cardModel.isMatched()) {
             cardModel.setFlipped(false);
             cardView.setBackgroundResource(R.drawable.card_w);
         }
@@ -64,11 +62,13 @@ public class CardPresenter extends GamePiece {
      */
     public SparseIntArray CreateLookUp() {
         SparseIntArray backgroundIDLookup = new SparseIntArray();
-        int[] drawables = new int[] {R.drawable.card_1, R.drawable.card_2,
+        int[] drawables = new int[]{R.drawable.card_1, R.drawable.card_2,
                 R.drawable.card_3, R.drawable.card_4, R.drawable.card_5, R.drawable.card_6,
-                R.drawable.card_7, R.drawable.card_8, R.drawable.card_w };
+                R.drawable.card_7, R.drawable.card_8, R.drawable.card_9,
+                R.drawable.card_10, R.drawable.card_11, R.drawable.card_12, R.drawable.card_13,
+                R.drawable.card_14, R.drawable.card_15, R.drawable.card_16};
 
-        for (int i = 0; i < (boardSize * boardSize / 2) - 1; i++) {
+        for (int i = 0; i < drawables.length; i++) {
             backgroundIDLookup.append(i + 1, drawables[i]);
         }
         return backgroundIDLookup;

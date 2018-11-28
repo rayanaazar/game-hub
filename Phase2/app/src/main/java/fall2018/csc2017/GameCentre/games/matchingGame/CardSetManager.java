@@ -25,12 +25,11 @@ public class CardSetManager extends GameBoardManager {
      */
     private List<CardPresenter> cards = new ArrayList<>();
 
-    /**
-     * Indicates whether user is about to select the first card.
-     */
-    private boolean firstSelection;
-
-
+//    /**
+//     * Indicates whether user is about to select the first card.
+//     */
+//    private boolean firstSelection;
+//
     /**
      * The selected card
      */
@@ -40,6 +39,10 @@ public class CardSetManager extends GameBoardManager {
      * The row and column of the selected card.
      */
     private int[] firstCardInfo;
+
+
+    private int numMoves;
+
 
     /**
      * TODO: make this work
@@ -53,7 +56,7 @@ public class CardSetManager extends GameBoardManager {
     public CardSetManager(int numRows, int numCols, ArrayList<CardView> cards) {
         super(numRows, numCols);
         createCardSet(cards);
-        firstSelection = true;
+        numMoves = 0;
         this.cardSetModel = new CardSetModel(this.cards, numRows, numCols);
     }
 
@@ -134,15 +137,15 @@ public class CardSetManager extends GameBoardManager {
     public void touchMove(int position) {
         final int[] positions = getCardSetPositions(position);
         if (isValidTap(position)) {
-            if (firstSelection) {
+            if (numMoves == 0) {
                 firstCard = getCardSetModel().getCard(positions[0], positions[1]);
                 firstCardInfo = positions.clone();
                 getCardSetModel().swapCards(positions[0], positions[1]);
-                firstSelection = false;
-            } else {
+                numMoves++;
+            } else if (numMoves == 1) {
                 CardPresenter selectedCard2 = getCardSetModel().getCard(positions[0], positions[1]);
                 getCardSetModel().swapCards(positions[0], positions[1]);
-                firstSelection = true;
+                numMoves++;
                 if (selectedCard2.compareTo(firstCard) == 0) {
                     firstCard.setMatched(true);
                     selectedCard2.setMatched(true);
@@ -154,10 +157,14 @@ public class CardSetManager extends GameBoardManager {
                             getCardSetModel().swapCards(firstCardInfo[0], firstCardInfo[1]);
                             getCardSetModel().swapCards(positions[0], positions[1]);
                         }
-                    }, 1000);
+                    }, 500);
 
                 }
                 firstCard = null;
+                numMoves = 0;
+            }
+            else {
+                numMoves = 0;
             }
         }
     }
