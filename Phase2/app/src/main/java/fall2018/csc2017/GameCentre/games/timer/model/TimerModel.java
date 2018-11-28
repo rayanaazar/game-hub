@@ -15,7 +15,7 @@ public class TimerModel extends ViewModel {
     private Calendar refCalendar;
 
 
-    TimerModel() {
+    public TimerModel() {
         refCalendar = Calendar.getInstance();
         refCalendar.setTimeInMillis(System.currentTimeMillis());
     }

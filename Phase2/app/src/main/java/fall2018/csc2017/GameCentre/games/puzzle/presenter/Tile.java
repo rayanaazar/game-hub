@@ -1,5 +1,8 @@
 package fall2018.csc2017.GameCentre.games.puzzle.presenter;
 import android.util.SparseIntArray;
+
+import java.io.Serializable;
+
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.games.GamePiece;
 
@@ -7,7 +10,7 @@ import fall2018.csc2017.GameCentre.games.GamePiece;
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public class Tile extends GamePiece {
+public class Tile extends GamePiece implements Serializable {
 
     /**
      * A tile with a background id; look up and set the id.
