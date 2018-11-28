@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games;
+package fall2018.csc2017.GameCentre.games.matchingGame;
 
 
 import fall2018.csc2017.GameCentre.games.puzzle.presenter.Board;
@@ -8,7 +8,7 @@ import fall2018.csc2017.GameCentre.games.puzzle.presenter.Tile;
 /**
  * Outlines the basic methods an interactive GameBoard must have for a matching tiles game.
  */
-public interface BoardContract {
+public interface CardSetContract {
 
     interface View extends BaseTimerView<Tile> {
 
