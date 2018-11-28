@@ -64,7 +64,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
         super.onCreate(savedInstanceState);
         dimensions = 4;
         createTileButtons(this);
-        cardSetManager = new CardSetManager(4, 4, this.tileButtons);
+        cardSetManager = new CardSetManager(4, 4, this.tileButtons) {
+        };
         setContentView(R.layout.activity_main);
         setUpTimer();
         setUpGrid();

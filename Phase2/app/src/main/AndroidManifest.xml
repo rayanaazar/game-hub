@@ -29,12 +29,7 @@
 
         <activity android:name=".ui.accountCreation.view.RegistrationActivity" />
         <activity android:name=".ui.PasswordActivity" />
-        <activity android:name=".games.view.GameActivity" />
         <activity android:name=".games.puzzle.view.DifficultyActivity" />
-
-        <activity android:name=".MyScores.ScoresActivity" />
-        <activity android:name=".MyScores.MyScoresActivity" />
-        <activity android:name=".leaderboard.LeaderboardActivity" />
     </application>
 
 </manifest>

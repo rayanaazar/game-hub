@@ -119,6 +119,16 @@ public class CardSetManager extends GameBoardManager {
         return !card.isMatched();
     }
 
+    /**
+     * Returns the current score.
+     *
+     * @return the current score.
+     */
+    @Override
+    public int getScore() {
+        return 0;
+    }
+
 
     /**
      * Process a touch at position in the card set, turning it as appropriate.
