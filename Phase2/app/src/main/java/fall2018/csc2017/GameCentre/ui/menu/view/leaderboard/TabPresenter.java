@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.widget.TextView;
 import android.view.View;
 
-import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +27,7 @@ class TabPresenter {
     private final DatabaseReference myRef = database.getReference();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    // Database Path
+    // Database Path Variables
     private final String LEADERBOARDS = "leaderboards";
     private final String ACCOUNTS = "accounts";
     private final String HIGHSCORE = "highScore";

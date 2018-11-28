@@ -23,7 +23,6 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
      */
     private Tile[][] tiles;
 
-
     /**
      * A new board of tiles in row-major order.
      * Precondition: len(tiles) == numRows * numCols
@@ -36,6 +35,31 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
         createTileBoard(tiles, this.tiles);
     }
 
+    Board(String boardStr, int numRows, int numCols) {
+        super(numRows, numCols);
+        this.tiles = stringToBoard(boardStr);
+    }
+
+    /**
+     * Default Constructor
+     */
+    public Board() {}
+
+    private Tile[][] stringToBoard(String boardStr) {
+        Tile[][] tiles = new Tile[numRows][numCols];
+        String[] split = boardStr.split(",");
+        int x = 0;
+        int y = 0;
+        for(String id : split) {
+            tiles[y][x] = new Tile(Integer.parseInt(id), numCols*numRows);
+            if (x == numCols-1) {
+                x = 0;
+                y++;
+            }
+            x++;
+        }
+        return tiles;
+    }
 
     /**
      * fill tiles with tiles.
@@ -85,9 +109,13 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
     @NonNull
     @Override
     public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString(tiles) +
-                '}';
+        StringBuilder str = new StringBuilder();
+        for(Tile[] row : this.tiles) {
+            for(Tile col : row) {
+                str.append(String.valueOf(col.getBackground()));
+            }
+        }
+        return str.toString();
     }
 
     void exchangeTiles(int row1, int col1, int row2, int col2) {

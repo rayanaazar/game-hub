@@ -1,7 +1,5 @@
 package fall2018.csc2017.GameCentre.games;
 
-import java.util.Stack;
-
 public abstract class GameBoardManager {
 
     /**
@@ -16,10 +14,8 @@ public abstract class GameBoardManager {
     protected int numCols;
 
     /**
-     * The stack representing the moves
+     * The GameBoard for the Manager
      */
-    protected Stack<? extends GameBoard> moveStack;
-
     protected GameBoard board;
 
 
@@ -29,9 +25,12 @@ public abstract class GameBoardManager {
     public GameBoardManager(int numRows, int numCols) {
         this.numRows = numRows;
         this.numCols = numCols;
-        this.moveStack = new Stack<>();
     }
 
+    /**
+     * Default constructor
+     */
+    public GameBoardManager() {}
 
     /**
      * Return the number of rows in the board.
@@ -63,16 +62,6 @@ public abstract class GameBoardManager {
      *
      * @return the current score.
      */
-    public int getScore() {
-        return this.moveStack.size();
-    }
-
-    public Stack<? extends GameBoard> getMoveStack() {
-        return moveStack;
-    }
-
-    public void setMoveStack(Stack<? extends GameBoard> moveStack) {
-        this.moveStack = moveStack;
-    }
+    public abstract int getScore();
 
 }
