@@ -146,9 +146,10 @@ public class CardSetManager extends GameBoardManager {
                 CardPresenter selectedCard2 = getCardSetModel().getCard(positions[0], positions[1]);
                 getCardSetModel().swapCards(positions[0], positions[1]);
                 numMoves++;
-                if (selectedCard2.compareTo(firstCard) == 0) {
+                if (selectedCard2.compareTo(firstCard) == 0 && selectedCard2 != firstCard ) {
                     firstCard.setMatched(true);
                     selectedCard2.setMatched(true);
+                    numMoves = 0;
                 } else {
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -156,15 +157,12 @@ public class CardSetManager extends GameBoardManager {
                         public void run() {
                             getCardSetModel().swapCards(firstCardInfo[0], firstCardInfo[1]);
                             getCardSetModel().swapCards(positions[0], positions[1]);
+                            numMoves = 0;
                         }
                     }, 500);
 
                 }
                 firstCard = null;
-                numMoves = 0;
-            }
-            else {
-                numMoves = 0;
             }
         }
     }
