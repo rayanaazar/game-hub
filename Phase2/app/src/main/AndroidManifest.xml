@@ -14,8 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ui.menu.view.MenuActivity" />
-        <activity android:name=".games.matchingGame.MatchingGameActivity">
+        <activity android:name=".ui.menu.view.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +26,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name=".games.matchingGame.MatchingGameActivity"/>
         <activity android:name=".ui.accountCreation.view.RegistrationActivity" />
         <activity android:name=".ui.PasswordActivity" />
         <activity android:name=".games.puzzle.view.DifficultyActivity" />
