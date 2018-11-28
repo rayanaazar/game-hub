@@ -15,7 +15,6 @@ public class BoardManager extends GameBoardManager implements Serializable {
     /**
      * The board being managed.
      */
-
     private Board board;
 
 
@@ -32,7 +31,6 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * blankIdCol; captures the column position of the blank tile
      * blankIdRow: captures the row position of the blank tile.
      */
-
     private int col, row, blankIdCol, blankIdRow;
 
     /**
@@ -42,10 +40,6 @@ public class BoardManager extends GameBoardManager implements Serializable {
         super(numRows, numCols);
         createBoard();
         this.board = new Board(tiles, numRows, numCols);
-
-        // write the number of undos into the firebase database
-//        this.undos = undos;
-
     }
 
     /**
@@ -55,6 +49,14 @@ public class BoardManager extends GameBoardManager implements Serializable {
         return board;
     }
 
+    /**
+     * Set the current board to board.
+     *
+     * @param board the board to set
+     */
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 
     /**
      * Create a Board and shuffle it given the size of the board.
@@ -76,12 +78,21 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * @return whether the current board is solvable
      */
     private boolean isSolvable() {
-        int inversions = getInversions();
+//        ArrayList<Tile> tiles = new ArrayList<>();
+//        int blankRow = 0;
+//        for (Tile tile : board) {
+//            tiles.add(tile);
+//            if (checkBlankTile(tile)) {
+//                blankRow = board.getRow(tile);
+//            }
+//        }
 
-        if (board.getNumCols() % 2 != 0) {
+        int inversions = getInversions(tiles);
+
+        if (numCols % 2 != 0) {
             return inversions % 2 == 0;
         } else {
-            if (blankIdRow % 2 == 0) {
+            if (blankIdRow % 2 == 0) {  // Does blankIdRow work??
                 return inversions % 2 == 0;
             } else {
                 return inversions % 2 != 0;
@@ -94,12 +105,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
      *
      * @return the number of inversions in this board
      */
-    private int getInversions() {
-        ArrayList<Tile> tiles = new ArrayList<>();
-        for (Tile tile : board) {
-            tiles.add(tile);
-        }
-
+    private int getInversions(List<Tile> tiles) {
         int inversions = 0;
         for (int i = 0; i < tiles.size(); i++) {
             for (int j = i + 1; j < tiles.size(); j++) {
@@ -183,14 +189,8 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * @param tileToCheck the tile to check
      * @return whether the tile provided is the blank tile
      */
-
     private boolean checkBlankTile(Tile tileToCheck) {
-        boolean status = false;
-        if (tileToCheck != null && tileToCheck.getId() == getBlankID()) {
-            status = true;
-        }
-        return status;
-
+        return tileToCheck != null && tileToCheck.getId() == getBlankID();
     }
 
     /**
