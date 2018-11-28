@@ -14,12 +14,12 @@ public class CardSetManager extends GameBoardManager {
      * The set of cards  being managed.
      */
 
-    private CardSet cardSet;
+    private CardSetModel cardSetModel;
 
     /**
      * Maximum number of cards on the board.
      */
-    private List<Card> cards = new ArrayList<>();
+    private List<CardPresenter> cards = new ArrayList<>();
 
 
     /**
@@ -27,26 +27,24 @@ public class CardSetManager extends GameBoardManager {
      */
     public CardSetManager(int numRows, int numCols) {
         super(numRows,numCols);
-        createCardSet();
-        Card blankCard = new Card(numCols * numRows, numCols * numRows);
-        this.cardSet = new CardSet(cards, numRows, numCols, blankCard);
+        this.cardSetModel = new CardSetModel(cards, numRows, numCols);
     }
 
     /**
-     * Return the current cardSet.
+     * Return the current cardSetModel.
      */
-    private CardSet getCardSet() {
-        return cardSet;
+    public CardSetModel getCardSetModel() {
+        return cardSetModel;
     }
 
 
     /**
-     * Create a cardSet and shuffle it given the size of the cardSet.
+     * Create a cardSetModel and shuffle it given the size of the cardSetModel.
      */
     private void createCardSet() {
         for (int cardNum = 0; cardNum != (getCardSetSize()); cardNum++) {
-            cards.add(new Card(cardNum, getCardSetSize()));
-            cards.add(new Card(cardNum, getCardSetSize()));
+            cards.add(new CardPresenter(cardNum, 4);
+            cards.add(new CardPresenter(cardNum, 4);
         }
         Collections.shuffle(cards);
     }
@@ -60,9 +58,9 @@ public class CardSetManager extends GameBoardManager {
      */
     public boolean puzzleSolved() {
         boolean solved = true;
-        Iterator<Card> iter = cardSet.iterator();
+        Iterator<CardPresenter> iter = cardSetModel.iterator();
         while (iter.hasNext()){
-            Card curr = iter.next();
+            CardPresenter curr = iter.next();
             if (curr.getId() == getCardSetSize() + 1){
                 solved = false;
             }
@@ -78,7 +76,7 @@ public class CardSetManager extends GameBoardManager {
      * @return size of card set.
      */
     private int getCardSetSize(){
-        return getCardSet().numPieces();
+        return getCardSetModel().numPieces();
     }
 
     /**
@@ -89,7 +87,7 @@ public class CardSetManager extends GameBoardManager {
      */
     public boolean isValidTap(int position) {
         int[] positions = getCardSetPositions(position);
-        Card card = getCardSet().getCard(positions[0], positions[1]);
+        CardPresenter card = getCardSetModel().getCard(positions[0], positions[1]);
         return card.getId() == (getCardSetSize() + 1);
     }
 
@@ -103,7 +101,7 @@ public class CardSetManager extends GameBoardManager {
     public void touchMove(int position) {
         int[] positions = getCardSetPositions(position);
         if (isValidTap(position)) {
-            getCardSet().swapCards(positions[0],positions[1]);
+            getCardSetModel().swapCards(positions[0],positions[1]);
         }
     }
 

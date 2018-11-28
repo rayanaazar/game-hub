@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre.games.matchingGame;
 
 
+import android.databinding.Observable;
 import android.support.annotation.NonNull;
 
 import java.util.Arrays;
@@ -8,28 +9,25 @@ import java.util.Iterator;
 import java.util.List;
 
 import fall2018.csc2017.GameCentre.games.GameBoard;
+import fall2018.csc2017.GameCentre.games.GamePiece;
 
 
 /**
  * The set of cards to be matched.
  */
-public class CardSet extends GameBoard {
+public class CardSetModel extends GameBoard {
 
 
     /**
      * The cards on the card set in row-major order.
      */
-    private Card[][] cards;
+    private CardPresenter[][] cards;
 
-    /**
-     * The back of all cards in a set of cards
-     */
-    private Card backCard;
 
     /**
      * the order of all the cards in the set
      */
-    private Card[][] setOrder;
+    private CardPresenter[][] setOrder;
 
 
     /**
@@ -38,23 +36,22 @@ public class CardSet extends GameBoard {
      *
      * @param cards the cards for the card set.
      */
-    CardSet(List<Card> cards, int numRows, int numCols,Card backCard) {
-        super(numRows,numCols);
-        this.cards = new Card[numRows][numCols];
-        this.backCard = backCard;
-        this.setOrder = new Card[numRows][numCols];
-        createSet(cards,this.cards);
+    CardSetModel(List<CardPresenter> cards, int numRows, int numCols) {
+        super(numRows, numCols);
+        this.cards = new CardPresenter[numRows][numCols];
+        this.setOrder = new CardPresenter[numRows][numCols];
+        createSet(cards, this.cards);
         createSet(cards, this.setOrder);
     }
 
     /**
      * fill cards with cards.
      *
-     * @param c  - cards
+     * @param c - cards
      */
-    private void createSet(List<Card> c, Card[][] setToFill){
+    private void createSet(List<CardPresenter> c, CardPresenter[][] setToFill) {
 
-        Iterator<Card> iterator = c.iterator();
+        Iterator<CardPresenter> iterator = c.iterator();
         for (int row = 0; row != this.getNumRows(); row++) {
             for (int col = 0; col != this.getNumCols(); col++) {
                 setToFill[row][col] = iterator.next();
@@ -71,24 +68,23 @@ public class CardSet extends GameBoard {
      * @param col the card column
      * @return the card at (row, col)
      */
-    public Card getCard(int row, int col) {
+    public CardPresenter getCard(int row, int col) {
         return cards[row][col];
     }
 
     /**
      * Swap the card with the back card.
+     *
      * @param row the card row
      * @param col the card col
      */
     void swapCards(int row, int col) {
-        Card cardToSwap = cards[row][col];
-        if (cardToSwap.getId() == numCols*numRows + 1){
+        CardPresenter cardToSwap = cards[row][col];
+        if (cardToSwap.getId() == numCols * numRows + 1) {
             cards[row][col] = setOrder[row][col];
+            setChanged();
+            notifyObservers();
         }
-        else {
-            cards[row][row] = backCard;
-        }
-
     }
 
     @Override
@@ -100,11 +96,11 @@ public class CardSet extends GameBoard {
     }
 
 
-    public Iterator<Card> iterator() {
+    public Iterator<CardPresenter> iterator() {
         return new CardIterator();
     }
 
-    private class CardIterator implements Iterator<Card> {
+    private class CardIterator implements Iterator<CardPresenter> {
         /**
          * Initial starting row of the 2D Card Array
          */
@@ -120,7 +116,7 @@ public class CardSet extends GameBoard {
         /**
          * Current Card object for Iterator.
          */
-        private Card currT;
+        private CardPresenter currT;
 
         @Override
         public boolean hasNext() {
@@ -129,7 +125,7 @@ public class CardSet extends GameBoard {
 
 
         @Override
-        public Card next() {
+        public CardPresenter next() {
             if (!hasNext()) {
                 return null;
             }
@@ -153,7 +149,7 @@ public class CardSet extends GameBoard {
          */
 
         private boolean gettingCurrentAndNextCards() {
-            Card currGetTile = getCard(row, col);
+            CardPresenter currGetTile = getCard(row, col);
             if (currGetTile != null) {
                 currT = currGetTile;
                 col++;

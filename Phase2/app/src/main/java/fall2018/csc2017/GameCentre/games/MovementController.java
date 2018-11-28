@@ -10,12 +10,12 @@ import fall2018.csc2017.GameCentre.games.puzzle.presenter.BoardManager;
  */
 public class MovementController {
 
-    private BoardManager boardManager = null;
+    private GameBoardManager boardManager = null;
 
     public MovementController() {
     }
 
-    public void setBoardManager(BoardManager boardManager) {
+    public void setBoardManager(GameBoardManager boardManager) {
         this.boardManager = boardManager;
     }
 

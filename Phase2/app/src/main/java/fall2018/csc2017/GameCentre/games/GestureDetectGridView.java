@@ -55,7 +55,7 @@ public class GestureDetectGridView extends GridView {
     /**
      * The board manager
      */
-    private BoardManager boardManager;
+    private GameBoardManager boardManager;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -132,7 +132,7 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
+    public void setBoardManager(GameBoardManager boardManager) {
         this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }

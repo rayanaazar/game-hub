@@ -1,0 +1,174 @@
+package fall2018.csc2017.GameCentre.games.matchingGame;
+
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.games.CustomAdapter;
+import fall2018.csc2017.GameCentre.games.GestureDetectGridView;
+import fall2018.csc2017.GameCentre.games.timer.model.TimerModel;
+import fall2018.csc2017.GameCentre.games.timer.presenter.TimerPresenter;
+import fall2018.csc2017.GameCentre.games.timer.view.TimerView;
+
+public class MatchingGameActivity extends AppCompatActivity implements Observer {
+
+    /**
+     * The board manager.
+     */
+    private CardSetManager cardSetManager;
+
+    /**
+     * The buttons to display.
+     */
+    private ArrayList<Button> tileButtons;
+
+    /**
+     * The gesture detector
+     */
+    private GestureDetectGridView gridView;
+
+    /**
+     * column width and height based on device size
+     */
+    private static int columnWidth, columnHeight;
+
+    private Timer timer;
+
+    TimerPresenter tp;
+
+
+    public void display() {
+        updateTileButtons();
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cardSetManager = new CardSetManager(4, 4);
+        createTileButtons(this);
+        setContentView(R.layout.activity_main);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        TimerView timerView = (TimerView) fragmentManager.findFragmentById(R.id.timerFrag);
+        if (timerView == null) {
+            timerView = TimerView.newInstance();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.timerFrag, timerView);
+            fragmentTransaction.commit();
+        }
+
+        // Setup Presenter
+        timer = new Timer();
+        tp = new TimerPresenter(timerView, ViewModelProviders.of(this).get(TimerModel.class));
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tp.updateView();
+                    }
+                });
+            }
+        }, 0, 1000);
+
+
+        // Add View to activity_tiles_scores
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(cardSetManager.getNumCols());
+        gridView.setBoardManager(cardSetManager);
+        cardSetManager.getCardSetModel().addObserver(this);
+        // Observer sets up desired dimensions as well as calls our display function
+
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
+                                this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+
+                        columnWidth = displayWidth / cardSetManager.getNumCols();
+                        columnHeight = displayHeight / cardSetManager.getNumRows();
+
+                        display();
+                    }
+                });
+    }
+
+    /**
+     * Create the buttons for displaying the tiles.
+     *
+     * @param context the context
+     */
+    private void createTileButtons(Context context) {
+        tileButtons = new ArrayList<>();
+        for (int row = 0; row != cardSetManager.getNumRows(); row++) {
+            for (int col = 0; col != cardSetManager.getNumCols(); col++) {
+                CardView tmp = new CardView(context);
+                this.tileButtons.add(tmp);
+            }
+        }
+    }
+
+    /**
+     * Update the backgrounds on the buttons to match the tiles.
+     */
+    private void updateTileButtons() {
+        CardSetModel board = cardSetManager.getCardSetModel();
+        int nextPos = 0;
+        for (Button b : tileButtons) {
+            int row = nextPos / cardSetManager.getNumRows();
+            int col = nextPos % cardSetManager.getNumCols();
+            b.setBackgroundResource(board.getCard(row, col).getBackground());
+            nextPos++;
+        }
+    }
+
+
+    /**
+     * Dispatch onPause() to fragments.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tp.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tp.updateView();
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        display();
+    }
+}
