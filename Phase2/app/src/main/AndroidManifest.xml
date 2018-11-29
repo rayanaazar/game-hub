@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".games.matchingGame.view.MatchingGameActivity">
+        <activity android:name=".ui.login.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +25,13 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
+        <activity android:name=".games.matchingGame.view.MatchingGameActivity"/>
         <activity android:name=".games.view.GameActivity"/>
+        <activity android:name=".ui.menu.view.MenuActivity"/>
         <activity android:name=".ui.accountCreation.view.RegistrationActivity" />
         <activity android:name=".ui.PasswordActivity" />
         <activity android:name=".games.puzzle.view.DifficultyActivity" />
-        <activity android:name=".games.view.GameActivity" />
+        <activity android:name=".games.ttt.view.TTTGameActivity" />
     </application>
 
 </manifest>
