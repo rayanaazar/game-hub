@@ -24,7 +24,7 @@ public class CustomAdapter extends BaseAdapter {
     /**
      * The list of buttons
      */
-    private ArrayList<? extends Button> mButtons = null;
+    private ArrayList<? extends Button> mButtons;
 
     /**
      * The column width and height based on the current device

@@ -25,11 +25,7 @@ public class CardSetManager extends GameBoardManager {
      */
     private List<CardPresenter> cards = new ArrayList<>();
 
-//    /**
-//     * Indicates whether user is about to select the first card.
-//     */
-//    private boolean firstSelection;
-//
+
     /**
      * The selected card
      */
@@ -46,9 +42,12 @@ public class CardSetManager extends GameBoardManager {
 
     /**
      * TODO: make this work
+     *
      * @return
      */
-    public int getScore() { return 3; }
+    public int getScore() {
+        return 3;
+    }
 
     /**
      * Manage a new shuffled card set of a given size and number of undos.
@@ -146,7 +145,7 @@ public class CardSetManager extends GameBoardManager {
                 CardPresenter selectedCard2 = getCardSetModel().getCard(positions[0], positions[1]);
                 getCardSetModel().swapCards(positions[0], positions[1]);
                 numMoves++;
-                if (selectedCard2.compareTo(firstCard) == 0 && selectedCard2 != firstCard ) {
+                if (selectedCard2.compareTo(firstCard) == 0 && selectedCard2 != firstCard) {
                     firstCard.setMatched(true);
                     selectedCard2.setMatched(true);
                     numMoves = 0;

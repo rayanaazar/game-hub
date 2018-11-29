@@ -7,15 +7,13 @@ https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/
 This extension of GridView contains built in logic for handling swipes between buttons
  */
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
+
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
-import fall2018.csc2017.GameCentre.games.puzzle.presenter.BoardManager;
 
 /**
  * The gesture detect grid view class
@@ -52,11 +50,6 @@ public class GestureDetectGridView extends GridView {
      */
     private float mTouchY;
 
-    /**
-     * The board manager
-     */
-    private GameBoardManager boardManager;
-
     public GestureDetectGridView(Context context) {
         super(context);
         init(context);
@@ -72,13 +65,6 @@ public class GestureDetectGridView extends GridView {
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-                                 int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
-
     private void init(final Context context) {
         mController = new MovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -88,7 +74,7 @@ public class GestureDetectGridView extends GridView {
                 int position = GestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position, true);
+                mController.processTapMovement(context, position);
                 return true;
             }
 
@@ -133,7 +119,6 @@ public class GestureDetectGridView extends GridView {
     }
 
     public void setBoardManager(GameBoardManager boardManager) {
-        this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }
 }

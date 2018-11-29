@@ -4,13 +4,10 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -55,6 +52,10 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
 
 
     public void display() {
+        if (this.cardSetManager.puzzleSolved()) {
+            timer.cancel();
+            tp.stop();
+        }
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
@@ -66,8 +67,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
         createTileButtons(this);
         cardSetManager = new CardSetManager(4, 4, this.tileButtons) {
         };
-        setContentView(R.layout.activity_main);
-        setUpTimer();
+        setContentView(R.layout.activity_matching_game);
         setUpGrid();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -77,7 +77,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
                     cv.flip();
                 }
             }
-        }, 2000);
+        }, 3000);
+        setUpTimer();
     }
 
     private void setUpGrid() {
@@ -155,7 +156,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
         for (CardView b : tileButtons) {
             int row = nextPos / cardSetManager.getNumRows();
             int col = nextPos % cardSetManager.getNumCols();
-
             if ((b.cardPresenter.isFlipped())) {
                 b.setBackgroundResource(board.getCard(row, col).getBackground());
             }

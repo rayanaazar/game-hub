@@ -56,11 +56,6 @@ public class TimerView extends Fragment implements TimerContract.View {
         View rootView = inflater.inflate(R.layout.sample_timer_activity,
                 container, false); // Inflate layout in new container
         unbinder = ButterKnife.bind(this, rootView);
-        if (timerPresenter == null) {
-            timerPresenter = new TimerPresenter(this,
-                    ViewModelProviders.of(this).get(TimerModel.class));
-        }
-        timerPresenter.start();
         return rootView;
     }
 
@@ -74,6 +69,10 @@ public class TimerView extends Fragment implements TimerContract.View {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    void start() {
+        timerPresenter.start();
     }
 
 

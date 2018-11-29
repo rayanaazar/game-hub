@@ -3,12 +3,11 @@ package fall2018.csc2017.GameCentre.games;
 import android.content.Context;
 import android.widget.Toast;
 
-import fall2018.csc2017.GameCentre.games.puzzle.presenter.BoardManager;
 
 /**
  * The movement controller class
  */
-public class MovementController {
+class MovementController {
 
     private GameBoardManager boardManager = null;
 
@@ -19,7 +18,7 @@ public class MovementController {
         this.boardManager = boardManager;
     }
 
-    public void processTapMovement(Context context, int position, boolean display) {
+    public void processTapMovement(Context context, int position) {
         if (boardManager.isValidTap(position)) {
             boardManager.touchMove(position);
             if (boardManager.puzzleSolved()) {

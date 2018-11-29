@@ -25,12 +25,6 @@ public class CardSetModel extends GameBoard {
 
 
     /**
-     * the order of all the cards in the set
-     */
-    private CardPresenter[][] setOrder;
-
-
-    /**
      * A new card set  of cards in row-major order.
      * Precondition: len(cards) == numRows * numCols
      *
@@ -39,9 +33,7 @@ public class CardSetModel extends GameBoard {
     CardSetModel(List<CardPresenter> cards, int numRows, int numCols) {
         super(numRows, numCols);
         this.cards = new CardPresenter[numRows][numCols];
-        this.setOrder = new CardPresenter[numRows][numCols];
         createSet(cards, this.cards);
-        createSet(cards, this.setOrder);
     }
 
     /**
@@ -81,6 +73,8 @@ public class CardSetModel extends GameBoard {
     void swapCards(int row, int col) {
         CardPresenter cardToSwap = getCard(row, col);
         cardToSwap.flip();
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -110,7 +104,7 @@ public class CardSetModel extends GameBoard {
         private int col = 0;
 
         /**
-         * Current Card object for Iterator.
+         * Current CardPresenter object for Iterator.
          */
         private CardPresenter currT;
 
