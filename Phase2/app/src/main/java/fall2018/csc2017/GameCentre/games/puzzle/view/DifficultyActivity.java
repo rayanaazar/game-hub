@@ -96,8 +96,8 @@ public class DifficultyActivity extends AppCompatActivity {
      * Begin the GameActivity to play the game.
      */
     public void beginGame(View v) {
-        startActivity(new Intent(this, GameActivity.class).putExtra("BOARD", boardManager));
-        finish();
+        Intent game = new Intent(this, GameActivity.class).putExtra("BOARD", boardManager);
+        startActivity(game);
     }
 }
 

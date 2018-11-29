@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".games.matchingGame.view.MatchingGameActivity">
+        <activity android:name=".ui.menu.view.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

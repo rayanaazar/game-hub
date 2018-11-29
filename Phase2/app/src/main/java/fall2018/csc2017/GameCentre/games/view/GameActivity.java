@@ -81,7 +81,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Get the board manager made in Difficulty activity
-        boardManager = (BoardManager) getIntent().getSerializableExtra("BOARD");
+        boardManager = (BoardManager) (getIntent().getSerializableExtra("BOARD"));
+        System.out.println(boardManager.getNumCols());
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
@@ -108,7 +109,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 });
             }
         }, 0, 1000);
-
 
         // Add View to activity_tiles_scores
         gridView = findViewById(R.id.grid);

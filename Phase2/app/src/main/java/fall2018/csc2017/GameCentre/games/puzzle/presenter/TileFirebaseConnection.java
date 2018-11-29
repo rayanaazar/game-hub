@@ -11,7 +11,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TileFirebaseConnection implements Serializable {
@@ -24,11 +23,6 @@ public class TileFirebaseConnection implements Serializable {
     private final String DIMENSIONS = "dimensions";
     private final String UNDOS = "undos";
 
-    // Firebase Variables
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private final DatabaseReference myRef = database.getReference();
-    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
     TileFirebaseConnection() {}
 
     /**
@@ -36,6 +30,9 @@ public class TileFirebaseConnection implements Serializable {
      * @param manager the BoardManager to be saved
      */
     public void save(BoardManager manager) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
         // Push all the user data to the database
         // TODO: Add time
@@ -51,6 +48,9 @@ public class TileFirebaseConnection implements Serializable {
      */
     public TileState load() {
         final TileState state = new TileState();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         myRef.child(ACCOUNTS).child(user.getUid()).child(GAME).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -76,6 +76,9 @@ public class TileFirebaseConnection implements Serializable {
      */
     public TileState loadPrevMoves() {
         final TileState state = new TileState();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         myRef.child(ACCOUNTS).child(user.getUid()).child(GAME).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -101,6 +104,11 @@ public class TileFirebaseConnection implements Serializable {
      */
     public int getScore() {
         // TODO: incorporate time into the score
+        List<String> moves = load().getMoves();
+        // If we havent made any moves yet, score is 0
+        if(moves == null) {
+            return 0;
+        }
         return load().getMoves().size() - 1;
     }
 }

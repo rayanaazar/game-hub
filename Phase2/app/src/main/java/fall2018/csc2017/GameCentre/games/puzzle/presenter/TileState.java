@@ -1,8 +1,9 @@
 package fall2018.csc2017.GameCentre.games.puzzle.presenter;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TileState {
+public class TileState implements Serializable {
 
     private List<String> moves;
     private int undos;
