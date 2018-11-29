@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import fall2018.csc2017.GameCentre.games.matchingGame.MatchingGameActivity;
+import fall2018.csc2017.GameCentre.games.matchingGame.view.MatchingGameActivity;
 import fall2018.csc2017.GameCentre.games.puzzle.view.DifficultyActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.ui.menu.MenuContract;
