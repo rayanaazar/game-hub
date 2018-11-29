@@ -25,7 +25,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
     /**
      * The connection to firebase to allow for saving and loading
      */
-    private TileFirebaseConnection firebaseConnection;
+    private final TileFirebaseConnection firebaseConnection = new TileFirebaseConnection();
 
     /**
      * Managing board positions
@@ -39,7 +39,8 @@ public class BoardManager extends GameBoardManager implements Serializable {
     /**
      * Default constructor
      */
-    public BoardManager() {this.firebaseConnection = new TileFirebaseConnection();}
+    public BoardManager() {
+    }
 
     /**
      * Manage a new shuffled board of a given size and number of undos.
@@ -49,7 +50,6 @@ public class BoardManager extends GameBoardManager implements Serializable {
         createBoard();
         this.board = new Board(tiles, numRows, numCols);
         this.undos = undos;
-        this.firebaseConnection = new TileFirebaseConnection();
     }
 
     /**
@@ -174,7 +174,11 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * Saves the current board data to the database
      */
     public void save() {
-        firebaseConnection.save(this);
+        if(getScore() > 0) {
+            firebaseConnection.saveRegular(this);
+        } else {
+            firebaseConnection.saveInit(this);
+        }
     }
 
     /**

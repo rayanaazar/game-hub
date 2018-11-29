@@ -10,11 +10,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-public class TileFirebaseConnection implements Serializable {
+public class TileFirebaseConnection {
 
     // Database Path Variables
     private final String GAME = "slidingTiles";
@@ -28,8 +26,7 @@ public class TileFirebaseConnection implements Serializable {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference myRef = database.getReference();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-    TileFirebaseConnection() {}
+    private final DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
 
     /**
      * Saves the board manager to the current user's current game data on the database
@@ -42,7 +39,27 @@ public class TileFirebaseConnection implements Serializable {
         userRef.child(TIME).setValue("123:456:789");
         userRef.child(DIMENSIONS).setValue(Integer.toString(manager.getNumRows()) + "x" + Integer.toString(manager.getNumCols()));
         userRef.child(UNDOS).setValue(manager.getUndos());
-        userRef.child(MOVES).push().setValue(manager.toString());
+    }
+
+    /**
+     * Saves the board manager to the current user's current game data on the database
+     * @param manager the BoardManager to be saved
+     */
+    public void saveRegular(BoardManager manager) {
+        save(manager);
+        userRef.child(MOVES).push().setValue(manager.getBoard().toString());
+    }
+
+    /**
+     * Saves the board manager to the current user's current game data on the database.
+     * This only happens on the initial save, overwriting previous moveStrings
+     * @param manager the BoardManager to be saved
+     */
+    public void saveInit(BoardManager manager) {
+        save(manager);
+        // Remove any old values
+        userRef.child(MOVES).removeValue();
+        userRef.child(MOVES).push().setValue(manager.getBoard().toString());
     }
 
     /**
@@ -51,7 +68,7 @@ public class TileFirebaseConnection implements Serializable {
      */
     public TileState load() {
         final TileState state = new TileState();
-        myRef.child(ACCOUNTS).child(user.getUid()).child(GAME).addValueEventListener(new ValueEventListener() {
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TileState currState = dataSnapshot.getValue(TileState.class);
@@ -76,7 +93,7 @@ public class TileFirebaseConnection implements Serializable {
      */
     public TileState loadPrevMoves() {
         final TileState state = new TileState();
-        myRef.child(ACCOUNTS).child(user.getUid()).child(GAME).addValueEventListener(new ValueEventListener() {
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TileState currState = dataSnapshot.getValue(TileState.class);
@@ -101,6 +118,11 @@ public class TileFirebaseConnection implements Serializable {
      */
     public int getScore() {
         // TODO: incorporate time into the score
+        List<String> moves = load().getMoves();
+        // If we havent made any moves yet, score is 0
+        if(moves == null) {
+            return 0;
+        }
         return load().getMoves().size() - 1;
     }
 }

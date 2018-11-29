@@ -41,6 +41,7 @@ public class Tile extends GamePiece implements Serializable {
         for (int i = 0; i < boardSize - 1; i++) {
             backgroundIDLookup.append(i + 1, drawables[i]);
         }
+        backgroundIDLookup.append(boardSize, drawables[24]);
         return backgroundIDLookup;
     }
 }
