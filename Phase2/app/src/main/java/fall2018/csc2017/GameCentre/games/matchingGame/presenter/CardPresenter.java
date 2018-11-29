@@ -84,7 +84,7 @@ public class CardPresenter extends GamePiece {
                 R.drawable.card_3, R.drawable.card_4, R.drawable.card_5, R.drawable.card_6,
                 R.drawable.card_7, R.drawable.card_8, R.drawable.card_9,
                 R.drawable.card_10, R.drawable.card_11, R.drawable.card_12, R.drawable.card_13,
-                R.drawable.card_14, R.drawable.card_15, R.drawable.card_16};
+                R.drawable.card_14, R.drawable.card_15};
 
         for (int i = 0; i < drawables.length; i++) {
             backgroundIDLookup.append(i + 1, drawables[i]);
