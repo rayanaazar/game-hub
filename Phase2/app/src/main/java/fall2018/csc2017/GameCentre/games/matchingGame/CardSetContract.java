@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre.games.matchingGame.contract;
+package fall2018.csc2017.GameCentre.games.matchingGame;
 
 
 import fall2018.csc2017.GameCentre.games.puzzle.presenter.Board;
