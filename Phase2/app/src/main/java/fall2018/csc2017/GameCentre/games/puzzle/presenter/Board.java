@@ -112,7 +112,8 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
         StringBuilder str = new StringBuilder();
         for(Tile[] row : this.tiles) {
             for(Tile col : row) {
-                str.append(String.valueOf(col.getBackground()));
+                str.append(String.valueOf(col.getId()));
+                str.append(',');
             }
         }
         return str.toString();

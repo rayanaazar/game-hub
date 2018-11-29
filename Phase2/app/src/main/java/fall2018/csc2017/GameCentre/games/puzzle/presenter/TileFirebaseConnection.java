@@ -26,22 +26,40 @@ public class TileFirebaseConnection {
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference myRef = database.getReference();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private final DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
 
     /**
      * Saves the board manager to the current user's current game data on the database
      * @param manager the BoardManager to be saved
      */
     public void save(BoardManager manager) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
         // Push all the user data to the database
         // TODO: Add time
         userRef.child(TIME).setValue("123:456:789");
         userRef.child(DIMENSIONS).setValue(Integer.toString(manager.getNumRows()) + "x" + Integer.toString(manager.getNumCols()));
         userRef.child(UNDOS).setValue(manager.getUndos());
-        userRef.child(MOVES).push().setValue(manager.toString());
+    }
+
+    /**
+     * Saves the board manager to the current user's current game data on the database
+     * @param manager the BoardManager to be saved
+     */
+    public void saveRegular(BoardManager manager) {
+        save(manager);
+        userRef.child(MOVES).push().setValue(manager.getBoard().toString());
+    }
+
+    /**
+     * Saves the board manager to the current user's current game data on the database.
+     * This only happens on the initial save, overwriting previous moveStrings
+     * @param manager the BoardManager to be saved
+     */
+    public void saveInit(BoardManager manager) {
+        save(manager);
+        // Remove any old values
+        userRef.child(MOVES).removeValue();
+        userRef.child(MOVES).push().setValue(manager.getBoard().toString());
     }
 
     /**
@@ -50,10 +68,7 @@ public class TileFirebaseConnection {
      */
     public TileState load() {
         final TileState state = new TileState();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        myRef.child(ACCOUNTS).child(user.getUid()).child(GAME).addValueEventListener(new ValueEventListener() {
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TileState currState = dataSnapshot.getValue(TileState.class);
@@ -78,7 +93,7 @@ public class TileFirebaseConnection {
      */
     public TileState loadPrevMoves() {
         final TileState state = new TileState();
-        myRef.child(ACCOUNTS).child(user.getUid()).child(GAME).addValueEventListener(new ValueEventListener() {
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TileState currState = dataSnapshot.getValue(TileState.class);

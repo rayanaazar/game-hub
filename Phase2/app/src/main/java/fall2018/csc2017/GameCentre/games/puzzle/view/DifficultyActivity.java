@@ -42,7 +42,6 @@ public class DifficultyActivity extends AppCompatActivity {
         extreme = findViewById(R.id.thirtySixTiles);
     }
 
-
     /**
      * Click listener for the 9 tile difficulty with 5 undo's.
      */

@@ -174,7 +174,11 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * Saves the current board data to the database
      */
     public void save() {
-        firebaseConnection.save(this);
+        if(getScore() > 0) {
+            firebaseConnection.saveRegular(this);
+        } else {
+            firebaseConnection.saveInit(this);
+        }
     }
 
     /**
