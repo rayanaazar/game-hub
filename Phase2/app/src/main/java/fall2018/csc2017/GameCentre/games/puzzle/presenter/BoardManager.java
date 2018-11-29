@@ -39,7 +39,8 @@ public class BoardManager extends GameBoardManager implements Serializable {
     /**
      * Default constructor
      */
-    public BoardManager() {}
+    public BoardManager() {
+    }
 
     /**
      * Manage a new shuffled board of a given size and number of undos.

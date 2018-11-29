@@ -10,10 +10,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class TileFirebaseConnection implements Serializable {
+public class TileFirebaseConnection {
 
     // Database Path Variables
     private final String GAME = "slidingTiles";
@@ -23,7 +22,10 @@ public class TileFirebaseConnection implements Serializable {
     private final String DIMENSIONS = "dimensions";
     private final String UNDOS = "undos";
 
-    TileFirebaseConnection() {}
+    // Firebase Variables
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final DatabaseReference myRef = database.getReference();
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     /**
      * Saves the board manager to the current user's current game data on the database
@@ -76,9 +78,6 @@ public class TileFirebaseConnection implements Serializable {
      */
     public TileState loadPrevMoves() {
         final TileState state = new TileState();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         myRef.child(ACCOUNTS).child(user.getUid()).child(GAME).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

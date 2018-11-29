@@ -19,7 +19,7 @@ public class DifficultyActivity extends AppCompatActivity {
 
     private LinearLayout easy, okay, difficult, extreme;
 
-    private BoardManager boardManager;
+    private int undos, numRows, numCols;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,9 @@ public class DifficultyActivity extends AppCompatActivity {
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(3, 3, 5);
+                undos = 5;
+                numRows = 3;
+                numCols = 3;
                 beginGame(v);
             }
         });
@@ -63,7 +65,9 @@ public class DifficultyActivity extends AppCompatActivity {
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(4, 4, 3);
+                undos = 3;
+                numRows = 4;
+                numCols = 4;
                 beginGame(v);
             }
         });
@@ -76,7 +80,9 @@ public class DifficultyActivity extends AppCompatActivity {
         difficult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(5, 5, 1);
+                undos = 1;
+                numRows = 5;
+                numCols = 5;
                 beginGame(v);
             }
         });
@@ -86,7 +92,9 @@ public class DifficultyActivity extends AppCompatActivity {
         extreme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(5, 5, 0);
+                undos = 0;
+                numRows = 5;
+                numCols = 5;
                 beginGame(v);
             }
         });
@@ -96,8 +104,12 @@ public class DifficultyActivity extends AppCompatActivity {
      * Begin the GameActivity to play the game.
      */
     public void beginGame(View v) {
-        Intent game = new Intent(this, GameActivity.class).putExtra("BOARD", boardManager);
+        Intent game = new Intent(this, GameActivity.class);
+        game.putExtra("undos", undos);
+        game.putExtra("cols", numRows);
+        game.putExtra("rows", numCols);
         startActivity(game);
+        finish();
     }
 }
 
