@@ -15,7 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.Objects;
 
@@ -28,12 +31,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     ProfilePresenter profilePresenter;
     ListView listView;
+    TextView userID;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
         profilePresenter = new ProfilePresenter(this);
+        userID = view.findViewById(R.id.usrname);
+        userID.setText(profilePresenter.getId());
         return view;
     }
 
