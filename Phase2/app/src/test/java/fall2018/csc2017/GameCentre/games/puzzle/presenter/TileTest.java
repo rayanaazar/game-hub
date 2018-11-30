@@ -12,7 +12,7 @@ public class TileTest {
     @Test
     public void firstConstructor() {
 
-        //getBackground() not working??
+        //getBackground() not working?
 
         Tile t1 = new Tile(1, 16);
         assertNotNull(t1);

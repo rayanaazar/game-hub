@@ -93,7 +93,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
      *
      * @return whether the current board is solvable
      */
-    private boolean isSolvable() {
+    boolean isSolvable() {
 //        ArrayList<Tile> tiles = new ArrayList<>();
 //        int blankRow = 0;
 //        for (Tile tile : board) {
