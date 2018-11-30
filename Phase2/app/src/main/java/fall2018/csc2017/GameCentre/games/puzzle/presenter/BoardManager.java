@@ -29,22 +29,20 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * blankIdCol; captures the column position of the blank tile
      * blankIdRow: captures the row position of the blank tile.
      * undos: number of undos left for the board     */
-    private int col, row, blankIdCol, blankIdRow, undos;
+    private int col, row, blankIdCol, blankIdRow, undos, numMoves;
 
-    /**
-     * Default constructor
-     */
-    public BoardManager() {
-    }
+    private TileFirebaseConnection connection;
 
     /**
      * Manage a new shuffled board of a given size and number of undos.
      */
-    public BoardManager(int numRows, int numCols, int undos) {
+    public BoardManager(int numRows, int numCols, int undos, int numMoves) {
         super(numRows, numCols);
         createBoard();
         this.board = new Board(tiles, numRows, numCols);
         this.undos = undos;
+        this.numMoves = numMoves;
+        connection = new TileFirebaseConnection(this);
     }
 
     /**
@@ -69,10 +67,14 @@ public class BoardManager extends GameBoardManager implements Serializable {
         this.board = board;
     }
 
+    public void setUndos(int undos) {
+        this.undos = undos;
+    }
+
     /**
      * Create a Board and shuffle it given the size of the board.
      */
-    private void createBoard() {
+    void createBoard() {
         for (int tileNum = 0; tileNum != (numCols * numRows); tileNum++) {
             tiles.add(new Tile(tileNum, numCols * numRows));
         }
@@ -89,21 +91,12 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * @return whether the current board is solvable
      */
     boolean isSolvable() {
-//        ArrayList<Tile> tiles = new ArrayList<>();
-//        int blankRow = 0;
-//        for (Tile tile : board) {
-//            tiles.add(tile);
-//            if (checkBlankTile(tile)) {
-//                blankRow = board.getRow(tile);
-//            }
-//        }
-
         int inversions = getInversions(tiles);
 
         if (numCols % 2 != 0) {
             return inversions % 2 == 0;
         } else {
-            if (blankIdRow % 2 == 0) {  // Does blankIdRow work??
+            if (blankIdRow % 2 == 0) {
                 return inversions % 2 == 0;
             } else {
                 return inversions % 2 != 0;
@@ -132,24 +125,14 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * Gets the current score for the game
      * @return the score
      */
-    public int getScore() { return TileFirebaseConnection.getScore(); }
+    public int getScore() { return this.numMoves; }
 
     /**
      * Loads the current board to the database
      */
     public void load() {
         // Load most recent data
-        TileFirebaseConnection.load();
-        TileState state = TileFirebaseConnection.loadState;
-        String[] split = state.getDimensions().split("x");
-
-        // Enforce the data obtained
-        this.numRows = Integer.parseInt(split[0]);
-        this.numCols = Integer.parseInt(split[1]);
-        createBoard();
-        this.board = new Board(state.getLatestMoveStr(), Integer.parseInt(split[0]), Integer.parseInt(split[1]));
-        this.undos = state.getUndos();
-        // TODO Add timer
+        connection.load();
     }
 
     /**
@@ -157,17 +140,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
      */
     public void undo() {
         // TODO: Add error handling, ie: this is the first state, and no more undos
-        // Get the most recent data
-        TileFirebaseConnection.load();
-        TileState currState = TileFirebaseConnection.loadState;
-        this.undos = currState.getUndos() - 1;
-
-        // Get the move string from before the current one
-        String moveStr = TileFirebaseConnection.loadPrevMoves().getLatestMoveStr();
-
-        // Enforce data obtained
-        String[] split = currState.getDimensions().split("x");
-        this.board = new Board(moveStr, Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+        connection.loadUndo();
     }
 
     /**
@@ -175,9 +148,9 @@ public class BoardManager extends GameBoardManager implements Serializable {
      */
     public void save() {
         if(getScore() > 0) {
-            TileFirebaseConnection.saveRegular(this);
+            connection.saveRegular();
         } else {
-            TileFirebaseConnection.saveInit(this);
+            connection.saveInit();
         }
     }
 
@@ -238,6 +211,14 @@ public class BoardManager extends GameBoardManager implements Serializable {
         return true;
     }
 
+    public void setNumMoves(int numMoves) {
+        this.numMoves = numMoves;
+    }
+
+    public int getNumMoves() {
+        return numMoves;
+    }
+
     /**
      * Returns whether or not the current tile is the blank tile
      *
@@ -257,6 +238,7 @@ public class BoardManager extends GameBoardManager implements Serializable {
         getBoardPositions(position);
         if (isValidTap(position)) {
             board.exchangeTiles(row, col, blankIdRow, blankIdCol);
+            this.numMoves++;
         }
     }
 

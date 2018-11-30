@@ -47,6 +47,17 @@ public abstract class GameBoardManager {
         return this.numCols;
     }
 
+    public void setNumRows(int numRows) {
+        this.numRows = numRows;
+    }
+
+    public void setNumCols(int numCols) {
+        this.numCols = numCols;
+    }
+
+    public void setBoard(GameBoard board) {
+        this.board = board;
+    }
 
     public abstract boolean puzzleSolved();
 

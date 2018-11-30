@@ -90,11 +90,13 @@ public class GameActivity extends AppCompatActivity implements Observer {
         Intent intent = getIntent();
         if(intent.getBooleanExtra("load", false)) {
             // Create a dummy boardManager to avoid a null pointer, then load the values from the database
-            boardManager = new BoardManager(3, 3, 5);
+            boardManager = new BoardManager(3, 3, 5, 0);
+            System.out.println("Dummy: " + boardManager.getBoard().toString());
             boardManager.load();
+            System.out.println("New: " + boardManager.getBoard().toString());
         } else {
             boardManager = new BoardManager(intent.getIntExtra("rows", -1),
-                    intent.getIntExtra("cols", -1), intent.getIntExtra("undos", -1));
+                    intent.getIntExtra("cols", -1), intent.getIntExtra("undos", -1), 0);
         }
         createTileButtons(this);
         setContentView(R.layout.activity_main);

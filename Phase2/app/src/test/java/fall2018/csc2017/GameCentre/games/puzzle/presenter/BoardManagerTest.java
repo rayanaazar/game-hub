@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class BoardManagerTest {
-    private BoardManager boardManager = new BoardManager(4, 4, 1);
+    private BoardManager boardManager = new BoardManager(4, 4, 1, 5);
 
     public BoardManagerTest() {
     }
@@ -54,10 +54,11 @@ public class BoardManagerTest {
      */
     @Test
     public void testConstructor3x3() {
-        boardManager = new BoardManager(3, 3, 3);
+        boardManager = new BoardManager(3, 3, 3, 5);
         assertEquals(3, boardManager.getNumRows());
         assertEquals(3, boardManager.getNumCols());
         assertEquals(3, boardManager.getUndos());
+        assertEquals(5, boardManager.getNumMoves());
     }
 
     /**
@@ -65,10 +66,11 @@ public class BoardManagerTest {
      */
     @Test
     public void testConstructor4x4() {
-        boardManager = new BoardManager(4, 4, 2);
+        boardManager = new BoardManager(4, 4, 2, 5);
         assertEquals(4, boardManager.getNumRows());
         assertEquals(4, boardManager.getNumCols());
         assertEquals(2, boardManager.getUndos());
+        assertEquals(5, boardManager.getNumMoves());
     }
 
     /**
@@ -76,10 +78,11 @@ public class BoardManagerTest {
      */
     @Test
     public void testConstructor5x5() {
-        boardManager = new BoardManager(5, 5, 1);
+        boardManager = new BoardManager(5, 5, 1, 5);
         assertEquals(5, boardManager.getNumRows());
         assertEquals(5, boardManager.getNumCols());
         assertEquals(1, boardManager.getUndos());
+        assertEquals(5, boardManager.getNumMoves());
     }
 
     /**
@@ -95,13 +98,22 @@ public class BoardManagerTest {
      */
     @Test
     public void testSetBoard() {
-        BoardManager testBoardManager = new BoardManager();
+        BoardManager testBoardManager = new BoardManager(4, 4, 1, 5);
         Board testBoard = new Board(setUpOrderedTiles(), 4, 4);
         assertNotEquals(testBoardManager.getBoard(), testBoard);
         testBoardManager.setBoard(testBoard);
         assertEquals(testBoardManager.getBoard(), testBoard);
     }
-    // Add testSetBoard for 3x3 and 5x5?
+
+    /**
+     * Test whether setNumMoves() changes the number of moves.
+     */
+    @Test
+    public void testSetNumMoves() {
+        BoardManager testBoardManager = new BoardManager(4, 4, 1, 5);
+        testBoardManager.setNumMoves(10);
+        assertEquals(10, testBoardManager.getNumMoves());
+    }
 
     /**
      * Test whether the BoardManager is solved with a solved board.
@@ -216,22 +228,4 @@ public class BoardManagerTest {
         assertEquals(old_id, boardManager.getBoard().getTile(0, 0).getId());
         assertEquals(old_blank_id, boardManager.getBoard().getTile(0, 1).getId());
     }
-
-    //  Firebase related
-//    @Test
-//    public void getScore() {
-//    }
-//
-//    @Test
-//    public void load() {
-//    }
-//
-//    @Test
-//    public void undo() {
-//    }
-//
-//    @Test
-//    public void save() {
-//    }
-
 }

@@ -77,11 +77,6 @@ public class BoardTest {
         // add more?
     }
 
-//    @Test
-//    public void toString() {
-//    }
-    //error with return type
-
     /**
      *
      */
