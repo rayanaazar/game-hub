@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.menu.view.MenuActivity"
-    android:background="#f2f2f2">
+    android:background="@drawable/background">
 
     <FrameLayout
         android:id="@+id/fragment_container"
