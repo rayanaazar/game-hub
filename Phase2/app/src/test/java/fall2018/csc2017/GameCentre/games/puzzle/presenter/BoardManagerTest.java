@@ -11,6 +11,9 @@ import static org.junit.Assert.*;
 public class BoardManagerTest {
     private BoardManager boardManager = new BoardManager(4, 4, 1);
 
+    public BoardManagerTest() {
+    }
+
     /**
      * Make a set of tiles that are in order.
      *
@@ -45,31 +48,41 @@ public class BoardManagerTest {
     /*
     BEGIN TESTS
      */
+
+    /**
+     * Test the constructor on a 3x3 Board for BoardManager.
+     */
     @Test
     public void testConstructor3x3() {
         boardManager = new BoardManager(3, 3, 3);
 
-        assertEquals(boardManager.getBoard().getNumRows(), 3);
-        assertEquals(boardManager.getBoard().getNumCols(), 3);
-        assertEquals(boardManager.getUndos(), 3);
+        assertEquals(3, boardManager.getNumRows());
+        assertEquals(3, boardManager.getNumCols());
+        assertEquals(3, boardManager.getUndos());
     }
 
+    /**
+     * Test the constructor on a 4x4 Board for BoardManager.
+     */
     @Test
     public void testConstructor4x4() {
         boardManager = new BoardManager(4, 4, 2);
 
-        assertEquals(boardManager.getBoard().getNumRows(), 3);
-        assertEquals(boardManager.getBoard().getNumCols(), 3);
-        assertEquals(boardManager.getUndos(), 2);
+        assertEquals(4, boardManager.getNumRows());
+        assertEquals(4, boardManager.getNumCols());
+        assertEquals(2, boardManager.getUndos());
     }
 
+    /**
+     * Test the constructor on a 5x5 Board for BoardManager.
+     */
     @Test
     public void testConstructor5x5() {
         boardManager = new BoardManager(5, 5, 1);
 
-        assertEquals(boardManager.getBoard().getNumRows(), 3);
-        assertEquals(boardManager.getBoard().getNumCols(), 3);
-        assertEquals(boardManager.getUndos(), 1);
+        assertEquals(5, boardManager.getNumRows());
+        assertEquals(5, boardManager.getNumCols());
+        assertEquals(1, boardManager.getUndos());
     }
 
     /**
@@ -84,7 +97,7 @@ public class BoardManagerTest {
      * Test whether setBoard() changes the BoardManager's board.
      */
     @Test
-    public void setBoard() {
+    public void testSetBoard() {
         BoardManager testBoardManager = new BoardManager();
         Board testBoard = new Board(setUpOrderedTiles(), 4, 4);
 
@@ -92,12 +105,13 @@ public class BoardManagerTest {
         testBoardManager.setBoard(testBoard);
         assertEquals(testBoardManager.getBoard(), testBoard);
     }
+    // Add testSetBoard for 3x3 and 5x5?
 
     /**
      * Test whether the BoardManager is solved with a solved board.
      */
     @Test
-    public void puzzleSolvedWithSolvedBoard() {
+    public void testPuzzleSolvedWithSolvedBoard() {
         Board solvedBoard = new Board(setUpOrderedTiles(), 4, 4);
 
         boardManager.setBoard(solvedBoard);
@@ -108,7 +122,7 @@ public class BoardManagerTest {
      * Test whether the BoardManager is solved with an unsolved board.
      */
     @Test
-    public void puzzleSolvedWithUnsolvedBoard() {
+    public void testPuzzleSolvedWithUnsolvedBoard() {
         Board unsolvedBoard = new Board(setUpUnorderedTiles(), 4, 4);
 
         boardManager.setBoard(unsolvedBoard);
@@ -119,7 +133,7 @@ public class BoardManagerTest {
      * Test whether a solvable board in BoardManager is solvable.
      */
     @Test
-    public void isSolvableWithSolvableBoard() {
+    public void testIsSolvableWithSolvableBoard() {
         Board solvableBoard = new Board(setUpUnorderedTiles(), 4, 4);
 
         boardManager.setBoard(solvableBoard);
@@ -130,11 +144,10 @@ public class BoardManagerTest {
      * Test whether an unsolvable board in BoardManager is solvable.
      */
     @Test
-    public void isSolvableWithUnsolvableBoard() {
+    public void testIsSolvableWithUnsolvableBoard() {
         Board unsolvableBoard = new Board(setUpOrderedTiles(), 4, 4);
-
-        boardManager.getBoard().exchangeTiles(3, 1, 3, 2); // Swap tile 14 and 15
         boardManager.setBoard(unsolvableBoard);
+        boardManager.getBoard().exchangeTiles(3, 1, 3, 2); // Swap tile 14 and 15
         assertFalse(boardManager.isSolvable());
     }
 
@@ -142,7 +155,7 @@ public class BoardManagerTest {
      * Test whether an already solved board in BoardManager is solvable.
      */
     @Test
-    public void isSolvableWithSolvedBoard() {
+    public void testIsSolvableWithSolvedBoard() {
         Board solvableBoard = new Board(setUpOrderedTiles(), 4, 4);
 
         boardManager.setBoard(solvableBoard);
@@ -153,7 +166,7 @@ public class BoardManagerTest {
      * Test whether the positions given are valid taps.
      */
     @Test
-    public void isValidTapOnValidTaps() {
+    public void testIsValidTapOnValidTaps() {
         boardManager.setBoard(new Board(setUpOrderedTiles(), 4, 4));
 
         boardManager.getBoard().exchangeTiles(0, 0, 3, 3);
@@ -168,13 +181,12 @@ public class BoardManagerTest {
      * Test whether the positions given are valid taps.
      */
     @Test
-    public void isValidTapOnInvalidTaps() {
+    public void testIsValidTapOnInvalidTaps() {
         boardManager.setBoard(new Board(setUpOrderedTiles(), 4, 4));
 
         boardManager.getBoard().exchangeTiles(0, 0, 3, 3);
         assertFalse(boardManager.isValidTap(0));
         assertFalse(boardManager.isValidTap(2));
-        assertFalse(boardManager.isValidTap(15));
         boardManager.getBoard().exchangeTiles(0, 0, 3, 3);
         assertFalse(boardManager.isValidTap(0));
         assertFalse(boardManager.isValidTap(1));
@@ -184,7 +196,7 @@ public class BoardManagerTest {
      * Test whether the position given is a valid tap.
      */
     @Test
-    public void isValidTapOnBlankTile() {
+    public void testIsValidTapOnBlankTile() {
         boardManager.setBoard(new Board(setUpUnorderedTiles(), 4, 4));
 
         assertFalse(boardManager.isValidTap(1)); // Blank tile position ??
@@ -194,7 +206,7 @@ public class BoardManagerTest {
      * Test whether tiles were swapped with a valid tap.
      */
     @Test
-    public void touchMoveValid() {
+    public void testTouchMoveValid() {
         boardManager.setBoard(new Board(setUpUnorderedTiles(), 4, 4));
         int old_id = boardManager.getBoard().getTile(0, 0).getId();
         int old_blank_id = boardManager.getBoard().getTile(0, 1).getId();
@@ -208,7 +220,7 @@ public class BoardManagerTest {
      * Test whether tiles were swapped with an invalid tap.
      */
     @Test
-    public void touchMoveInvalid() {
+    public void testTouchMoveInvalid() {
         boardManager.setBoard(new Board(setUpUnorderedTiles(), 4, 4));
         int old_id = boardManager.getBoard().getTile(0, 0).getId();
         int old_blank_id = boardManager.getBoard().getTile(0, 1).getId();
@@ -216,27 +228,6 @@ public class BoardManagerTest {
         boardManager.touchMove(1);
         assertEquals(old_id, boardManager.getBoard().getTile(0, 0).getId());
         assertEquals(old_blank_id, boardManager.getBoard().getTile(0, 1).getId());
-    }
-
-    /**
-     * Test whether the iterator is working properly.
-     */
-    @Test
-    public void iteratorTest() {
-        boardManager.setBoard(new Board(setUpUnorderedTiles(), 4, 4));
-        Iterator<Tile> iter = boardManager.getBoard().iterator();
-        assertTrue(iter.hasNext());
-        assertEquals(0, iter.next().getBackground());
-        assertEquals(16, iter.next().getId());
-        int[] unorderedTiles = {13, 15, 1, 5, 8, 2, 12, 10, 14, 3, 4, 7, 11, 0, 6, 9};
-        int i = 0;
-        for (Tile T : boardManager.getBoard()) {
-            assertEquals(T.getId(), unorderedTiles[i] + 1);
-            assertEquals(T.getBackground(), i);
-            i++;
-            iter.next();
-        }
-        assertTrue(!iter.hasNext());
     }
 
     //  Firebase related

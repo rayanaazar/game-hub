@@ -6,7 +6,6 @@ Adapted from : https://github.com/shanestaples/android-timer-mvp-example/blob/ma
 This adaptation of a timer view is better suited to our needs (and counts forwards instead of backwards)
  */
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,8 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.games.timer.TimerContract;
-import fall2018.csc2017.GameCentre.games.timer.model.TimerModel;
-import fall2018.csc2017.GameCentre.games.timer.presenter.TimerPresenter;
 
 /**
  * A basic TimerView activity. This is meant as fragment in a bigger screen.

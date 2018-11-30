@@ -4,12 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
-import fall2018.csc2017.GameCentre.games.ttt.model.CardModelTTT;
 import fall2018.csc2017.GameCentre.games.ttt.presenter.TTTPresenter;
 
 public class TTTCardView extends AppCompatButton {
 
-    public CardModelTTT cardPresenter;
+
     TTTPresenter tttPresenter;
 
     public TTTCardView(final Context context) {
@@ -28,7 +27,7 @@ public class TTTCardView extends AppCompatButton {
     /**
      * Overwrite the card with either X or O depending on move
      */
-    public void move() {
-        tttPresenter.flip();
+    public void move(boolean playerOne) {
+        tttPresenter.flip(playerOne);
     }
 }

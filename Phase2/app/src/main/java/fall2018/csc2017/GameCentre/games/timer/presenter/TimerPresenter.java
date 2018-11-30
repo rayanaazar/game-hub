@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.os.Handler;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.games.timer.TimerContract;
 import fall2018.csc2017.GameCentre.games.timer.model.TimerModel;
@@ -30,17 +32,14 @@ public class TimerPresenter implements TimerContract.Presenter {
 
     private final TimerContract.View timerView;
 
-    /**
-     * A Handler designed to communicate with View and Model.
-     */
 
-    private final Handler handler;
+    private Timer timer;
 
     /**
      * A Runnable designed to update the display to the period we want.
      */
 
-    private final Runnable updateRunnable;
+    private final TimerTask updateRunnable;
 
 
     public TimerPresenter(@NonNull final TimerContract.View timerView,
@@ -48,8 +47,8 @@ public class TimerPresenter implements TimerContract.Presenter {
         this.timerModel = timerModel;
         this.timerView = timerView;
         this.timerView.setPresenter(this);
-        this.handler = new Handler(Looper.getMainLooper());
-        this.updateRunnable = new Runnable() {
+        timer = new Timer();
+        this.updateRunnable = new TimerTask() {
             @Override
             public void run() {
                 updateView();
@@ -59,16 +58,13 @@ public class TimerPresenter implements TimerContract.Presenter {
 
     @Override
     public void start() {
-        timerModel.setCalendar(System.currentTimeMillis());
-        handler.postDelayed(updateRunnable, 1000);
-        updateView();
+        timer.scheduleAtFixedRate(updateRunnable, 0, 1000);
     }
 
 
     @Override
     public void stop() {
-
-        handler.removeCallbacks(updateRunnable);
+        timer.cancel();
     }
 
 
@@ -116,21 +112,5 @@ public class TimerPresenter implements TimerContract.Presenter {
         Integer displayedSeconds = seconds % 60;
         return new Integer[]{minutes, displayedSeconds};
     }
-//
-//
-//    /**
-//     * Starting from a string curTime (Must be in format mm:ss), extract the number of seconds
-//     * elapsed, and then convert to a long representing the elapsed milliseconds
-//     *
-//     * @param curTime The string representing the time elapsed in mm:ss format.
-//     * @return A long representing the milliseconds elapsed since timer was started.
-//     */
-//    private long extractTime(String curTime) {
-//        String time = curTime.replaceFirst("Time - ", "");
-//        String[] values = time.split(":");
-//        int minutes = Integer.parseInt(values[0]);
-//        int seconds = Integer.parseInt(values[1]);
-//        return Integer.toUnsignedLong(minutes * 60 * 1000 + seconds * 1000);
-//    }
 
 }

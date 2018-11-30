@@ -54,9 +54,9 @@ public class CardSetModelTTT extends GameBoard {
      * @param row The card's row.
      * @param col The card's column.
      */
-    public void swapCards(int row, int col) {
+    public void swapCards(int row, int col, boolean playerOne) {
         TTTPresenter cardToSwap = getCard(row, col);
-        cardToSwap.flip();
+        cardToSwap.flip(playerOne);
         setChanged();
         notifyObservers();
     }
@@ -88,85 +88,6 @@ public class CardSetModelTTT extends GameBoard {
 
     }
 
-    /**
-     * Return an Iterator that can iterate over the CardPresenters in row-major order.
-     *
-     * @return A new iterator, that can iterate over CardPresenters.
-     */
-    public Iterator<TTTPresenter> iterator() {
-        return new CardIterator();
-    }
 
-    private class CardIterator implements Iterator<TTTPresenter> {
-        /**
-         * Initial starting row of the 2D Card Array
-         */
-
-        private int row = 0;
-
-        /**
-         * Initial starting column of the 2D Card Array
-         */
-
-        private int col = 0;
-
-        /**
-         * Current TTTPresenter object for Iterator.
-         */
-        private TTTPresenter currT;
-
-        @Override
-        public boolean hasNext() {
-            return row < numRows && col < numCols;
-        }
-
-
-        @Override
-        public TTTPresenter next() {
-            if (!hasNext()) {
-                return null;
-            }
-            while (row < numRows) {
-                while (col < numCols) {
-                    if (gettingCurrentAndNextCards()) {
-                        return currT;
-                    }
-                }
-                row++;
-            }
-            return null;
-        }
-
-        /**
-         * Performs operations in iterating through the 2D array and assigning the next card
-         * object for the Iterable
-         *
-         * @return whether the operation to assign a current card and increment the column count
-         * is possible
-         */
-
-        private boolean gettingCurrentAndNextCards() {
-            TTTPresenter currGetTile = getCard(row, col);
-            if (currGetTile != null) {
-                currT = currGetTile;
-                col++;
-                reset();
-                return true;
-            }
-            return false;
-        }
-
-        /**
-         * Checks whether the column card is the last column card in the row. Increments the row
-         * if condition is satisfied.
-         */
-        private void reset() {
-            if (col == numCols) {
-                col = 0;
-                row++;
-            }
-        }
-
-    }
 }
 

@@ -30,6 +30,9 @@ public class TTTGameActivity extends AppCompatActivity implements Observer {
      */
     private TTTSetManager tttSetManager;
 
+    /**
+     * The nxn dimensions of the grid.
+     */
     private int dimensions;
 
     /**
@@ -64,21 +67,12 @@ public class TTTGameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dimensions = 4;
+        dimensions = 3;
         createTileButtons(this);
-        tttSetManager = new TTTSetManager(4, 4, this.tileButtons) {
+        tttSetManager = new TTTSetManager(3, 3, this.tileButtons) {
         };
         setContentView(R.layout.activity_ttt_game);
         setUpGrid();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (TTTCardView cv : tileButtons) {
-                    cv.move();
-                }
-            }
-        }, 3000);
         setUpTimer();
     }
 
