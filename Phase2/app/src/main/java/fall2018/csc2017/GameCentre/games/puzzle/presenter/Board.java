@@ -77,23 +77,6 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
         }
     }
 
-//    /**
-//     * Return the row of the given tile.
-//     *
-//     * @param tile the tile
-//     * @return the row of the tile
-//     */
-//    public int getRow(Tile tile) {
-//        for (int i = 0; i < tiles.length; i++) {
-//            for (int j = 0; j < tiles[i].length; j++) {
-//                if (tiles[i][j] == tile) {
-//                    return i;
-//                }
-//            }
-//        }
-//        return 0;
-//    }
-
     /**
      * Return the tile at (row, col)
      *

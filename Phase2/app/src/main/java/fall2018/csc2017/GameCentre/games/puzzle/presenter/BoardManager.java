@@ -91,21 +91,12 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * @return whether the current board is solvable
      */
     boolean isSolvable() {
-//        ArrayList<Tile> tiles = new ArrayList<>();
-//        int blankRow = 0;
-//        for (Tile tile : board) {
-//            tiles.add(tile);
-//            if (checkBlankTile(tile)) {
-//                blankRow = board.getRow(tile);
-//            }
-//        }
-
         int inversions = getInversions(tiles);
 
         if (numCols % 2 != 0) {
             return inversions % 2 == 0;
         } else {
-            if (blankIdRow % 2 == 0) {  // Does blankIdRow work??
+            if (blankIdRow % 2 == 0) {
                 return inversions % 2 == 0;
             } else {
                 return inversions % 2 != 0;
