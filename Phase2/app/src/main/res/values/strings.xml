@@ -24,7 +24,7 @@
     <string name="medium">Medium (4x4, 3 Undos)</string>
     <string name="hard">Hard (5x5, 1 Undo)</string>
     <string name="logout">logout</string>
-    <string name="undo">undo</string>
+    <string name="undo">undos: %1$d</string>
     <string name="move_counter">Moves: %1$d</string>
     <string name="attemptsStr">Chances: 5</string>
     <string name="attemptsRemaining">ATTEMPTS LEFT:</string>

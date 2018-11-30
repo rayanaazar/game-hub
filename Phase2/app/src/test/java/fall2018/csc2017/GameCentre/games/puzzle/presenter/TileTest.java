@@ -7,10 +7,10 @@ import static org.junit.Assert.*;
 public class TileTest {
 
     /**
-     * Test the first constructor, with 3 arguments.
+     * Test the constructor, with 2 arguments.
      */
     @Test
-    public void firstConstructor() {
+    public void testConstructor() {
 
         //getBackground() not working?
 
