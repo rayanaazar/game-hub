@@ -56,10 +56,15 @@ class TabPresenter {
                 int idx = 0;
                 for (DataSnapshot entryDataSnapshot : dataSnapshot.getChildren()) {
                     if(idx < idArr.length) {
+                        try {
                         TextView place = view.findViewById(idArr[idx]);
                         place.setText(frag.getString(nameArr[idx], "", 0));
                         LeaderboardEntry entry = entryDataSnapshot.getValue(LeaderboardEntry.class);
                         place.setText(frag.getString(nameArr[idx], entry.getUsername(), entry.getScore()));
+                        Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         idx++;
                     }
                 }

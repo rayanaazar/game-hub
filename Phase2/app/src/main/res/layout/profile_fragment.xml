@@ -154,7 +154,8 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:layout_weight=".1" >
+        android:layout_weight=".1"
+        style="@style/ListFont">
 
         <ListView
             android:id="@+id/listView"

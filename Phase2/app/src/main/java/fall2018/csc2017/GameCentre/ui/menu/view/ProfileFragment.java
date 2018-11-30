@@ -41,18 +41,31 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         listView = Objects.requireNonNull(getView()).findViewById(R.id.listView);
 
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(
+                Objects.requireNonNull(getActivity()),
+                android.R.layout.simple_list_item_1,
+                getResources().getStringArray(R.array.options));
+
+        listViewOnClickListener();
+        listView.setAdapter(mAdapter);
+    }
+
+    private void listViewOnClickListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View v, int i, long l)
             {
-                if (listView.getItemAtPosition(i).equals(0))
-                    startActivity(new Intent(getActivity(), ChangePassword.class));
-                else if (listView.getItemAtPosition(i).equals(1))
-                {
-                    dialogToDeactivate();
+                switch (listView.getItemAtPosition(i).toString()) {
+                    case "Change Password":
+                        startActivity(new Intent(getActivity(), ChangePassword.class));
+                        break;
+                    case "Deactivate Account":
+                        dialogToDeactivate();
+                        break;
+                    case "Logout":
+                        profilePresenter.logout();
+                        break;
                 }
-                else if (listView.getItemAtPosition(i).equals(2))
-                    profilePresenter.logout();
             }
         });
     }
