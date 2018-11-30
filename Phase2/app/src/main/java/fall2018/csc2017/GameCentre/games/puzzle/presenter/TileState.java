@@ -2,10 +2,11 @@ package fall2018.csc2017.GameCentre.games.puzzle.presenter;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class TileState implements Serializable {
 
-    private List<String> moves;
+    private Map<String, String> moves;
     private int undos;
     private String time;
     private String dimensions;
@@ -13,7 +14,7 @@ public class TileState implements Serializable {
 
     TileState() {}
 
-    TileState(List<String> moves, int undos, String time, String dimensions, String highScore) {
+    TileState(Map<String, String> moves, int undos, String time, String dimensions, String highScore) {
         this.moves = moves;
         this.undos = undos;
         this.time = time;
@@ -26,7 +27,7 @@ public class TileState implements Serializable {
     public void setHighScore(String highScore) { this.highScore = highScore; }
 
     public String getLatestMoveStr() {
-        return moves.get(0);
+        return moves.get("-LSXvMWeF6S2yBIPwCnt");
     }
 
     public String getDimensions() {
@@ -37,11 +38,11 @@ public class TileState implements Serializable {
         this.dimensions = dimensions;
     }
 
-    public List<String> getMoves() {
+    public Map<String, String> getMoves() {
         return moves;
     }
 
-    public void setMoves(List<String> moves) {
+    public void setMoves(Map<String, String>moves) {
         this.moves = moves;
     }
 

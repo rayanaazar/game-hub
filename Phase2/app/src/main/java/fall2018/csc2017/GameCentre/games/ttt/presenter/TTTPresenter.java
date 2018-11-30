@@ -27,12 +27,11 @@ public class TTTPresenter extends GamePiece {
 
     /**
      * Create a TTTPresenter with a background id.
-     *
-     * @param backgroundId the background id, to assign a Drawable resource.
      */
-    TTTPresenter(int backgroundId, int boardSize, @NonNull final TTTCardView TTTCardView) {
-        super(backgroundId, boardSize);
-        cardModelTTT = new CardModelTTT(CreateLookUp().get(backgroundId));
+    TTTPresenter(int boardSize, @NonNull final TTTCardView TTTCardView) {
+        super(0, boardSize);
+        SparseIntArray pics = CreateLookUp();
+        cardModelTTT = new CardModelTTT(pics.get(1), pics.get(2));
         this.TTTCardView = TTTCardView;
         this.TTTCardView.setPresenter(this);
         this.TTTCardView.setBackgroundResource(R.drawable.tap_w);
@@ -40,26 +39,35 @@ public class TTTPresenter extends GamePiece {
 
     /**
      * Decide what happens to the card after it has been clicked. If Card is matched, do nothing.
-     * If it is flipped, then show the back card. If it is not flipped, then show the front image.
      */
-    public void flip() {
+    public void flip(boolean playerOne) {
         if (!cardModelTTT.isSet()) {
-            cardModelTTT.setFlipped();
-            TTTCardView.setBackgroundResource(getBackground());
+            cardModelTTT.setFlipped(playerOne);
+            if (playerOne) {
+                TTTCardView.setBackgroundResource(getXCard());
+            } else {
+                TTTCardView.setBackgroundResource(getOCard());
+            }
         }
 
     }
 
     @Override
     public int getBackground() {
-        return cardModelTTT.getFrontImage();
+        return cardModelTTT.getBackground();
+    }
+
+    private int getXCard(){
+        return cardModelTTT.getXCard();
+    }
+
+    private int getOCard() {
+        return cardModelTTT.getOCard();
     }
 
     public boolean isSet() {
         return this.cardModelTTT.isSet();
     }
-
-    public void setCard() {this.cardModelTTT.setFlipped(); }
 
 
     /**

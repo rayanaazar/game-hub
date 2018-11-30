@@ -49,16 +49,22 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
      */
     private static int columnWidth, columnHeight;
 
+    /**
+     * A timer to manage the GUI update thread.
+     */
     private Timer timer;
 
+    /**
+     * A Timer presenter to interact with the TimerView.
+     */
     TimerPresenter tp;
+
+    TimerTask updateTask;
+
+    Runnable updateRunnable;
 
 
     public void display() {
-        if (this.cardSetManager.puzzleSolved()) {
-            timer.cancel();
-            tp.stop();
-        }
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
@@ -119,21 +125,34 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
             fragmentTransaction.commit();
         }
 
-        // Setup Presenter
+        startTimer(timerView);
+    }
+
+    private void startTimer(TimerView timerView) {
         timer = new Timer();
         tp = new TimerPresenter(timerView, ViewModelProviders.of(this).get(TimerModel.class));
-        timer.scheduleAtFixedRate(new TimerTask() {
+        updateRunnable = new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tp.updateView();
-                    }
-                });
+                tp.updateView();
             }
-        }, 0, 1000);
+        };
+
+        updateTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (!cardSetManager.puzzleSolved()) {
+                    runOnUiThread(updateRunnable);
+                } else {
+                    tp.stop();
+                    timer.cancel();
+                }
+            }
+        };
+
+        timer.scheduleAtFixedRate(updateTask, 12000, 1000);
     }
+
 
     /**
      * Create the buttons for displaying the tiles.
