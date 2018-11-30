@@ -89,7 +89,6 @@ public class TileFirebaseConnection {
                 manager.setNumCols(Integer.parseInt(split[1]));
                 manager.createBoard();
                 manager.setBoard(new Board(state.getLatestMoveStr(), Integer.parseInt(split[0]), Integer.parseInt(split[1])));
-                System.out.println(manager.getBoard().toString());
                 manager.setUndos(state.getUndos());
             }
 

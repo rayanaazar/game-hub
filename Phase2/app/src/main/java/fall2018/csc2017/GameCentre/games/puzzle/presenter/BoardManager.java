@@ -139,9 +139,8 @@ public class BoardManager extends GameBoardManager implements Serializable {
     /**
      * Loads the current board to the database
      */
-    public BoardManager() {
+    public void load() {
         // Load most recent data
-        connection = new TileFirebaseConnection(this);
         connection.load();
     }
 
