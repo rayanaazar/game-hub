@@ -46,17 +46,21 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
     public Board() {}
 
     private Tile[][] stringToBoard(String boardStr) {
+        System.out.println("String board:");
+        System.out.println(boardStr);
         Tile[][] tiles = new Tile[numRows][numCols];
         String[] split = boardStr.split(",");
         int x = 0;
         int y = 0;
         for(String id : split) {
-            tiles[y][x] = new Tile(Integer.parseInt(id), numCols*numRows);
-            if (x == numCols-1) {
-                x = 0;
-                y++;
+            if(y < numRows && x < numCols) {
+                tiles[y][x] = new Tile(Integer.parseInt(id), numCols * numRows);
+                if (x == numCols - 1) {
+                    x = 0;
+                    y++;
+                }
+                x++;
             }
-            x++;
         }
         return tiles;
     }
