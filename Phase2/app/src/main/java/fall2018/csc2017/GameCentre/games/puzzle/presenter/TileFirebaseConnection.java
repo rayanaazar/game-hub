@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TileFirebaseConnection {
 
@@ -29,7 +30,7 @@ public class TileFirebaseConnection {
     private static final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static final DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
 
-    public static TileState loadState;
+    public static TileState loadState = new TileState();
 
     public static boolean canLoad() {
         return (userRef.child(MOVES).getKey() != null);
@@ -91,6 +92,7 @@ public class TileFirebaseConnection {
     /**
      * Loads the user's previous data from the current game tab in the database
      * @return the TileState associated with all the user's previous data from the database
+     * TODO: make it work, should be similar to load
      */
     public static TileState loadPrevMoves() {
         final TileState state = new TileState();
@@ -99,7 +101,7 @@ public class TileFirebaseConnection {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TileState currState = dataSnapshot.getValue(TileState.class);
                 // Give all the moves, except the last
-                state.setMoves(currState.getMoves().subList(0, currState.getMoves().size() - 2));
+                //state.setMoves(currState.getMoves().subList(0, currState.getMoves().size() - 2));
                 state.setUndos(currState.getUndos());
                 state.setTime(currState.getTime());
                 state.setDimensions(currState.getDimensions());
@@ -120,11 +122,11 @@ public class TileFirebaseConnection {
     public static int getScore() {
         // TODO: incorporate time into the score
         load();
-        List<String> moves = loadState.getMoves();
+        Map<String, String> moves = loadState.getMoves();
         // If we havent made any moves yet, score is 0
         if(moves == null) {
             return 0;
         }
-        return load().getMoves().size() - 1;
+        return moves.size() - 1;
     }
 }

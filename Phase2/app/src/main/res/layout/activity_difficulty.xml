@@ -35,8 +35,8 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:tint="@color/blue_grey_400"
-                    android:src="@drawable/jetpack_logo" />
+                    android:src="@drawable/jetpack_logo"
+                    android:tint="@color/blue_grey_400" />
 
                 <View
                     android:layout_width="match_parent"
@@ -47,8 +47,8 @@
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:text="Please select a difficulty"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/grey_3" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/grey_80" />
 
                 <View
                     android:layout_width="match_parent"
@@ -68,8 +68,8 @@
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
                             android:id="@+id/nineTiles"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
@@ -100,8 +100,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
                                 android:layout_marginTop="50dp"
+                                android:layout_marginBottom="5dp"
                                 android:text="9 tile board"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_80"
@@ -124,10 +124,10 @@
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
+                            android:id="@+id/sixteenTiles"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:id="@+id/sixteenTiles"
                             android:clickable="true"
                             android:orientation="vertical"
                             android:padding="15dp">
@@ -157,8 +157,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
                                 android:layout_marginTop="50dp"
+                                android:layout_marginBottom="5dp"
                                 android:text="16 tile board"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_80"
@@ -188,10 +188,10 @@
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
+                            android:id="@+id/twentyFiveTiles"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:id="@+id/twentyFiveTiles"
                             android:clickable="true"
                             android:orientation="vertical"
                             android:padding="15dp">
@@ -221,8 +221,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="5dp"
                                 android:layout_marginTop="50dp"
+                                android:layout_marginBottom="5dp"
                                 android:text="25 tile board"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_80"
@@ -246,11 +246,11 @@
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
+                            android:id="@+id/thirtySixTiles"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:id="@+id/thirtySixTiles"
 
                             android:orientation="vertical"
                             android:padding="15dp">
