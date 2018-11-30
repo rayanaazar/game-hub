@@ -10,29 +10,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TileFirebaseConnection {
 
     // Database Path Variables
-    private final String GAME = "slidingTiles";
-    private final String ACCOUNTS = "accounts";
-    private final String MOVES = "moveStr";
-    private final String TIME = "time";
-    private final String DIMENSIONS = "dimensions";
-    private final String UNDOS = "undos";
+    private static final String GAME = "slidingTiles";
+    private static final String ACCOUNTS = "accounts";
+    private static final String MOVES = "moveStr";
+    private static final String TIME = "time";
+    private static final String DIMENSIONS = "dimensions";
+    private static final String UNDOS = "undos";
 
     // Firebase Variables
-    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private final DatabaseReference myRef = database.getReference();
-    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private final DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
+    private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private static final DatabaseReference myRef = database.getReference();
+    private static final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private static final DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
+
+    public static TileState loadState;
+
+    public static boolean canLoad() {
+        return (userRef.child(MOVES).getKey() != null);
+    }
 
     /**
      * Saves the board manager to the current user's current game data on the database
      * @param manager the BoardManager to be saved
      */
-    public void save(BoardManager manager) {
+    public static void save(BoardManager manager) {
         DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
         // Push all the user data to the database
         // TODO: Add time
@@ -45,7 +52,7 @@ public class TileFirebaseConnection {
      * Saves the board manager to the current user's current game data on the database
      * @param manager the BoardManager to be saved
      */
-    public void saveRegular(BoardManager manager) {
+    public static void saveRegular(BoardManager manager) {
         save(manager);
         userRef.child(MOVES).push().setValue(manager.getBoard().toString());
     }
@@ -55,7 +62,7 @@ public class TileFirebaseConnection {
      * This only happens on the initial save, overwriting previous moveStrings
      * @param manager the BoardManager to be saved
      */
-    public void saveInit(BoardManager manager) {
+    public static void saveInit(BoardManager manager) {
         save(manager);
         // Remove any old values
         userRef.child(MOVES).removeValue();
@@ -66,32 +73,26 @@ public class TileFirebaseConnection {
      * Loads the current user's latest data from the current game tab in the database
      * @return the TileState associated with all the user's current data from the database
      */
-    public TileState load() {
-        final TileState state = new TileState();
-        userRef.addValueEventListener(new ValueEventListener() {
+    public static void load() {
+        ValueEventListener event = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                TileState currState = dataSnapshot.getValue(TileState.class);
-                // Give state all of currState's attributes
-                state.setMoves(currState.getMoves());
-                state.setUndos(currState.getUndos());
-                state.setTime(currState.getTime());
-                state.setDimensions(currState.getDimensions());
+                loadState = dataSnapshot.getValue(TileState.class);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
-        });
-        return state;
+        };
+        userRef.addListenerForSingleValueEvent(event);
     }
 
     /**
      * Loads the user's previous data from the current game tab in the database
      * @return the TileState associated with all the user's previous data from the database
      */
-    public TileState loadPrevMoves() {
+    public static TileState loadPrevMoves() {
         final TileState state = new TileState();
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -116,9 +117,10 @@ public class TileFirebaseConnection {
      * Gets score atributes from the database, and calculates the score.
      * @return the current score
      */
-    public int getScore() {
+    public static int getScore() {
         // TODO: incorporate time into the score
-        List<String> moves = load().getMoves();
+        load();
+        List<String> moves = loadState.getMoves();
         // If we havent made any moves yet, score is 0
         if(moves == null) {
             return 0;

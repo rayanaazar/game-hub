@@ -62,9 +62,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * Updates the on screen score to match the actual score
      */
-    public void updateScore() {
+    private void updateScore() {
         TextView text = findViewById(R.id.autoCompleteTextView);
         text.setText(getString(R.string.move_counter, boardManager.getScore()));
+    }
+
+    private void updateUndos() {
+        TextView text = findViewById(R.id.UndoButton);
+        text.setText(getString(R.string.undo, boardManager.getUndos()));
     }
 
     /**
@@ -73,6 +78,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public void display() {
         updateTileButtons();
         updateScore();
+        updateUndos();
         boardManager.save();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
@@ -82,9 +88,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         // Get the board manager made in Difficulty activity
         Intent intent = getIntent();
-        boardManager = new BoardManager(intent.getIntExtra("rows", -1),
-                intent.getIntExtra("cols", -1), intent.getIntExtra("undos", -1));
-        System.out.println(boardManager.getNumCols());
+        if(intent.getBooleanExtra("load", false)) {
+            // Create a dummy boardManager to avoid a null pointer, then load the values from the database
+            boardManager = new BoardManager(3, 3, 5);
+            boardManager.load();
+        } else {
+            boardManager = new BoardManager(intent.getIntExtra("rows", -1),
+                    intent.getIntExtra("cols", -1), intent.getIntExtra("undos", -1));
+        }
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
