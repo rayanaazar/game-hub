@@ -23,11 +23,6 @@ public class BoardManager extends GameBoardManager implements Serializable {
     private List<Tile> tiles = new ArrayList<>();
 
     /**
-     * The connection to firebase to allow for saving and loading
-     */
-    private final TileFirebaseConnection firebaseConnection = new TileFirebaseConnection();
-
-    /**
      * Managing board positions
      * col: describes the column of the board
      * row: describes the row of the board
@@ -137,17 +132,21 @@ public class BoardManager extends GameBoardManager implements Serializable {
      * Gets the current score for the game
      * @return the score
      */
-    public int getScore() { return this.firebaseConnection.getScore(); }
+    public int getScore() { return TileFirebaseConnection.getScore(); }
 
     /**
      * Loads the current board to the database
      */
     public void load() {
         // Load most recent data
-        TileState state = firebaseConnection.load();
+        TileFirebaseConnection.load();
+        TileState state = TileFirebaseConnection.loadState;
         String[] split = state.getDimensions().split("x");
 
         // Enforce the data obtained
+        this.numRows = Integer.parseInt(split[0]);
+        this.numCols = Integer.parseInt(split[1]);
+        createBoard();
         this.board = new Board(state.getLatestMoveStr(), Integer.parseInt(split[0]), Integer.parseInt(split[1]));
         this.undos = state.getUndos();
         // TODO Add timer
@@ -159,11 +158,12 @@ public class BoardManager extends GameBoardManager implements Serializable {
     public void undo() {
         // TODO: Add error handling, ie: this is the first state, and no more undos
         // Get the most recent data
-        TileState currState = firebaseConnection.load();
+        TileFirebaseConnection.load();
+        TileState currState = TileFirebaseConnection.loadState;
         this.undos = currState.getUndos() - 1;
 
         // Get the move string from before the current one
-        String moveStr = firebaseConnection.loadPrevMoves().getLatestMoveStr();
+        String moveStr = TileFirebaseConnection.loadPrevMoves().getLatestMoveStr();
 
         // Enforce data obtained
         String[] split = currState.getDimensions().split("x");
@@ -175,9 +175,9 @@ public class BoardManager extends GameBoardManager implements Serializable {
      */
     public void save() {
         if(getScore() > 0) {
-            firebaseConnection.saveRegular(this);
+            TileFirebaseConnection.saveRegular(this);
         } else {
-            firebaseConnection.saveInit(this);
+            TileFirebaseConnection.saveInit(this);
         }
     }
 
