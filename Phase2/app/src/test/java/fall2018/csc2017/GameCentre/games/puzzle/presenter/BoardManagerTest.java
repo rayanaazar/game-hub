@@ -11,6 +11,9 @@ import static org.junit.Assert.*;
 public class BoardManagerTest {
     private BoardManager boardManager = new BoardManager(4, 4, 1);
 
+    public BoardManagerTest() {
+    }
+
     /**
      * Make a set of tiles that are in order.
      *
@@ -45,6 +48,7 @@ public class BoardManagerTest {
     /*
     BEGIN TESTS
      */
+
     /**
      * Test the constructor on a 3x3 Board for BoardManager.
      */
