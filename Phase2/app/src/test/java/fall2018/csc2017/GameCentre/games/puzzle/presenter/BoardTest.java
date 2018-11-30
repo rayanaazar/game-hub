@@ -11,6 +11,21 @@ import static org.junit.Assert.*;
 public class BoardTest {
 
     /**
+     * Make a set of tiles that are in order.
+     *
+     * @return a set of tiles that are in order
+     */
+    private List<Tile> setUpOrderedTiles() {
+        List<Tile> tiles = new ArrayList<>();
+        final int numTiles = 4 * 4;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            tiles.add(new Tile(tileNum + 1, numTiles));
+        }
+
+        return tiles;
+    }
+
+    /**
      * Make a set of tiles that are not in order.
      *
      * @return a set of tiles that are in order
@@ -29,6 +44,7 @@ public class BoardTest {
     /*
     BEGIN TESTS
      */
+
     /**
      *
      */
@@ -55,19 +71,28 @@ public class BoardTest {
      */
     @Test
     public void testGetTile() {
-
+        List<Tile> unorderedTiles = setUpUnorderedTiles();
+        Board testBoard = new Board(unorderedTiles, 4, 4);
+        assertEquals(unorderedTiles.get(0), testBoard.getTile(0, 0));
+        // add more?
     }
 
 //    @Test
 //    public void toString() {
 //    }
+    //error with return type
 
     /**
      *
      */
     @Test
     public void testExchangeTiles() {
-
+        Board testBoard = new Board(setUpOrderedTiles(), 4, 4);
+        assertEquals(1, testBoard.getTile(0, 0).getId());
+        assertEquals(2, testBoard.getTile(0, 1).getId());
+        testBoard.exchangeTiles(0, 0, 0, 1);
+        assertEquals(2, testBoard.getTile(0, 0).getId());
+        assertEquals(1, testBoard.getTile(0, 1).getId());
     }
 
     /**
