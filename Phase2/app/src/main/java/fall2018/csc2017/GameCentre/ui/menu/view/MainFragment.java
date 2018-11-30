@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import fall2018.csc2017.GameCentre.games.matchingGame.view.MatchingGameActivity;
 import fall2018.csc2017.GameCentre.games.puzzle.view.DifficultyActivity;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.games.ttt.view.TTTGameActivity;
 import fall2018.csc2017.GameCentre.ui.menu.MenuContract;
 import fall2018.csc2017.GameCentre.ui.menu.presenter.RecyclerViewAdapter;
 
@@ -66,7 +67,7 @@ public class MainFragment extends Fragment implements MenuContract.View {
 
     @Override
     public void openTTT() {
-        //TODO
+        startActivity(new Intent(getActivity(), TTTGameActivity.class));
     }
 
     @Override
