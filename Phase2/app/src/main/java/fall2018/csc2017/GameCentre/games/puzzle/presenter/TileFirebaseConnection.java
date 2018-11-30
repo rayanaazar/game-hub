@@ -6,12 +6,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class TileFirebaseConnection {
 
@@ -19,7 +20,6 @@ public class TileFirebaseConnection {
     private static final String GAME = "slidingTiles";
     private static final String ACCOUNTS = "accounts";
     private static final String MOVES = "moveStr";
-    private static final String TIME = "time";
     private static final String DIMENSIONS = "dimensions";
     private static final String UNDOS = "undos";
 
@@ -29,7 +29,8 @@ public class TileFirebaseConnection {
     private static final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static final DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
 
-    public static TileState loadState;
+    public static TileState loadState = new TileState();
+    public static boolean doneLoading = false;
 
     public static boolean canLoad() {
         return (userRef.child(MOVES).getKey() != null);
@@ -42,8 +43,6 @@ public class TileFirebaseConnection {
     public static void save(BoardManager manager) {
         DatabaseReference userRef = myRef.child(ACCOUNTS).child(user.getUid()).child(GAME);
         // Push all the user data to the database
-        // TODO: Add time
-        userRef.child(TIME).setValue("123:456:789");
         userRef.child(DIMENSIONS).setValue(Integer.toString(manager.getNumRows()) + "x" + Integer.toString(manager.getNumCols()));
         userRef.child(UNDOS).setValue(manager.getUndos());
     }
@@ -74,23 +73,31 @@ public class TileFirebaseConnection {
      * @return the TileState associated with all the user's current data from the database
      */
     public static void load() {
-        ValueEventListener event = new ValueEventListener() {
+        readDataOnce(new OnGetDataListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                loadState = dataSnapshot.getValue(TileState.class);
+            public void onStart() {
+                doneLoading = false;
+                System.out.println("...Loading...");
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+            public void onSuccess(DataSnapshot ds) {
+                loadState = ds.getValue(TileState.class);
+                System.out.println("Data fetched!");
+                doneLoading = true;
             }
-        };
-        userRef.addListenerForSingleValueEvent(event);
+
+            @Override
+            public void onFailed(DatabaseError err) {
+                System.out.println(err);
+            }
+        });
     }
 
     /**
      * Loads the user's previous data from the current game tab in the database
      * @return the TileState associated with all the user's previous data from the database
+     * TODO: make it work, should be similar to load
      */
     public static TileState loadPrevMoves() {
         final TileState state = new TileState();
@@ -99,9 +106,8 @@ public class TileFirebaseConnection {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TileState currState = dataSnapshot.getValue(TileState.class);
                 // Give all the moves, except the last
-                state.setMoves(currState.getMoves().subList(0, currState.getMoves().size() - 2));
+                //state.setMoves(currState.getMoves().subList(0, currState.getMoves().size() - 2));
                 state.setUndos(currState.getUndos());
-                state.setTime(currState.getTime());
                 state.setDimensions(currState.getDimensions());
             }
 
@@ -118,13 +124,34 @@ public class TileFirebaseConnection {
      * @return the current score
      */
     public static int getScore() {
-        // TODO: incorporate time into the score
         load();
-        List<String> moves = loadState.getMoves();
+        Map<String, String> moves = loadState.getMoves();
         // If we havent made any moves yet, score is 0
         if(moves == null) {
             return 0;
         }
-        return load().getMoves().size() - 1;
+        return moves.size() - 1;
+    }
+
+    private static void readDataOnce(final OnGetDataListener listener) {
+        listener.onStart();
+        ValueEventListener event = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onFailed(databaseError);
+            }
+        };
+        userRef.addListenerForSingleValueEvent(event);
+    }
+
+    private interface OnGetDataListener {
+        void onStart();
+        void onSuccess(DataSnapshot ds);
+        void onFailed(DatabaseError err);
     }
 }

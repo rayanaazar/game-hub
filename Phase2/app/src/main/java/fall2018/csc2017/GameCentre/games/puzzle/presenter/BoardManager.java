@@ -139,8 +139,13 @@ public class BoardManager extends GameBoardManager implements Serializable {
      */
     public void load() {
         // Load most recent data
+        TileState state = new TileState();
         TileFirebaseConnection.load();
-        TileState state = TileFirebaseConnection.loadState;
+        while(!TileFirebaseConnection.doneLoading) {
+            state = TileFirebaseConnection.loadState;
+            System.out.println("inside loop");
+        }
+        System.out.println("done");
         String[] split = state.getDimensions().split("x");
 
         // Enforce the data obtained
@@ -149,7 +154,6 @@ public class BoardManager extends GameBoardManager implements Serializable {
         createBoard();
         this.board = new Board(state.getLatestMoveStr(), Integer.parseInt(split[0]), Integer.parseInt(split[1]));
         this.undos = state.getUndos();
-        // TODO Add timer
     }
 
     /**
