@@ -20,6 +20,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         this.auth = FirebaseAuth.getInstance();
     }
 
+    public String getId()
+    {
+        return Objects.requireNonNull(auth.getCurrentUser()).getDisplayName();
+    }
+
     @Override
     public void logout() {
         auth.signOut();
