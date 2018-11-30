@@ -56,9 +56,9 @@ public class BoardManagerTest {
     public void testConstructor3x3() {
         boardManager = new BoardManager(3, 3, 3);
 
-        assertEquals(boardManager.getNumRows(), 3);
-        assertEquals(boardManager.getNumCols(), 3);
-        assertEquals(boardManager.getUndos(), 3);
+        assertEquals(3, boardManager.getNumRows());
+        assertEquals(3, boardManager.getNumCols());
+        assertEquals(3, boardManager.getUndos());
     }
 
     /**
@@ -68,9 +68,9 @@ public class BoardManagerTest {
     public void testConstructor4x4() {
         boardManager = new BoardManager(4, 4, 2);
 
-        assertEquals(boardManager.getNumRows(), 3);
-        assertEquals(boardManager.getNumCols(), 3);
-        assertEquals(boardManager.getUndos(), 2);
+        assertEquals(4, boardManager.getNumRows());
+        assertEquals(4, boardManager.getNumCols());
+        assertEquals(2, boardManager.getUndos());
     }
 
     /**
@@ -80,9 +80,9 @@ public class BoardManagerTest {
     public void testConstructor5x5() {
         boardManager = new BoardManager(5, 5, 1);
 
-        assertEquals(boardManager.getNumRows(), 3);
-        assertEquals(boardManager.getNumCols(), 3);
-        assertEquals(boardManager.getUndos(), 1);
+        assertEquals(5, boardManager.getNumRows());
+        assertEquals(5, boardManager.getNumCols());
+        assertEquals(1, boardManager.getUndos());
     }
 
     /**
@@ -146,9 +146,8 @@ public class BoardManagerTest {
     @Test
     public void testIsSolvableWithUnsolvableBoard() {
         Board unsolvableBoard = new Board(setUpOrderedTiles(), 4, 4);
-
-        boardManager.getBoard().exchangeTiles(3, 1, 3, 2); // Swap tile 14 and 15
         boardManager.setBoard(unsolvableBoard);
+        boardManager.getBoard().exchangeTiles(3, 1, 3, 2); // Swap tile 14 and 15
         assertFalse(boardManager.isSolvable());
     }
 
@@ -188,7 +187,6 @@ public class BoardManagerTest {
         boardManager.getBoard().exchangeTiles(0, 0, 3, 3);
         assertFalse(boardManager.isValidTap(0));
         assertFalse(boardManager.isValidTap(2));
-        assertFalse(boardManager.isValidTap(15));
         boardManager.getBoard().exchangeTiles(0, 0, 3, 3);
         assertFalse(boardManager.isValidTap(0));
         assertFalse(boardManager.isValidTap(1));
