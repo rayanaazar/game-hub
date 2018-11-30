@@ -51,12 +51,13 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
         int x = 0;
         int y = 0;
         for(String id : split) {
-            tiles[y][x] = new Tile(Integer.parseInt(id), numCols*numRows);
-            if (x == numCols-1) {
-                x = 0;
-                y++;
+            if(y < numRows && x < numCols) {
+                tiles[y][x] = new Tile(Integer.parseInt(id), numCols * numRows);
+                if (x == numCols - 1) {
+                    x = 0;
+                    y++;
+                } else { x++; }
             }
-            x++;
         }
         return tiles;
     }
@@ -74,7 +75,6 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
                 setToFill[row][col] = iterator.next();
             }
         }
-
     }
 
 //    /**
@@ -112,7 +112,7 @@ public class Board extends GameBoard implements Serializable, Iterable<Tile> {
         StringBuilder str = new StringBuilder();
         for(Tile[] row : this.tiles) {
             for(Tile col : row) {
-                str.append(String.valueOf(col.getId()));
+                str.append(String.valueOf(col.getId() - 1));
                 str.append(',');
             }
         }

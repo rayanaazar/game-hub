@@ -22,8 +22,6 @@ public class DifficultyActivity extends AppCompatActivity {
 
     private LinearLayout easy, okay, difficult, extreme, load;
 
-    private TileFirebaseConnection connection = new TileFirebaseConnection();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +52,8 @@ public class DifficultyActivity extends AppCompatActivity {
         load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TileFirebaseConnection.canLoad()) {
+                if(true) {
+                //if(TileFirebaseConnection.canLoad()) {
                     loadGame(v);
                 }
                 else {
