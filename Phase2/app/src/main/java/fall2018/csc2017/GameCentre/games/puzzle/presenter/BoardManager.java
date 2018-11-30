@@ -82,8 +82,8 @@ public class BoardManager extends GameBoardManager implements Serializable {
             tiles.add(new Tile(tileNum, numCols * numRows));
         }
         Collections.shuffle(tiles);
-        if (!isSolvable()) {
-            createBoard();
+        while (!isSolvable()) {
+            Collections.shuffle(tiles);
         }
     }
 
