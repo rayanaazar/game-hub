@@ -20,14 +20,6 @@ public class TimerModel extends ViewModel {
         refCalendar.setTimeInMillis(System.currentTimeMillis());
     }
 
-    /**
-     * Set the calendar to curTime.
-     *
-     * @param curTime A long value specifying the current time in milliseconds.
-     */
-    public void setCalendar(Long curTime) {
-        refCalendar.setTimeInMillis(curTime);
-    }
 
     /**
      * Return the calendar of reference.

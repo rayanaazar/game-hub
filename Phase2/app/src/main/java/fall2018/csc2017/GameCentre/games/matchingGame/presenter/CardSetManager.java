@@ -68,10 +68,6 @@ public class CardSetManager extends GameBoardManager {
         return cardSetModel;
     }
 
-    public List<CardPresenter> getCards() {
-        return cards;
-    }
-
 
     /**
      * Create a cardSetModel and shuffle it given the size of the cardSetModel. Each CardPresenter
