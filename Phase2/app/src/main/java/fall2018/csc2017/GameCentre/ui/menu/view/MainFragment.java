@@ -40,7 +40,7 @@ public class MainFragment extends Fragment implements MenuContract.View {
         games.add("Tic-Tac-Toe");
 
         gameImages.add(getString(R.string.slidingTilesIcon));
-        games.add("Sliding Puzzle");
+        games.add("Puzzle");
 
         gameImages.add(getString(R.string.matchingGameIcon));
         games.add("Matching Game");
