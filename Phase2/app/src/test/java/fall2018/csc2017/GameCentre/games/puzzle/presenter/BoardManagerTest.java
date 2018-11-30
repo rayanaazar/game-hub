@@ -24,7 +24,7 @@ public class BoardManagerTest {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = 4 * 4;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum + 1, tileNum));
+            tiles.add(new Tile(tileNum + 1, numTiles));
         }
 
         return tiles;
@@ -40,7 +40,7 @@ public class BoardManagerTest {
         final int numTiles = 4 * 4;
         int[] unorderedTiles = {13, 15, 1, 5, 8, 2, 12, 10, 14, 3, 4, 7, 11, 0, 6, 9};
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(unorderedTiles[tileNum] + 1, tileNum));
+            tiles.add(new Tile(unorderedTiles[tileNum] + 1, numTiles));
         }
 
         return tiles;
