@@ -1,15 +1,9 @@
 package fall2018.csc2017.GameCentre.games.ttt.presenter;
 
-import android.os.Handler;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
 import fall2018.csc2017.GameCentre.games.GameBoardManager;
-import fall2018.csc2017.GameCentre.games.matchingGame.presenter.CardPresenter;
 import fall2018.csc2017.GameCentre.games.ttt.model.CardSetModelTTT;
 import fall2018.csc2017.GameCentre.games.ttt.view.TTTCardView;
 
@@ -27,21 +21,9 @@ public class TTTSetManager extends GameBoardManager {
     private List<TTTPresenter> cards = new ArrayList<>();
 
     /**
-     * References the card that was selected in the game.
+     * Indicates if it is player one's turn.
      */
-    private TTTPresenter firstCard;
-
-    /**
-     * The row and column of the selected card.
-     */
-    private int[] firstCardInfo;
-
-    /**
-     * Works as a controller. When we start, numMoves is 0. When the first card is selected,
-     * numMoves will become 1. When user selects the second card, numMoves becomes 2 and resets
-     * back to 0.
-     */
-    private int numMoves;
+    private boolean playerOneTurn;
 
 
     /**
@@ -59,7 +41,7 @@ public class TTTSetManager extends GameBoardManager {
     protected TTTSetManager(int numRows, int numCols, ArrayList<TTTCardView> cards) {
         super(numRows, numCols);
         createCardSet(cards);
-        numMoves = 0;
+        playerOneTurn = true;
         this.cardSetModel = new CardSetModelTTT(this.cards, numRows, numCols);
     }
 
@@ -78,33 +60,9 @@ public class TTTSetManager extends GameBoardManager {
      * will be present exactly twice on the CardSet.
      */
     private void createCardSet(ArrayList<TTTCardView> cardViews) {
-        Stack<Integer> positions = getPositionStack();
         for (int cardNum = 0; cardNum != (numCols * numRows); cardNum++) {
-            cards.add(new TTTPresenter((positions.pop()), numCols, cardViews.get(cardNum)));
+            cards.add(new TTTPresenter(numCols, cardViews.get(cardNum)));
         }
-    }
-
-    /**
-     * Create and populate a stack of integers ranging from 1 to the number of necessary different
-     * backgroundID's needed for all the CardPresenters on the CardSet. Each position will appear
-     * exactly twice. The Stack is then randomized and returned.
-     *
-     * @return A stack containing integers [1, necessaryCards] exactly twice and in random order.
-     */
-    private Stack<Integer> getPositionStack() {
-        Stack<Integer> positions = new Stack<>();
-        int neededCards = numCols * numRows / 2;
-        int position = 1;
-        while (position <= numCols * numRows) {
-            if (position > (neededCards)) {
-                positions.push(position - neededCards);
-            } else {
-                positions.push(position);
-            }
-            position++;
-        }
-        Collections.shuffle(positions);
-        return positions;
     }
 
 
@@ -115,18 +73,86 @@ public class TTTSetManager extends GameBoardManager {
      * @return A boolean value indicating whether the game is over.
      */
     public boolean puzzleSolved() {
-        // reimplement this ->
-//        boolean solved = true;
-//        Iterator<TTTPresenter> iter = cardSetModel.iterator();
-//        while (iter.hasNext()) {
-//            TTTPresenter curr = iter.next();
-//            if (!curr.isMatched()) {
-//                solved = false;
-//                break;
-//            }
-//        }
-//        return solved;
+
+        boolean row = checkRows();
+
+        boolean col = checkCols();
+
+        boolean diag = checkDiags();
+
+        return row | col | diag;
+    }
+
+    /**
+     * Return whether one of the diagonals was conquered by a user.
+     *
+     * @return A boolean value indicating that a user has conquered a column.
+     */
+    private boolean checkDiags() {
+        boolean diag1 = this.cards.get(0).getBackground() != 0 &&
+                this.cards.get(0).getBackground() == this.cards.get(4).getBackground() &&
+                this.cards.get(0).getBackground() == this.cards.get(8).getBackground();
+        boolean diag2 = this.cards.get(2).getBackground() != 0 &&
+                this.cards.get(2).getBackground() == this.cards.get(4).getBackground() &&
+                this.cards.get(2).getBackground() == this.cards.get(6).getBackground();
+        return diag1 || diag2;
+    }
+
+    /**
+     * Iterate over the board's columns, and check if the game has been completed.
+     *
+     * @return A boolean value indicating that a user has conquered a column.
+     */
+    private boolean checkCols() {
+        ArrayList<TTTPresenter> cols = new ArrayList<>(this.numCols);
+        for (int position = 0; position < this.numCols; position = position + 1) {
+            int i = position;
+            for (int index = 0; index < this.numRows; index = index + 1) { // Populate row
+                cols.add(index, cards.get(i));
+                i = i + 3;
+            }
+            if (areEqual(cols)) {
+                return true;
+            }
+            cols.clear();
+        }
         return false;
+    }
+
+    /**
+     * Iterate over the board's rows, and check if the game has been completed.
+     *
+     * @return A boolean value indicating that a user has conquered a row.
+     */
+    private boolean checkRows() {
+        ArrayList<TTTPresenter> row = new ArrayList<>(this.numRows);
+        for (int position = 0; position < this.numRows; position = position + 3) {
+            int i = position;
+            for (int index = 0; index < this.numRows; index++) { // Populate row
+                row.add(index, cards.get(i));
+                i++;
+            }
+            if (areEqual(row)) {
+                return true;
+            }
+            row.clear();
+        }
+        return false;
+    }
+
+    /**
+     * Return whether the three cards in the ArrayList are equal. By equal, cards must be flipped,
+     * and have the same background ID's.
+     *
+     * @param threeCards An ArrayList containing three cards.
+     * @return A boolean indicating whether these three cards are equal.
+     */
+    private boolean areEqual(ArrayList<TTTPresenter> threeCards) {
+        if (!threeCards.get(0).isSet()) {
+            return false;
+        }
+        return threeCards.get(0).getBackground() == threeCards.get(1).getBackground() &&
+                threeCards.get(0).getBackground() == threeCards.get(2).getBackground();
     }
 
 
@@ -139,52 +165,17 @@ public class TTTSetManager extends GameBoardManager {
     public void touchMove(int position) {
         final int[] positions = getCardSetPositions(position);
         if (isValidTap(position)) {
-
-            if (numMoves == 0) { // The First tap
-                processFirstTap(positions);
-            } else if (numMoves == 1) { // The second tap
-                TTTPresenter selectedCard2 = getCardSetModel().getCard(positions[0], positions[1]);
-                getCardSetModel().swapCards(positions[0], positions[1]);
-                numMoves++;
-
-                if (selectedCard2.compareTo(firstCard) == 0 && selectedCard2 != firstCard) {
-                    processGoodMove(selectedCard2);
-                }
-                firstCard = null;
-            }
+            getCardSetModel().swapCards(positions[0], positions[1], playerOneTurn);
+            playerOneTurn = !playerOneTurn;
         }
     }
 
-    /**
-     * Process a good move done on firstCard and selectedCard. That is, set both to matched and
-     * prevent them from changing.
-     *
-     * @param selectedCard The selected card which was macthed with firstCard.
-     */
-    private void processGoodMove(TTTPresenter selectedCard) {
-        firstCard.setCard();
-        selectedCard.setCard();
-        numMoves = 0;
-    }
 
     @Override
     public boolean isValidTap(int position) {
         int[] positions = getCardSetPositions(position);
         TTTPresenter card = getCardSetModel().getCard(positions[0], positions[1]);
         return !card.isSet();
-    }
-
-    /**
-     * Process the first tap done on the Card located at coordinates (positions[0], positions[1]).
-     *
-     * @param positions An array containing the row and column of the corresponding card
-     *                  respectively.
-     */
-    private void processFirstTap(int[] positions) {
-        firstCard = getCardSetModel().getCard(positions[0], positions[1]);
-        getCardSetModel().swapCards(positions[0], positions[1]);
-        firstCardInfo = positions.clone();
-        numMoves++;
     }
 
     /**

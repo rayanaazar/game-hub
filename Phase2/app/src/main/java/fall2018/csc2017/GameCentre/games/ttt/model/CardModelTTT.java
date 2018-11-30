@@ -2,39 +2,67 @@ package fall2018.csc2017.GameCentre.games.ttt.model;
 
 import android.arch.lifecycle.ViewModel;
 
+
 public class CardModelTTT extends ViewModel {
 
 
     /**
-     * Indicates wbether the card is set.
+     * Indicates whether the card is set.
      */
     private boolean isSet;
 
     /**
-     * The id to find the corresponding drawable for the front of the card.
+     * An id referring to a drawable resource representing x.
      */
-    private int frontImage;
+    private final int xCard;
 
     /**
-     * Create a new model for a card, with background ID frontImage. It will start flipped, with
-     * the front image displaying.
-     *
-     * @param frontImage The id, to match this card with the corresponding drawable.
+     * An id referring to a drawable resource representing o.
      */
-    public CardModelTTT(int frontImage) {
-        this.isSet = true;
-        this.frontImage = frontImage;
+    private final int oCard;
+
+
+    /**
+     * The id for the picture set on Card (X or O?)
+     */
+    private int background;
+
+    /**
+     * Create a new model for a card, which will start not flipped (i.e. white background).
+     * Model will hold both x and o drawables.
+     *
+     * @param xCard, An ID for a drawable resource representing X.
+     * @param oCard, An ID for a drawable resource representing O.
+     */
+    public CardModelTTT(int xCard, int oCard) {
+        this.isSet = false;
+        this.xCard = xCard;
+        this.oCard = oCard;
+        this.background = 0;
     }
 
     public boolean isSet() {
         return isSet;
     }
 
-    public int getFrontImage() {
-        return frontImage;
+    public int getXCard() {
+        return xCard;
     }
 
-    public void setFlipped() {
-        isSet = false;
+    public int getOCard() {
+        return oCard;
+    }
+
+    public int getBackground() {
+        return background;
+    }
+
+    public void setFlipped(boolean playerOne) {
+        isSet = true;
+        if (playerOne) {
+            background = xCard;
+        } else {
+            background = oCard;
+        }
     }
 }
