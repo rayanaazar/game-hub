@@ -55,5 +55,10 @@
     <string name="tictactoeIcon"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gamecenter-4564c.appspot.com/o/download.png?alt=media&token=f518645a-8bfd-4b62-9f77-450f3a130f40]]></string>
     <string name="slidingTilesIcon"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gamecenter-4564c.appspot.com/o/sliding_tiles_logo-alt.png?alt=media&token=af92d7ce-7766-4bcc-a300-3b3a2c32fdcb]]></string>
     <string name="matchingGameIcon"><![CDATA[https://firebasestorage.googleapis.com/v0/b/gamecenter-4564c.appspot.com/o/matching_game_icon.png?alt=media&token=53603cd2-80d2-42f4-ab40-8ab5bd8a47d8]]></string>
+    <string-array name="options">
+        <item>Change Password</item>
+        <item>Deactivate Account</item>
+        <item>Logout</item>
+    </string-array>
 
 </resources>

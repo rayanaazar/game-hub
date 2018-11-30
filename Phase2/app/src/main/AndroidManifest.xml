@@ -32,6 +32,7 @@
         <activity android:name=".ui.PasswordActivity" />
         <activity android:name=".games.puzzle.view.DifficultyActivity" />
         <activity android:name=".games.ttt.view.TTTGameActivity" />
+        <activity android:name=".ui.menu.view.ChangePassword" />
     </application>
 
 </manifest>

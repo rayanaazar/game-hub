@@ -16,10 +16,10 @@ buildscript {
     }
 }
 
-ext {
-    lifecycleExtensions = 'android.arch.lifecycle:extensions:1.1.0'
-    viewmodel = 'android.arch.lifecycle:viewmodel:1.1.1'
-}
+ext
+        {
+
+        }
 
 allprojects {
     repositories {

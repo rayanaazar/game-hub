@@ -70,21 +70,34 @@ public class PasswordActivity extends AppCompatActivity {
                 if(!TextUtils.isEmpty(email)){
                     passwordEmail.setError("Please enter a valid email!");
                 }else{
-                    auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                Toast.makeText(PasswordActivity.this, "Password Reset Email Sent!", Toast.LENGTH_SHORT).show();
-                                finish();
-                                startActivity(new Intent(PasswordActivity.this, LoginActivity.class));
-                            }else{
-                                Toast.makeText(PasswordActivity.this, "Error in Sending Password Reset Email!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    ResetPasswordOperation(email);
+                }
+            }
+
+        });
+
+    }
+
+    /**
+     * Operation to reset the password using Firebase api
+     *
+     * @param email the email, user entered
+     */
+
+    private void ResetPasswordOperation(String email) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(PasswordActivity.this,
+                            "Password Reset Email Sent!", Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(new Intent(PasswordActivity.this, LoginActivity.class));
+                }else{
+                    Toast.makeText(PasswordActivity.this,
+                            "Error in Sending Password Reset Email!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 }

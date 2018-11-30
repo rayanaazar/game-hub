@@ -4,6 +4,10 @@ public interface ProfileContract {
     interface View
     {
         void redirectToLogin();
+
+        void deactivatedSuccessfully();
+
+        void deactivatedUnSuccessfully();
     }
     interface Presenter
     {
