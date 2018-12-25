@@ -8,9 +8,11 @@ import fall2018.csc2017.GameCentre.games.puzzle.presenter.Tile;
 /**
  * Outlines the basic methods an interactive GameBoard must have for a matching tiles game.
  */
-public interface CardSetContract {
+public interface MatchingGameContract {
 
-    interface View extends BaseTimerView<Tile> {
+    interface View {
+        void redirecttoMainMenu();
+
 
     }
 

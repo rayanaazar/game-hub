@@ -16,8 +16,8 @@ public abstract class GameBoardManager {
     /**
      * The GameBoard for the Manager
      */
-    protected GameBoard board;
 
+    protected GameBoard board;
 
     /**
      * Manage a new shuffled set of game pieces of a given size .
@@ -26,11 +26,6 @@ public abstract class GameBoardManager {
         this.numRows = numRows;
         this.numCols = numCols;
     }
-
-    /**
-     * Default constructor
-     */
-    public GameBoardManager() {}
 
     /**
      * Return the number of rows in the board.
@@ -75,4 +70,9 @@ public abstract class GameBoardManager {
      */
     public abstract int getScore();
 
+    /**
+     * Handles when the user wins the game
+     */
+
+    public abstract void endGameState();
 }

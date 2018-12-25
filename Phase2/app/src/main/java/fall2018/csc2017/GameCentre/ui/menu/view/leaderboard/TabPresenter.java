@@ -41,44 +41,44 @@ class TabPresenter {
         this.tab = tab;
     }
 
-    /**
-     * Updates the scores for the current game with data from the Firebase Database
-     */
-    void updateScores() {
-        // Fetch from the database
-        myRef.child(LEADERBOARDS).child(this.tab).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int[] idArr = {R.id.firstID, R.id.secondID, R.id.thirdID, R.id.forthID, R.id.fifthID,
-                        R.id.sixthID, R.id.seventhID, R.id.eighthID, R.id.ninthID, R.id.tenthID};
-                int[] nameArr = {R.string.first, R.string.second, R.string.third, R.string.forth,
-                        R.string.fifth, R.string.sixth, R.string.seventh, R.string.eighth,
-                        R.string.ninth, R.string.tenth};
-
-
-                int idx = 0;
-                for (DataSnapshot entryDataSnapshot : dataSnapshot.getChildren()) {
-                    if(idx < idArr.length) {
-                        try {
-                            TextView place = view.findViewById(idArr[idx]);
-                            place.setText(frag.getString(nameArr[idx], "", 0));
-                            LeaderboardEntry entry = entryDataSnapshot.getValue(LeaderboardEntry.class);
-                            place.setText(frag.getString(nameArr[idx], entry.getUsername(), entry.getScore()));
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        idx++;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-    }
+//    /**
+//     * Updates the scores for the current game with data from the Firebase Database
+//     */
+//    void updateScores() {
+//        // Fetch from the database
+//        myRef.child(LEADERBOARDS).child(this.tab).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                int[] idArr = {R.id.firstID, R.id.secondID, R.id.thirdID, R.id.forthID, R.id.fifthID,
+//                        R.id.sixthID, R.id.seventhID, R.id.eighthID, R.id.ninthID, R.id.tenthID};
+//                int[] nameArr = {R.string.first, R.string.second, R.string.third, R.string.forth,
+//                        R.string.fifth, R.string.sixth, R.string.seventh, R.string.eighth,
+//                        R.string.ninth, R.string.tenth};
+//
+//
+//                int idx = 0;
+//                for (DataSnapshot entryDataSnapshot : dataSnapshot.getChildren()) {
+//                    if(idx < idArr.length) {
+//                        try {
+//                            TextView place = view.findViewById(idArr[idx]);
+//                            place.setText(frag.getString(nameArr[idx], "", 0));
+//                            LeaderboardEntry entry = entryDataSnapshot.getValue(LeaderboardEntry.class);
+//                            place.setText(frag.getString(nameArr[idx], entry.getUsername(), entry.getScore()));
+//                            Thread.sleep(500);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                        idx++;
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                System.out.println("The read failed: " + databaseError.getCode());
+//            }
+//        });
+//    }
 
     /**
      * Updates the text that displays your high score from the database for the current game
@@ -93,12 +93,8 @@ class TabPresenter {
                 try {
                     myScore.setText(frag.getString(R.string.myScore, dataSnapshot.child(HIGHSCORE).getValue().toString()));
                 } catch (NullPointerException n) {
-                    try {
-                        Thread.sleep(100);
-                        myScore.setText(frag.getString(R.string.myScore, "N/A"));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    // TODO fix this problem by implementing a promise
+                    myScore.setText(frag.getString(R.string.myScore, "N/A"));
                 }
             }
 

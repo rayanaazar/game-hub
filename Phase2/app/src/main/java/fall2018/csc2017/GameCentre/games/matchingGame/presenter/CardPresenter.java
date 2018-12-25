@@ -4,11 +4,10 @@ package fall2018.csc2017.GameCentre.games.matchingGame.presenter;
 import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 
-
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.games.GamePiece;
-import fall2018.csc2017.GameCentre.games.matchingGame.view.CardView;
 import fall2018.csc2017.GameCentre.games.matchingGame.model.CardModel;
+import fall2018.csc2017.GameCentre.games.matchingGame.view.CardView;
 
 /**
  * A Presenter class for a card.

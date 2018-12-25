@@ -2,10 +2,13 @@ package fall2018.csc2017.GameCentre.games.matchingGame.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 
@@ -18,13 +21,15 @@ import java.util.TimerTask;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.games.CustomAdapter;
 import fall2018.csc2017.GameCentre.games.GestureDetectGridView;
+import fall2018.csc2017.GameCentre.games.matchingGame.MatchingGameContract;
 import fall2018.csc2017.GameCentre.games.matchingGame.model.CardSetModel;
 import fall2018.csc2017.GameCentre.games.matchingGame.presenter.CardSetManager;
 import fall2018.csc2017.GameCentre.games.timer.model.TimerModel;
 import fall2018.csc2017.GameCentre.games.timer.presenter.TimerPresenter;
 import fall2018.csc2017.GameCentre.games.timer.view.TimerView;
+import fall2018.csc2017.GameCentre.ui.menu.view.MenuActivity;
 
-public class MatchingGameActivity extends AppCompatActivity implements Observer {
+public class MatchingGameActivity extends AppCompatActivity implements Observer, MatchingGameContract.View {
 
 
     /**
@@ -74,7 +79,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
         super.onCreate(savedInstanceState);
         dimensions = 4;
         createTileButtons(this);
-        cardSetManager = new CardSetManager(4, 4, this.tileButtons) {
+        cardSetManager = new CardSetManager(4, 4, this.tileButtons, this) {
         };
         setContentView(R.layout.activity_matching_game);
         setUpGrid();
@@ -154,6 +159,9 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
     }
 
 
+
+
+
     /**
      * Create the buttons for displaying the tiles.
      *
@@ -230,5 +238,25 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer 
     @Override
     public void update(Observable o, Object arg) {
         display();
+    }
+
+    @Override
+    public void redirecttoMainMenu() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please choose what you would like to do.");
+        builder.setPositiveButton("Play again!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                MatchingGameActivity.super.recreate();
+//                startActivity(new Intent(MatchingGameActivity.this, MatchingGameActivity.class));
+            }
+        });
+        builder.setNegativeButton("Take me to the main menu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(MatchingGameActivity.this, MenuActivity.class));
+            }
+        });
+        builder.show();
     }
 }

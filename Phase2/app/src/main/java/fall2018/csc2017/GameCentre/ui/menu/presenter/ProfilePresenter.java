@@ -31,7 +31,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         view.redirectToLogin();
     }
 
-    public void deactiveAccount() {
+    public void deactivateAccount() {
         Objects.requireNonNull(auth.getCurrentUser()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

@@ -128,6 +128,14 @@ public class BoardManager extends GameBoardManager implements Serializable {
     public int getScore() { return this.numMoves; }
 
     /**
+     * Handles when the user wins the game
+     */
+    @Override
+    public void endGameState() {
+
+    }
+
+    /**
      * Loads the current board to the database
      */
     public void load() {

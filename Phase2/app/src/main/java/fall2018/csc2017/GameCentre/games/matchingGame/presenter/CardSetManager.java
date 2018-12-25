@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Stack;
 
 import fall2018.csc2017.GameCentre.games.GameBoardManager;
+import fall2018.csc2017.GameCentre.games.matchingGame.MatchingGameContract;
 import fall2018.csc2017.GameCentre.games.matchingGame.view.CardView;
 import fall2018.csc2017.GameCentre.games.matchingGame.model.CardSetModel;
 
@@ -43,6 +44,24 @@ public class CardSetManager extends GameBoardManager {
      */
     private int numMoves;
 
+    MatchingGameContract.View view;
+
+    /**
+     * Manage a new shuffled card set of a given size and number of undos.
+     */
+    protected CardSetManager(int numRows, int numCols, ArrayList<CardView> cards, MatchingGameContract.View view) {
+        super(numRows, numCols);
+        createCardSet(cards);
+        numMoves = 0;
+        this.cardSetModel = new CardSetModel(this.cards, numRows, numCols);
+        this.view = view;
+    }
+
+
+    public CardSetModel getCardSetModel() {
+        return cardSetModel;
+    }
+
 
     /**
      * TODO: make this work
@@ -54,18 +73,11 @@ public class CardSetManager extends GameBoardManager {
     }
 
     /**
-     * Manage a new shuffled card set of a given size and number of undos.
+     * Handles when the user wins the game
      */
-    protected CardSetManager(int numRows, int numCols, ArrayList<CardView> cards) {
-        super(numRows, numCols);
-        createCardSet(cards);
-        numMoves = 0;
-        this.cardSetModel = new CardSetModel(this.cards, numRows, numCols);
-    }
-
-
-    public CardSetModel getCardSetModel() {
-        return cardSetModel;
+    @Override
+    public void endGameState() {
+        view.redirecttoMainMenu();
     }
 
 

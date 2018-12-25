@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".games.puzzle.view.DifficultyActivity"
-    android:background="@drawable/dd"
+    android:background="@drawable/login_page"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,7 +15,6 @@
         android:layout_weight="1">
 
         <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
@@ -294,7 +293,7 @@
 
                 </LinearLayout>
 
-    <View
+                <View
         android:layout_width="match_parent"
         android:layout_height="15dp" />
 

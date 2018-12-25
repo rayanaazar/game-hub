@@ -23,6 +23,7 @@ class MovementController {
             boardManager.touchMove(position);
             if (boardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                boardManager.endGameState();
 
             }
         } else {

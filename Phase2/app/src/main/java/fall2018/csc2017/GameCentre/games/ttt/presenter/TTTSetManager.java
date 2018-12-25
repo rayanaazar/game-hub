@@ -36,6 +36,14 @@ public class TTTSetManager extends GameBoardManager {
     }
 
     /**
+     * Handles when the user wins the game
+     */
+    @Override
+    public void endGameState() {
+
+    }
+
+    /**
      * Manage a new shuffled card set of a given size and number of undos.
      */
     protected TTTSetManager(int numRows, int numCols, ArrayList<TTTCardView> cards) {

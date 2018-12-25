@@ -9,8 +9,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="EditText.Grey" parent="@style/AppTheme">
         <item name="colorControlActivated">@color/grey_60</item>
@@ -29,15 +27,6 @@
         <item name="mrl_rippleColor">#8096989A</item>
     </style>
 
-    <style name="RippleStyleDark" parent="RippleStyleWhite">
-        <item name="mrl_rippleColor">#80000000</item>
-    </style>
-
-    <style name = "whiteFont" >
-        <item name="android:textColor">#FFF</item>
-        <item name="android:typeface">sans</item>
-    </style>
-
     <style name="ListFont" parent="@android:style/Widget.ListView">
         <item name="android:textColor">#FFF</item>
         <item name="android:typeface">sans</item>
@@ -54,8 +43,5 @@
         <item name="colorControlHighlight">@android:color/white</item>
         <item name="colorControlNormal">@color/grey_10</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
