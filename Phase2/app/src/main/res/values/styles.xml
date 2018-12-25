@@ -43,6 +43,11 @@
         <item name="android:typeface">sans</item>
     </style>
 
+    <style name="TabWidgetTheme" parent="AppTheme">
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#f2f2f2</item>
+    </style>
+
 
     <style name="EditText.White" parent="@style/AppTheme">
         <item name="colorControlActivated">@android:color/white</item>

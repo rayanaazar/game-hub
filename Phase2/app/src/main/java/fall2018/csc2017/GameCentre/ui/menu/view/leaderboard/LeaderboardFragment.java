@@ -23,7 +23,7 @@ public class LeaderboardFragment extends Fragment  {
         tabHost.setup(getActivity(), getChildFragmentManager(), R.id.tabcontentData);
 
         tabHost.addTab(tabHost.newTabSpec("TTT").setIndicator("Tic Tac Toe"), TTTTab.class, null);
-        tabHost.addTab(tabHost.newTabSpec("ST").setIndicator("Sliding  Puzzle"), PuzzleTab.class, null);
+        tabHost.addTab(tabHost.newTabSpec("ST").setIndicator("Puzzle"), PuzzleTab.class, null);
         tabHost.addTab(tabHost.newTabSpec("MG").setIndicator("Matching"), MatchingGameTab.class, null);
 
         return tabView;

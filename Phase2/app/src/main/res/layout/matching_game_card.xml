@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".games.matchingGame.CardActivity">
+    tools:context=".games.matchingGame.view.MatchingGameActivity">
 
 
     <fall2018.csc2017.GameCentre.games.matchingGame.view.CardView

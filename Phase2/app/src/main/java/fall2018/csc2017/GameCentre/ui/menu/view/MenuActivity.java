@@ -23,7 +23,6 @@ public class MenuActivity extends AppCompatActivity{
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        // Dealing with rotating the screen
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new MainFragment()).commit();

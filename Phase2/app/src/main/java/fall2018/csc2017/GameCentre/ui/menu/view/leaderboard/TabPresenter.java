@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 import fall2018.csc2017.GameCentre.R;
 
 class TabPresenter {
@@ -31,7 +33,7 @@ class TabPresenter {
     private final String HIGHSCORE = "highScore";
 
 
-    private static String[] probeHeaders={"Display Name","Game","High Score"};
+    private static String[] probeHeaders={"Player","Game","Points"};
 
     TabPresenter(View view, Fragment frag, String tab) {
         this.view = view;
@@ -81,9 +83,9 @@ class TabPresenter {
     /**
      * Updates the text that displays your high score from the database for the current game
      */
-    void updateMyScore() {
+    void updatePersonalScore() {
         String ACCOUNTS = "accounts";
-        myRef.child(ACCOUNTS).child(user.getUid()).child(this.tab).addValueEventListener(new ValueEventListener() {
+        myRef.child(ACCOUNTS).child(Objects.requireNonNull(user).getUid()).child(this.tab).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 System.out.println(user.getUid());
@@ -91,8 +93,12 @@ class TabPresenter {
                 try {
                     myScore.setText(frag.getString(R.string.myScore, dataSnapshot.child(HIGHSCORE).getValue().toString()));
                 } catch (NullPointerException n) {
-                    // The user hasn't played yet
-                    myScore.setText(frag.getString(R.string.myScore, "N/A"));
+                    try {
+                        Thread.sleep(100);
+                        myScore.setText(frag.getString(R.string.myScore, "N/A"));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
