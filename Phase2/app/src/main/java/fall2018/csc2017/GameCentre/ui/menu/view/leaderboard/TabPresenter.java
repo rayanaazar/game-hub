@@ -17,20 +17,21 @@ import fall2018.csc2017.GameCentre.R;
 
 class TabPresenter {
 
-    // View Variables
     private View view;
     private Fragment frag;
     private String tab;
 
-    // Firebase Variables
     private final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private final DatabaseReference myRef = database.getReference();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    // Database Path Variables
+    private String[][] entries = new String[10][3];
+
     private final String LEADERBOARDS = "leaderboards";
-    private final String ACCOUNTS = "accounts";
     private final String HIGHSCORE = "highScore";
+
+
+    private static String[] probeHeaders={"Display Name","Game","High Score"};
 
     TabPresenter(View view, Fragment frag, String tab) {
         this.view = view;
@@ -57,11 +58,11 @@ class TabPresenter {
                 for (DataSnapshot entryDataSnapshot : dataSnapshot.getChildren()) {
                     if(idx < idArr.length) {
                         try {
-                        TextView place = view.findViewById(idArr[idx]);
-                        place.setText(frag.getString(nameArr[idx], "", 0));
-                        LeaderboardEntry entry = entryDataSnapshot.getValue(LeaderboardEntry.class);
-                        place.setText(frag.getString(nameArr[idx], entry.getUsername(), entry.getScore()));
-                        Thread.sleep(500);
+                            TextView place = view.findViewById(idArr[idx]);
+                            place.setText(frag.getString(nameArr[idx], "", 0));
+                            LeaderboardEntry entry = entryDataSnapshot.getValue(LeaderboardEntry.class);
+                            place.setText(frag.getString(nameArr[idx], entry.getUsername(), entry.getScore()));
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -81,6 +82,7 @@ class TabPresenter {
      * Updates the text that displays your high score from the database for the current game
      */
     void updateMyScore() {
+        String ACCOUNTS = "accounts";
         myRef.child(ACCOUNTS).child(user.getUid()).child(this.tab).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -99,5 +101,34 @@ class TabPresenter {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+    }
+
+    String[][] fetchData()
+    {
+        final String game = tab;
+        myRef.child(LEADERBOARDS).child(this.tab).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int entry = 0;
+                for (DataSnapshot entryDataSnapshot : dataSnapshot.getChildren()) {
+                    LeaderboardEntry data = entryDataSnapshot.getValue(LeaderboardEntry.class);
+                    assert data != null;
+                    entries[entry]= new String[]{data.getUsername(), game,
+                            String.valueOf(data.getScore())};
+                    entry++;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        return entries;
+    }
+
+    String[] getprobeHeaders() {
+        return probeHeaders;
     }
 }

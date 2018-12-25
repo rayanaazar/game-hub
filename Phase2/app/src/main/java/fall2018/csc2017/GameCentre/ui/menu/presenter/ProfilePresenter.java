@@ -37,7 +37,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())
                 {
-                   view.deactivatedSuccessfully();
+                    view.deactivatedSuccessfully();
                 }
                 else { view.deactivatedUnSuccessfully();}
             }

@@ -31,15 +31,17 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     ProfilePresenter profilePresenter;
     ListView listView;
-    TextView userID;
+    TextView profile;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
         profilePresenter = new ProfilePresenter(this);
-        userID = view.findViewById(R.id.usrname);
-        userID.setText(profilePresenter.getId());
+
+        profile = view.findViewById(R.id.usrname);
+        profile.setText(profilePresenter.getId());
+
         return view;
     }
 
@@ -47,13 +49,13 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         listView = Objects.requireNonNull(getView()).findViewById(R.id.listView);
 
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 Objects.requireNonNull(getActivity()),
                 android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.options));
-
         listViewOnClickListener();
-        listView.setAdapter(mAdapter);
+        listView.setAdapter(adapter);
+
     }
 
     private void listViewOnClickListener() {

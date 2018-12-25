@@ -8,9 +8,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/whiteFont"
-        android:background="@drawable/b">
+        android:layout_height="match_parent">
 
         <TabWidget
             android:id="@android:id/tabs"
