@@ -76,7 +76,7 @@ public class CardSetManager extends GameBoardManager {
     public void endGameState() {
         view.redirecttoMainMenu();
     }
-    
+
     public CardSetModel getCardSetModel() {
         return cardSetModel;
     }

@@ -51,7 +51,8 @@ public class CardPresenter extends GamePiece {
                 cardModel.setFlipped(true);
                 cardView.setBackgroundResource(getBackground());
             }
-            else if (cardModel.isFlipped()) {
+            else
+            {
                 cardModel.setFlipped(false);
                 cardView.setBackgroundResource(R.drawable.card_w);
             }

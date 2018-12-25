@@ -90,7 +90,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
                     cv.flip();
                 }
             }
-        }, 3000);
+        }, 2500);
         setUpTimer();
     }
 
