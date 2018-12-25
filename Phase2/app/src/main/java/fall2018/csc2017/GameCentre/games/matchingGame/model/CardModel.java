@@ -10,7 +10,7 @@ public class CardModel extends ViewModel {
     private boolean isMatched;
 
     /**
-     * Indicates wbether the card is flipped.
+     * Indicates whether the card is flipped.
      */
     private boolean isFlipped;
 

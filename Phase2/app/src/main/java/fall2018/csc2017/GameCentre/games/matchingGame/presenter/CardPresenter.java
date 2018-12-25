@@ -4,10 +4,11 @@ package fall2018.csc2017.GameCentre.games.matchingGame.presenter;
 import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 
+
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.games.GamePiece;
-import fall2018.csc2017.GameCentre.games.matchingGame.model.CardModel;
 import fall2018.csc2017.GameCentre.games.matchingGame.view.CardView;
+import fall2018.csc2017.GameCentre.games.matchingGame.model.CardModel;
 
 /**
  * A Presenter class for a card.
@@ -43,14 +44,18 @@ public class CardPresenter extends GamePiece {
      * If it is flipped, then show the back card. If it is not flipped, then show the front image.
      */
     public void flip() {
-        if (!cardModel.isFlipped() && !cardModel.isMatched()) {
-            cardModel.setFlipped(true);
-            cardView.setBackgroundResource(getBackground());
-        } else if (cardModel.isFlipped() && !cardModel.isMatched()) {
-            cardModel.setFlipped(false);
-            cardView.setBackgroundResource(R.drawable.card_w);
+        if (!cardModel.isMatched())
+        {
+            if (!cardModel.isFlipped())
+            {
+                cardModel.setFlipped(true);
+                cardView.setBackgroundResource(getBackground());
+            }
+            else if (cardModel.isFlipped()) {
+                cardModel.setFlipped(false);
+                cardView.setBackgroundResource(R.drawable.card_w);
+            }
         }
-
     }
 
     @Override

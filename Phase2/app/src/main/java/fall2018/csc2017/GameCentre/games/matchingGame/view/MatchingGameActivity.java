@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCentre.games.matchingGame.view;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 
@@ -79,8 +79,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         super.onCreate(savedInstanceState);
         dimensions = 4;
         createTileButtons(this);
-        cardSetManager = new CardSetManager(4, 4, this.tileButtons, this) {
-        };
+        cardSetManager = new CardSetManager(4, 4, this.tileButtons, this);
         setContentView(R.layout.activity_matching_game);
         setUpGrid();
         Handler handler = new Handler();
@@ -157,9 +156,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
 
         timer.scheduleAtFixedRate(updateTask, 12000, 1000);
     }
-
-
-
 
 
     /**
@@ -240,6 +236,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         display();
     }
 
+
     @Override
     public void redirecttoMainMenu() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -248,7 +245,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 MatchingGameActivity.super.recreate();
-//                startActivity(new Intent(MatchingGameActivity.this, MatchingGameActivity.class));
             }
         });
         builder.setNegativeButton("Take me to the main menu", new DialogInterface.OnClickListener() {
@@ -259,4 +255,5 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         });
         builder.show();
     }
+
 }

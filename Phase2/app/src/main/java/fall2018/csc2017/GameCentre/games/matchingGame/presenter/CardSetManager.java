@@ -44,24 +44,6 @@ public class CardSetManager extends GameBoardManager {
      */
     private int numMoves;
 
-    MatchingGameContract.View view;
-
-    /**
-     * Manage a new shuffled card set of a given size and number of undos.
-     */
-    protected CardSetManager(int numRows, int numCols, ArrayList<CardView> cards, MatchingGameContract.View view) {
-        super(numRows, numCols);
-        createCardSet(cards);
-        numMoves = 0;
-        this.cardSetModel = new CardSetModel(this.cards, numRows, numCols);
-        this.view = view;
-    }
-
-
-    public CardSetModel getCardSetModel() {
-        return cardSetModel;
-    }
-
 
     /**
      * TODO: make this work
@@ -72,12 +54,31 @@ public class CardSetManager extends GameBoardManager {
         return 3;
     }
 
+
+
+    private MatchingGameContract.View view;
+
+    /**
+     * Manage a new shuffled card set of a given size and number of undos.
+     */
+    public CardSetManager(int numRows, int numCols, ArrayList<CardView> cards, MatchingGameContract.View view) {
+        super(numRows, numCols);
+        createCardSet(cards);
+        numMoves = 0;
+        this.cardSetModel = new CardSetModel(this.cards, numRows, numCols);
+        this.view = view;
+    }
+
     /**
      * Handles when the user wins the game
      */
     @Override
     public void endGameState() {
         view.redirecttoMainMenu();
+    }
+    
+    public CardSetModel getCardSetModel() {
+        return cardSetModel;
     }
 
 
