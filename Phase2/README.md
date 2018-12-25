@@ -1,12 +1,3 @@
-# Setup Instructions
-
-## Cloning the project
-
-* URL to clone: https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0703
-* Select Gradle and in Gradle project select path  to ..\group_0703\Phase2
-
-
-
 ## Using the App
 
 * When you open the app it will ask you to sign up/ sign in with an email and password.
